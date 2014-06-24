@@ -1,34 +1,28 @@
 package com.webapp.view;
 
-import java.security.PublicKey;
 import java.util.List;
-import com.webapp.model.AppInfo;
-import com.webapp.sqlite.*;
+
 import shixun.gapmarket.R;
-import android.R.color;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.TextView;
+
+import com.webapp.model.AppInfo;
+import com.webapp.sqlite.DatabaseHandler;
 
 public class AppDownloaded extends Activity {
 	private int winWidth;
