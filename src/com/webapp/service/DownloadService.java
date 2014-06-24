@@ -42,13 +42,6 @@ public class DownloadService extends Service{
 		}.start();
 		
 		return super.onStartCommand(intent, flags, startId);
-		//生成一个下载线程，并将应用名称作为参数传递到线程对象当中
-		/*DownloadThread downloadThread = new DownloadThread("log");
-		Log.d("LogDemo", "---> 启动Download线程");
-		//启动新线程
-		Thread thread = new Thread(downloadThread);
-		thread.start();
-		return super.onStartCommand(intent, flags, startId);*/
 	}
 	
 	@Override
