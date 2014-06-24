@@ -1,0 +1,647 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 	
+	<link rel="stylesheet" href="libs/jquery.mobile-1.1.1-rc.1.css" type="text/css">
+	<link rel="stylesheet" href="main.css" type="text/css">
+	<script type="text/javascript" charset="utf-8" src="libs/cordova-1.8.1.js"></script>
+	<script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>
+	<script type="text/javascript" charset="utf-8" src="libs/jquery-1.7.2.js"></script>
+	<script type="text/javascript" charset="utf-8" src="libs/iscroll.js"></script>
+	<script type="text/javascript" charset="utf-8" src="libs/jquery.tmpl.js"></script>
+	<script  type=""text/javaScript">
+		$(document).bind("mobileinit", function(){
+			$.mobile.page.prototype.options.keepNative = "button";
+			$.mobile.defaultPageTransition = "none";
+		});
+
+		document.addEventListener("deviceready", function(){
+			cordova.exec(null, null, "SplashScreen", "hide", []);	
+		}, false);
+	</script>
+	<script type="text/javascript" charset="utf-8" src="libs/jquery.mobile-1.1.1-rc.1.js"></script>
+</head>
+<body>
+	<!--主页-->
+	<div id="main" class="page main" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">豆芽换书</header>
+		<section class='c_section'>
+			<div class="searchBox">
+				<div class="searchInput_div"><input class="searchInput" type="text" placeholder='输入书名或isbn码可搜索书籍'/></div>
+				<div class='searchBtn_div'><button class="searchBtn"></button></div>
+			</div>
+			<div class="icon">
+				<div class="firstRow">
+					<div class="aroundIcon"><a href="javascript:Global.Around.searchAround()"><img class="iconImg" src="images/around.png" /><p>周边</p></a></div>
+					<div class="searchIcon"><a href="#rock"><img class="iconImg" src="images/rock.png" /><p>抖一抖</p></a></div>
+					<div class="shareBookIcon"><a href="#shareBook"><img class="iconImg" src="images/shareBook.png" /><p>分享新书</p></a></div>
+				</div>
+				<div class="secondRow">
+					<div class="sharedIcon"><a href="#shared"><img class="iconImg" src="images/shared.png" /><p>已分享</p></a></div>
+					<div class="messageIcon"><a href="#message"><img class="iconImg" src="images/message.png" /><div class="msgCount hide"></div><p>消息</p></a></div>
+					<div class="friendIcon"><a href="#friend"><img class="iconImg" src="images/friend.png" /><p>书友</p></a></div>
+				</div>
+				<div class="thirdRow">
+					<div class="favouriteIcon"><a href="#favourite"><img class="iconImg" src="images/favourite.png" /><p>我的收藏</p></a></div>
+					<div class="settingIcon"><a href="#setting"><img class="iconImg" src="images/setting.png" /><p>设置</p></a></div>
+					<div class="empty"></div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<!--抖一抖-->
+	<div id="rock" class="page rock" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">抖一抖</header>
+		<section class="c_section" >
+			<img src="images/bg.png" class="bg" />
+			<p>抖一抖，轻松推荐书籍！</p>
+		</section>
+	</div>
+	<!--分享书籍div-->
+	<div class="shareBook page" id="shareBook" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">分享书籍</header>
+		<div class="shareBook_writeIsbn S_size">
+			<span>请输入您要分享的书籍的isbn码：</span>
+			<br />
+			<input class="shareBook_isbnBox" type="text"/>
+			<section class="S_section">
+				<button class="btn shareBook_summit">确定</button>
+			</section>
+		</div>
+		<div class="S_divide S_size S_isbnhelp">
+			<p class="shareBook_isbnHelp">什么是isbn码？</p>
+			<p class="S_p">&nbsp;&nbsp;&nbsp;&nbsp;国际标准书号（International Standard Book Number）简称ISBN，是国际通用的图书或独立的出版物（除定期出版的期刊）代码。</p>
+			<img src="images/isbnImg.png" />
+			<p class="S_p">&nbsp;&nbsp;&nbsp;&nbsp;isbn码一般在书籍背面的右下角。</p>
+			<p class="S_p">&nbsp;&nbsp;&nbsp;&nbsp;如图，isbn码为9789993700142 </p>
+		</div>
+		<div class="S_bookInfMod S_size" style="display:none">	
+			<div class="S_load loading">
+				<span class='pullDownIcon'></span>
+			</div>
+			<div class="S_BookInf" style="display:none">
+				<div class="S_imgDiv">
+					<img/>
+				</div>
+				<div class="S_infDiv">
+					<span class="S_inf_title">
+					</span>
+					<br />
+					<span>
+						作者:
+					</span>
+					<span class="S_inf_author">
+					</span>
+					<br />
+					<span class="S_inf_detail" value="">
+						详细书籍信息&gt;&gt;
+					</span>
+				</div>
+			</div>
+			<div class="no_book">
+				<div>找不到这本书耶，isbn码没有输入错吧？</div>
+			</div>
+			<div class="S_writeInf">
+				<section class="S_divide">
+					<header>
+						<label>交换地点:</label>
+					<header>
+					<table class="S_table">
+						<tr>
+							<td class="S_td1">正在加载..</td>
+							<td class="S_td2"><a>更改</a></td>
+						</tr>
+						<!--
+						<tr class="S_addAddress">
+							<td>
+								<button class="S_addBtn btn">添加</button>
+								<span>(从地图上选择)</span>
+							</td>
+						</tr>
+						-->
+					</table>
+				</section>
+				<br />
+				<section class="S_divide">
+					<header>
+						<label>备注:</label>
+					</header>
+					<div class="S_textarea">
+					<textarea class="S_detailText"></textarea>
+					</div>
+					<footer class="S_footer_btn">
+						<button class="S_shareBtn btn">确定分享</button>
+						<button class="S_cancel btn">取消</button>
+					</footer>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!--修改-->
+	<div class="modify page" id="modify" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">修改</header>
+		<div class="modify_content">
+			<div class="S_load loading">
+				<span class='pullDownIcon'></span>
+			</div>
+			<div class="S_BookInf" style="display:none">
+				<div class="S_imgDiv">
+					<img/>
+				</div>
+				<div class="S_infDiv">
+					<p class="S_inf_title">
+					</p>
+					<span class="S_inf_detail" value="">
+						详细书籍信息&gt;&gt;
+					</span>
+				</div>
+			</div>
+			<div class="S_writeInf">
+				<section class="S_divide">
+					<header>
+						<label>交换地点:</label>
+					<header>
+					<table class="S_table">
+						<tr>
+							<td class="S_td1"></td>
+							<td class="S_td2"><a>更改</a></td>
+						</tr>
+						<!--
+						<tr class="S_addAddress">
+							<td>
+								<button class="S_addBtn btn">添加</button>
+								<span>(从地图上选择)</span>
+							</td>
+						</tr>
+						-->
+					</table>
+				</section>
+				<br />
+				<section class="S_divide">
+					<header>
+						<label>备注:</label>
+					</header>
+					<div class="S_textarea">
+					<textarea class="S_detailText"></textarea>
+					</div>
+					<footer class="S_footer_btn">
+						<button class="S_shareBtn btn">确定修改</button>
+						<button class="S_cancel btn">取消</button>
+					</footer>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!--我的收藏-->
+	<div class="favourite page" id="favourite" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">我的收藏</header>
+		<div class="c_tabDiv">
+			<div class='slideBg'></div>
+			<div class="c_tab S_read0" value="0">想要读</div>
+			<div class="c_tab S_read1" value="1">正在读</div>
+			<div class="c_tab S_read2" value="2">已读完</div>
+		</div>
+		<div id="favourite-wrapper" class="favourite-wrapper">
+		<div  class="scroll">
+			<div id="favourite-waiting" class="pullDown loading">
+				<span class="pullDownIcon"></span><span class="pullDownLabel">刷新中...</span>
+			</div>
+			<ul data-role="listview" id="favourite_ul">
+				{{if title}}
+				<li class="favourite_list" isbn="${isbn13}" c_id='${collectionID}'>
+					<div class="S_imgDiv">
+						<img src="${imgsrc}"/>
+					</div>
+					<div class="S_infDiv">
+						<span class="S_inf_title">
+							<b>${title}</b>
+						</span>
+						<br />
+						<span>
+							作者：
+						</span>
+						<span class="S_inf_author">
+							${author}
+						</span>
+						<br />
+						<span>
+							出版社：
+						</span>
+						<span class="S_inf_publisher">
+							${publisher}
+						</span>
+					</div>
+				</li>
+				{{/if}}
+				{{if no_title}}
+				<li class="favourite_list">
+					<div class="no_review">您还没有${type}书籍&nbsp;&nbsp;<a class="lookAround" style="font-style:italic">看看周围？</a></div>
+				</li>
+				{{/if}}
+			</ul>
+		</div>
+		</div>
+	</div>
+	<!--周边-->
+	<div id="around" class="page around" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">周边</header>
+		<div id="around-wrapper" class="wrapper">
+			<div id="around-scroller" class="scroll">
+				<div id="around-pullDown" class="pullDown loading">
+					<span class="pullDownIcon"></span><span class="pullDownLabel">刷新中...</span>
+				</div>
+				<ul class="list" data-role="listview">
+					<li class="item" data_sid="${id}" data_isbn="${isbn}">
+						<div class="photo"><img src="${imgsrc}" alt="书籍封面" /></div>
+						<div class="bookinfo">
+							<div class="title">${title}</div>
+							<span class="bigStar bigStar${starScore}"></span>
+							<span class="score">${score}</span>
+							<p class="position">${location}</p>
+						</div>
+						<div class="distance">${mile}米</div>
+					</li>
+				</ul>
+				<div id="around-pullUp" class="pullUp hide">
+					<span class="pullUpIcon"></span><span class="pullUpLabel">获取更多</span>
+				</div>
+			</div>
+		</div>
+		<div class="positionArea" data-position="fixed">
+			<div class="left-block">
+				<select class="select">
+					<option value="500">附近500米</option>
+					<option value="1000">附近1000米</option>
+					<option value="2000">附近2000米</option>
+					<option value="5000">附近5000米</option>
+				</select>
+			</div>
+			<div class="right-block">
+				<span class="address">未知地点</span><a class="chooseFromMap">(修改)</a>
+			</div>
+		</div>
+	</div>
+	<!--已分享-->
+	<div id="shared" class="shared page" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">已分享</header>
+		<div class="c_tabDiv">
+			<div class='slideBg'></div>
+			<div class="c_tab tab_going ">进行中</div>
+			<div class="c_tab tab_finished">已结束</div>
+		</div>
+		<div id="shared-scroll" class="shared-scroll">
+			<div>
+				<div id="shared-waiting" class="pullDown loading">
+					<span class="pullDownIcon"></span><span class="pullDownLabel">刷新中...</span>
+				</div>
+				<ul class="shared_g_list" data-role="listview">
+					{{if title}}
+					<li class="sharedList_li" isbn='${isbn}' >
+						<div class="photo"><img src="${imgsrc}" alt="书籍封面" class="bookImg"/></div>
+						<div class="bookinfo">
+							<p class="title">${title}</p>
+							<p class="lastTime"><span>${day_left}</span>天后结束</p>
+							<div class="buttonSet">
+								<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+									<input type="checkbox" name="shared_checkbox" id="shared_checkbox_${id}" class="btn" />
+									<label for="shared_checkbox_${id}" class="modify">修改</label>
+									<label for="shared_checkbox_${id}" class="delay" value="${id}">延时</label>
+									<label for="shared_checkbox_${id}" class="end" value="${id}">结束</label>
+							 　 </fieldset>
+							</div>
+						</div>
+					</li>
+					{{/if}}
+					{{if no}}
+					<li class="sharedList_li">
+						<div class="no_review">您还没有分享过书籍&nbsp;&nbsp;<a href='#shareBook' style="font-style:italic">现在就去？</a></div>
+					</li>
+					{{/if}}
+				</ul>
+				<ul class="shared_f_list" data-role="listview">
+					{{if title}}
+					<li class="sharedList_li">
+						<div class="photo"><img src="${imgsrc}" alt="书籍封面" class="bookImg" /></div>
+						<div class="bookinfo">
+							<div class="title">${title}</div>
+							<div class="lastTime">已结束</div>
+							<div><button class="btn reshare" value="${id}">重新分享</button></div>
+						</div>
+					</li>
+					{{/if}}
+					{{if no_too}}
+					<li class="sharedList_li">
+						<div class="no_review">您还没有分享到期的书籍</div>
+					</li>
+					{{/if}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--书友-->
+	<div id="friend" class="page friend" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">书友</header>
+		<div id="friend-wrapper" class="wrapper">
+			<div id="friend-scroller" class="scroll">
+				<div id="friend-pullDown" class="pullDown loading">
+					<span class="pullDownIcon"></span><span class="pullDownLabel">刷新</span>
+				</div>
+				<ul class="list">
+					<li class="item" data-uid="${id}" data-douban_uid="${douban_uid}">
+						<img class="avatar" src="${imgsrc}" />
+						<div class="name">${nickname}</div>
+						<button class="chat button btn">聊天</button>
+						<button class="delete button btn">删除</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--消息 -->
+	<div id="message" class="page message" data-role="page">
+		<header class="banner" data-role="header">消息</header>
+		<div id="message-wrapper">
+			<div id="message-scroller" class="scroll">
+				<div id="message-pullDown" class="pullDown loading">
+					<span class="pullDownIcon"></span><span class="pullDownLabel">刷新</span>
+				</div>
+				<ul class="list">
+					<li class="item" data-uid="${user_id}">
+						<img class="avatar" src="${imgsrc}" />
+						<div class="right-block">
+							<span class="name">${nickname}</span>
+							<span class="time">${send_time}</span>
+							<div class="content">${content}</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--对话-->
+	<div id="dialog" class="page dialog" data-role="page">
+		<header class="banner" data-role="header">聊天</header>
+		<div id="dialog-wrapper" class="wrapper">
+			<div class="scroller">
+				<div class="dialog-more">显示更多信息</div>
+				<ul class="list">
+					<li class="time">${send_time}</li>
+					<li class="yourMsg" data_mid="${id}">
+						<img class="avatar" src="${imgsrc}" />
+						<div class="arrow-outer"><div class="arrow"></div></div>
+						<div class="content">${content}</div>
+					</li>
+				</ul>
+				<script id="dialog-myMsgTmpl" type="text/x-jquery-tmpl">
+					<li class="time">${send_time}</li>
+					<li class="myMsg" data_mid="${id}">
+						<div class="content">${content}</div>
+						<div class="arrow-outer"><div class="arrow"></div></div>
+					</li>
+				</script>
+			</div>
+		</div>
+		<div class="messageBox">
+			<div class="inputContainer"><input id="dialog-sendText" type="text" /></div>
+			<div class="buttonContainer"><input id="dialog-sendBtn" type="button" value="发送" /></div>
+		</div>
+	</div>
+	<!-- 书籍信息 -->
+	<div id="bookInfo" class="bookInfo" data-role="page">
+		<header class='banner' data-role="header">书籍信息</header>
+		<div class="sections" id="c_sections">
+			<div>
+				<div id="bookInfo-waiting" class="pullDown loading">
+					<span class="pullDownIcon"></span><span class="pullDownLabel">刷新中...</span>
+				</div>
+				<section class="info_section" id='c_first_section'>
+					<div class="img_btn">
+						<div class="bookImg"><img src="${imgsrc}" /></div>
+						{{if add}}
+						<div class="twoBtn">
+							<div class='btnDiv'><button class="btn add_fav">加入收藏</button></div>
+							<div class='btnDiv'><button class="btn send_ms">发送私信</button></div>
+						</div>
+						{{/if}}
+						{{if del}}
+						<div class="twoBtn">
+							<div class='btnDiv'><button class="btn del_fav">移除收藏</button></div>
+							<div class='btnDiv'><button class="btn a_sea">周边搜索</button></div>
+						</div>
+						{{/if}}
+					</div>
+					<div class="information">
+						{{if title}}
+						<p>
+							<span>书名：</span>${title}
+						</p>
+						{{/if}}
+						{{if author}}
+						<p>
+							<span>作者：</span>${author}
+						</p>
+						{{/if}}
+						{{if translator}}
+						<p>
+							<span>译者：</span>${translator}
+						</p>
+						{{/if}}
+						{{if publisher}}
+						<p>
+							<span>出版社：</span>${publisher}
+						</p>
+						{{/if}}
+						{{if pubdate}}
+						<p>
+							<span>出版年：</span>${pubdate}
+						</p>
+						{{/if}}
+						{{if pages}}
+						<p>
+							<span>页数：</span>${pages}
+						</p>
+						{{/if}}
+						{{if price}}
+						<p>
+							<span>定价：</span>${price}
+						</p>
+						{{/if}}
+						{{if binding}}
+						<p>
+							<span>装帧：</span>${binding}
+						</p>
+						{{/if}}
+						{{if isbn13}}
+						<p>
+							<span>ISBN：</span>${isbn13}
+						</p>
+						{{/if}}
+					</div>
+				</section>
+				<section class="info_section">
+					<div class="content">
+						<p class="contentHead">内容简介：</p>
+						<p class="contentMain">${summary}</p>
+						<p class="contentHead">作者简介：</p>
+						<p class="contentMain">${author_intro}</p>
+					</div>
+				</section>
+				<section class="info_section">
+					<div class="title">本书的分享者</div>
+					<div class="send">
+						<span class="ownerName">${nickname}</span>
+						<button class="btn sendBtn send_ms">我有兴趣</button>
+					</div>
+					<div class="title">交换地点<span>(若交通不便可私信自行洽谈换址)</span></div>
+					<div class="changePos">
+						<p class="posSelection">${location}</p>
+					</div>
+					<div class="title">备注</div>
+					<div class="extend">${comment}</div>
+				</section>
+				<section class="info_section">
+					<div class="opacity"></div>
+					<div class="starPart">
+						<p class="bigStar"></p>
+						<span class="score"></span>
+						<p class="numCommentP">(<span class="numComment"></span>人评价)</p>
+					</div>
+					<div class="commentPart">
+						<ul class="commentUl" data-role="listview">
+							{{if title}}
+							<li class="commentLi ui-li ui-li-static ui-body-c">
+								<div class="main_comment">
+									<div class="shut"><img src="images/x.png" /></div>
+									<div class='inner_summary'>${summary}</div>
+								</div>
+								<div class="imgDiv">
+									<img src="${icon}" class="avatar" />
+								</div>
+								<div class="oneCommentDiv">
+									<div class="commentTitle"><div>${title}</div></div>
+									<div class="commentBottom">
+										<span class="name">${author}</span>
+										<span class="small_star small_star${value}"></span>
+									</div>
+								</div>
+							</li>
+							{{/if}}
+							{{if no_review}}
+							<li class="commentLi ui-li ui-li-static ui-body-c">
+								<div class="no_review">${no_review}</div>
+							</li>
+							{{/if}}
+						</ul>
+					</div>
+					
+				</section>
+			</div>
+		</div>
+		<div class="c_tabDiv">
+			<div class='slideBg'></div>
+			<div class="c_tab" num='0' sec='0'>基本信息</div>
+			<div class="c_tab" num='1' sec='1'>详细信息</div>
+			<div class="c_tab" num='2' sec='3'>查看评价</div>
+			<div class="c_tab" num='3' sec='2'>分享人</div>
+		</div>
+		<div class="c_tabDiv">
+			<div class='slideBg slideBg_33'></div>
+			<div class="c_tab c_tab_33" num='0' sec='0'>基本信息</div>
+			<div class="c_tab c_tab_33" num='1' sec='1'>详细信息</div>
+			<div class="c_tab c_tab_33" num='2' sec='3'>查看评价</div>
+		</div>
+	</div>
+	<!--设置-->
+	<div id="setting" class="setting page" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">设置</header>
+		<div class="content">
+			<ul data-role="listview" data-inset="true" class="setting_ul">
+				<li class="login">
+					登录
+				</li>
+			</ul>
+			<ul data-role="listview" data-inset="true" class="setting_ul">
+				<li>新消息提醒</li>
+				<li class="voice">
+					<div>
+						<label for="voiceSlider">&nbsp;&nbsp;声音</label>
+						<select name="voiceSlider" class="slider voiceSelect" data-role="slider">
+							<option value="off">Off</option>
+							<option value="on">On</option>
+						</select> 
+					</div>
+				</li>
+				<li class="vibration">
+					<div>
+						<label for="vibrationSlider">&nbsp;&nbsp;震动</label>
+						<select name="vibrationSlider" class="slider vibrationSelect" data-role="slider">
+							<option value="off">Off</option>
+							<option value="on">On</option>
+						</select> 
+					</div>
+				</li>
+			</ul>
+			<ul data-role="listview" data-inset="true" class="setting_ul">
+				<li>关于聊天</li>
+				<li class="background">
+					<span>&nbsp;&nbsp;聊天背景</span>
+					<span class="gt">&gt;&gt;</span>
+				</li>
+				<li class="clearRecord">
+					<div>
+						<span>&nbsp;&nbsp;清空记录</span>
+						<span class="gt">&gt;&gt;</span>
+					</div>
+				</li>
+			</ul>
+			<ul data-role="listview" data-inset="true" class="setting_ul">
+				<li class="aboutUs">
+					<span>关于我们</span>
+					<span class="gt">&gt;&gt;</span>
+				</li>
+			</ul>
+		</div><div class="map_overlay">
+		</div>
+	</div>
+	<!--设置聊天背景-->
+	<div id="setBg" class="page" data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">设置聊天背景</header>
+		<div class="imgs">
+			<div class="imgdiv" value="0"><img class="imgbg" src="images/bgImgs/bg0.jpg" alt="" /></div>
+			<div class="imgdiv" value="1"><img class="imgbg" src="images/bgImgs/bg1_sml.jpg" alt="" /></div>
+			<div class="imgdiv" value="2"><img class="imgbg" src="images/bgImgs/bg2_sml.jpg" alt="" /></div>
+			<div class="imgdiv" value="3"><img class="imgbg" src="images/bgImgs/bg3_sml.jpg" alt="" /></div>
+			<div class="imgdiv" value="4"><img class="imgbg" src="images/bgImgs/bg4_sml.jpg" alt="" /></div>
+			<div class="imgdiv" value="5"><img class="imgbg" src="images/bgImgs/bg5_sml.jpg" alt="" /></div>
+		</div>
+		<button class="selectBg btn">确定</button>
+	</div>
+	<!--关于我们-->
+	<div id="aboutUs" class="page"  data-role="page">
+		<header class="banner" data-role="header" data-position="fixed">关于我们</header>
+		<p class="p1">豆瓣换友&nbsp;version 1.0正式上市</p>
+		<p class="p2">叫神马团队&nbsp;&nbsp;荣誉出品</p>
+		<p class="p3">团队成员：</p>
+		<ul>
+			<li>郑&nbsp;&nbsp;纪</li>
+			<li>卢嘉辉</li>
+			<li>梁桂满</li>
+			<li>陈&nbsp;&nbsp;立</li>
+			<li>黄淑燕</li>
+		</ul>
+		<p class="p3">联系我们：</p>
+		<ul>
+			<li>QQ：XXXXXXXX</li>
+			<li>微博：http://weibo.com/u/XXXXXXXXX</li>
+			<li>博客：http://XXXXXXXXXXXXX.com</li>
+			<li>邮箱：XXXX@XXX.com</li>
+		</ul>
+		<p class="p3">感谢您的使用，期待您的意见与建议!</p>
+	</div>
+	<!--地图-->
+	<div id="map_container" class="page map_container">
+	</div>
+	<script type="text/javascript" charset="utf-8" src="main.js"></script>
+</body>
+</html>

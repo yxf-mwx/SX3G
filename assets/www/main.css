@@ -1,0 +1,17 @@
+.navbar{
+	position:fix;
+	bottom:0;
+	width:100%;
+}
+#login .toR_div{
+	text-align:center;
+}
+#e_content{
+	height:200px;
+}
+#edit .add_tag,#create .div{
+	display:none;
+}
+.log-1{
+	background: #ff9;
+}
