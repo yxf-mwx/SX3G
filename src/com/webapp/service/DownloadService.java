@@ -12,7 +12,11 @@ import android.util.Log;
 
 public class DownloadService extends Service{
 
-	String downloadurl=null;
+	private String downloadurl=null;
+	private String resultMessage=null;
+	private final String inputBasePath=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/download/";
+	private final String outputBasePath=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/webapp/";
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
@@ -35,9 +39,20 @@ public class DownloadService extends Service{
 		//Create a new Thread for download the package from the app server
 		new Thread(){
 			public void run(){
-				String appName=downloadurl.substring(downloadurl.lastIndexOf("/"));
+				String appName=downloadurl.substring(downloadurl.lastIndexOf("/")+1);
 				HttpDownloader httpDownloader = new HttpDownloader();
 				int result = httpDownloader.downFile(downloadurl,appName);
+				
+				if(result==-1){
+					resultMessage="download fail!!!";
+				}else{
+					if(result==1){
+						resultMessage="file already exit";
+					}else{
+						resultMessage="download success!";
+					}
+					install(appName);
+				}
 			}
 		}.start();
 		
@@ -95,5 +110,15 @@ public class DownloadService extends Service{
 		}
 		
 	}
-
+	
+	public void install(String appName){
+		String inputPath=inputBasePath+appName;
+		Log.d("yxf_install", outputBasePath);
+		try {
+			ZipFactory.UnzipFiles(inputPath, outputBasePath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

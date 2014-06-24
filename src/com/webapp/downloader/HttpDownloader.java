@@ -67,7 +67,6 @@ public class HttpDownloader {
 				return 1;
 			} else {
 				inputStream = getInputStreamFromUrl(downloadurl);
-				Log.d("yxf_download","download stream ready");
 				File resultFile = fileUtils.write2SDFromInput(fileName, inputStream);
 				if (resultFile == null) {
 					return -1;
