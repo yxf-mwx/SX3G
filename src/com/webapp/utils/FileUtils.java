@@ -7,43 +7,38 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import android.os.Environment;
+import android.util.Log;
 
 public class FileUtils {
 	//private String SDCardRoot;
 	private String dataPath = "";
 
-	public FileUtils(String dataPath) {
-		//得到当前外部存储设备的目录
-		//SDCardRoot = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
-		//当前应用存储路径/WebApp/
-		this.dataPath = dataPath;
+	public FileUtils() {
+		//the basepath is 
+		this.dataPath = Environment.getDataDirectory().getPath()+File.separator+"data/shixun.gapmarket/download";
+		File file=new File(dataPath);
+		if(!file.exists()){
+			Log.d("yxf_download_filenot exits", dataPath);
+			file.mkdirs();
+		}
+		file=null;
 	}
 	
 	/**
-	 * 在当前应用文件夹下创建文件
-	 * 
+	 * Create a new file in the download package
+	 * @param the download package file name
 	 * @throws IOException
 	 */
 	public File createFileInSDCard(String fileName) throws IOException {
-		File file = new File(dataPath + File.separator + fileName);
-		System.out.println("file---->" + file);
+		File file = new File(dataPath +fileName);
 		file.createNewFile();
 		return file;
 	}
-	
-	/**
-	 * 在当前应用文件夹下创建目录
-	 * 
-	 * @param dirName
-	 */
-	public File creatSDDir() {
-		File dirFile = new File(dataPath + File.separator);
-		System.out.println(dirFile.mkdirs());
-		return dirFile;
-	}
 
 	/**
-	 * 判断当前应用文件夹下的文件是否存在
+	 * judge weather the file already exits
+	 * @param fileName the output file Name
+	 * @return boolean true if its exits
 	 */
 	public boolean isFileExist(String fileName){
 		File file = new File(dataPath + File.separator + fileName);
@@ -51,17 +46,18 @@ public class FileUtils {
 	}
 	
 	/**
-	 * 将一个InputStream里面的数据写入到当前应用文件夹下
+	 * This function is used for write a stream to a file in SDcard
+	 * @param fileName is the  output file name
+	 * @param input is the input stream
+	 * @return the output file
 	 */
 	public File write2SDFromInput(String fileName,InputStream input){
 		
 		File file = null;
 		OutputStream output = null;
 		try{
-			creatSDDir();
-			file = createFileInSDCard(fileName);
-			output = new FileOutputStream(file);
-			byte buffer [] = new byte[1024 * 1024];
+			output = new FileOutputStream(dataPath+fileName);
+			byte buffer [] = new byte[32 * 1024];
 			int temp ;
 			while((temp = input.read(buffer)) != -1){
 				output.write(buffer, 0, temp);

@@ -1,7 +1,8 @@
 package com.webapp.utils;
 
-import shixun.gapmarket.R;
 import java.util.List;
+
+import shixun.gapmarket.R;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -24,7 +25,6 @@ public class MarketListAdapter extends BaseAdapter{
 	private Context context;
 	private int layoutId;
 	private SyncImgLoader syncImageLoader=new SyncImgLoader();
-	private AppMarketListInfo s=null;
 	private OnClickListener btnListener=null;
 	
 	public MarketListAdapter(final Context context, int layoutId, List<AppMarketListInfo> list){

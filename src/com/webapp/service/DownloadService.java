@@ -12,6 +12,7 @@ import android.util.Log;
 
 public class DownloadService extends Service{
 
+	String downloadurl=null;
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
@@ -21,22 +22,33 @@ public class DownloadService extends Service{
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
-		Log.d("LogDemo", "onCreate...");
 		super.onCreate();
 	}
 	
 	//每次用户点击ListActivity当中的一个条目时，就会调用该方法
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO Auto-generated method stub
-		//生成一个下载线程，并将应用名称作为参数传递到线程对象当中
-		DownloadThread downloadThread = new DownloadThread("log");
-		Log.d("LogDemo", "---> 启动Download线程");
-		//启动新线程
-		Thread thread = new Thread(downloadThread);
-		thread.start();
+		
+		// get the downloadurl from the start Activity
+		downloadurl=intent.getStringExtra("downloadurl");
+		
+		//Create a new Thread for download the package from the app server
+		new Thread(){
+			public void run(){
+				String appName=downloadurl.substring(downloadurl.lastIndexOf("/"));
+				HttpDownloader httpDownloader = new HttpDownloader();
+				int result = httpDownloader.downFile(downloadurl,appName);
+			}
+		}.start();
+		
 		return super.onStartCommand(intent, flags, startId);
 	}
+	
+	@Override
+	public void onDestroy() {
+		Log.d("yxf_download","onDestroy");
+	}
+	
 	
 	class DownloadThread implements Runnable{
 		private String name = "";
@@ -52,7 +64,7 @@ public class DownloadService extends Service{
 			//生成下载文件所用的对象
 			HttpDownloader httpDownloader = new HttpDownloader();
 			//将文件下载下来，并存储到SDCard当中
-			int result = httpDownloader.downFile(fileUrl, dataPath + "/WebApp/", name + ".zip");
+			int result = httpDownloader.downFile(fileUrl,name + ".zip");
 			String resultMessage = null;
 			if(result == -1){
 				resultMessage = "下载失败";

@@ -194,5 +194,4 @@ public class AppDownloaded extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.heightPixels;
     }
-    
 }

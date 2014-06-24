@@ -58,15 +58,16 @@ public class HttpDownloader {
 	/**
 	 * 该函数返回整形 -1：代表下载文件出错 0：代表下载文件成功 1：代表文件已经存在
 	 */
-	public int downFile(String urlStr, String path, String fileName) {
+	public int downFile(String downloadurl, String fileName) {
 		InputStream inputStream = null;
 		try {
-			FileUtils fileUtils = new FileUtils(path);
+			
+			FileUtils fileUtils = new FileUtils();
 			if (fileUtils.isFileExist(fileName)) {
 				return 1;
 			} else {
-				inputStream = getInputStreamFromUrl(urlStr);
-				Log.d("LogDemo", "---> 获取数据流");
+				inputStream = getInputStreamFromUrl(downloadurl);
+				Log.d("yxf_download","download stream ready");
 				File resultFile = fileUtils.write2SDFromInput(fileName, inputStream);
 				if (resultFile == null) {
 					return -1;
@@ -82,6 +83,7 @@ public class HttpDownloader {
 				e.printStackTrace();
 			}
 		}
+		
 		return 0;
 	}
 
@@ -96,11 +98,10 @@ public class HttpDownloader {
 	public InputStream getInputStreamFromUrl(String urlStr)
 			throws MalformedURLException, IOException {
 		url = new URL(urlStr);
-		Log.d("LogDemo", "---> aaa");
 		HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-		Log.d("LogDemo", "---> bbb");
 		InputStream inputStream = urlConn.getInputStream();
-		Log.d("LogDemo", "---> ccc");
 		return inputStream;
 	}
+
+	
 }

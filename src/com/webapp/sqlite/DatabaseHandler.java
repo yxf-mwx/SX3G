@@ -54,5 +54,4 @@ public class DatabaseHandler{
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		db.delete("AppInfo", "appID=?", new String[]{app.getAppID() + ""});
 	}
-	
 }
