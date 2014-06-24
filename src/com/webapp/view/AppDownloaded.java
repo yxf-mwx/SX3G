@@ -59,7 +59,6 @@ public class AppDownloaded extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-        		DatabaseHandler.addAppIntoDB(AppDownloaded.this);
         		listDownloaded = DatabaseHandler.getAppFromDB(AppDownloaded.this);
         		Message msg = Message.obtain();
         		msg.what = APP_OBTAINED;
@@ -102,6 +101,7 @@ public class AppDownloaded extends Activity {
         tbLayout1.post(new Runnable() {
         		public void run() {
                 	tbLayout1.setLayoutParams(params);
+                	Log.d("LogDemo", Thread.currentThread().getId() + "");
         	}
         });
         
@@ -147,7 +147,6 @@ public class AppDownloaded extends Activity {
         btnAddApp.setText("MORE APPS");
         tbLayout1.addView(btnAddApp);
         mContainer.addView(tbLayout1);
-        
         Log.d("LogDemo", "View添加完成");
         Log.d("LogDemo", countOfApp + "");
         
