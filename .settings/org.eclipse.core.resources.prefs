@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/com/webapp/downloader/HttpDownloader.java=UTF-8
+encoding//src/com/webapp/service/DownloadService.java=UTF-8
 encoding//src/com/webapp/sqlite/DatabaseHandler.java=UTF-8
 encoding//src/com/webapp/sqlite/DatabaseHelper.java=UTF-8
+encoding//src/com/webapp/utils/FileUtils.java=UTF-8
+encoding//src/com/webapp/view/AppDownloaded.java=UTF-8

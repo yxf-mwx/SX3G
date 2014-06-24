@@ -71,12 +71,8 @@ public class AppMarket extends Activity {
 			public void run(){
 				try {
 					InputStream is=new URL("http://192.168.1.107:8080/SX3G/downloadlist.xml").openStream();
-					Log.d("yxf",String.valueOf(list.size()));
 					XMLProduct xmlProduct=new XMLProduct(list);
 					xmlProduct.getInformation(is);
-					/*for(int i=0;i<list.size();i++){
-						Log.d("yxf",list.get(i).getImageurl());
-					}*/
 					Message msg=new Message();
 					handler.sendMessage(msg);
 				}catch (Exception e) {
