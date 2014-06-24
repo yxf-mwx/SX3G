@@ -15,7 +15,7 @@ public class FileUtils {
 
 	public FileUtils() {
 		//the basepath is 
-		this.dataPath = Environment.getDataDirectory().getPath()+File.separator+"data/shixun.gapmarket/download";
+		this.dataPath = Environment.getDataDirectory().getPath()+File.separator+"data/shixun.gapmarket/download/";
 		File file=new File(dataPath);
 		if(!file.exists()){
 			Log.d("yxf_download_filenot exits", dataPath);
