@@ -56,13 +56,16 @@ public class XMLProduct extends DefaultHandler {
 			appMarketListInfo.setImageurl(buffer.toString().trim());
 			buffer.setLength(0);
 		}else if(qName.equals("size")){
-			appMarketListInfo.setSize(buffer.toString().trim());
+			appMarketListInfo.setSize(Integer.parseInt(buffer.toString().trim()));
 			buffer.setLength(0);
 		}else if(qName.equals("description")) {
 			appMarketListInfo.setShortDescription(buffer.toString().trim());
 			buffer.setLength(0);
 		}else if(qName.equals("download")) {
 			appMarketListInfo.setDownloadurl(buffer.toString().trim());
+			buffer.setLength(0);
+		}else if(qName.equals("version")) {
+			appMarketListInfo.setVersion(buffer.toString().trim());
 			buffer.setLength(0);
 		}
 		super.endElement(uri, localName, qName);

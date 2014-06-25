@@ -7,19 +7,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import com.webapp.model.AppInfo;
+import com.webapp.model.AppDownloadedInfo;
+import com.webapp.model.AppMarketListInfo;
 
 public class DatabaseHandler{
 	
-	public static List<AppInfo> getAppFromDB(Context context){
+	public static List<AppDownloadedInfo> getAppFromDB(Context context){
     	DatabaseHelper dbHelper = new DatabaseHelper(context, "WebApp_DB");
     	Log.d("LogDemo", "加载应用--> 从数据库取数据");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		List<AppInfo> list = new ArrayList<AppInfo>();
+		List<AppDownloadedInfo> list = new ArrayList<AppDownloadedInfo>();
 		
-		Cursor cursor = db.query("AppInfo", new String[]{"appID","appName","appPath"}, null, null, null, null, null);
+		Cursor cursor = db.query("AppInfo", new String[]{"appID","appName","appPath","size","version"}, null, null, null, null, null);
 		while(cursor.moveToNext()){
-			AppInfo myApp = new AppInfo();
+			AppDownloadedInfo myApp = new AppDownloadedInfo();
 			String id = cursor.getString(cursor.getColumnIndex("appID"));
 			String name = cursor.getString(cursor.getColumnIndex("appName"));
 			String path = cursor.getString(cursor.getColumnIndex("appPath"));
@@ -33,7 +34,7 @@ public class DatabaseHandler{
 		return list;
     }
 	
-	public static void addAppIntoDB(Context context, List<AppInfo> list) {
+	public static void addAppIntoDB(Context context, List<AppDownloadedInfo> list) {
     	DatabaseHelper dbHelper = new DatabaseHelper(context, "WebApp_DB");
     	Log.d("LogDemo", "添加应用--> 写数据到数据库");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -41,18 +42,20 @@ public class DatabaseHandler{
     	ContentValues values = new ContentValues();
     	//想该对象当中插入键值对，其中键是列名，值是希望插入到这一列的值，值必须和数据库当中的数据类型一致
     	for (int i = 0; i < list.size(); i++) {
-			values.put("appID", list.get(i).getAppID());
+//			values.put("appID", list.get(i).getAppID());
 			values.put("appName", list.get(i).getAppName());
 			values.put("appPath", list.get(i).getAppPath());
+			values.put("size", list.get(i).getSize());
+			values.put("version", list.get(i).getVersion());
 			db.insert("AppInfo", null, values);
 		}
 	}
 	
-	public static void deleteAppInDB(Context context, AppInfo app) {
+	public static void deleteAppInDB(Context context, AppDownloadedInfo app) {
 		DatabaseHelper dbHelper = new DatabaseHelper(context, "WebApp_DB");
     	Log.d("LogDemo", "卸载应用--> 写数据到数据库");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		db.delete("AppInfo", "appID=?", new String[]{app.getAppID() + ""});
+		//db.delete("AppInfo", "appID=?", new String[]{app.getAppID() + ""});
 	}
 	
 }

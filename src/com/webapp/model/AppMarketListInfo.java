@@ -1,11 +1,20 @@
 package com.webapp.model;
 
 public class AppMarketListInfo {
+	
 	private String appName;
 	private String imageurl;
-	private String size;
+	private int size;
 	private String shortDescription;
 	private String downloadurl;
+	private String version;
+	
+	public String getVersion() {
+		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
+	}
 	
 	public String getAppName() {
 		return appName;
@@ -19,10 +28,10 @@ public class AppMarketListInfo {
 	public void setImageurl(String imageurl) {
 		this.imageurl = imageurl;
 	}
-	public String getSize() {
+	public int getSize() {
 		return size;
 	}
-	public void setSize(String size) {
+	public void setSize(int size) {
 		this.size = size;
 	}
 	public String getShortDescription() {

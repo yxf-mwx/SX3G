@@ -2,7 +2,7 @@ package com.webapp.view;
 
 import java.security.PublicKey;
 import java.util.List;
-import com.webapp.model.AppInfo;
+import com.webapp.model.AppDownloadedInfo;
 import com.webapp.sqlite.*;
 import shixun.gapmarket.R;
 import android.R.color;
@@ -35,7 +35,7 @@ public class AppDownloaded extends Activity {
 	private int winHeight;
 	private final static int NUM_ONE_ROW = 3;//一个tablerow三个应用
 	private int countOfApp = 0;//第n个应用
-	private List<AppInfo> listDownloaded;
+	private List<AppDownloadedInfo> listDownloaded;
     private LinearLayout mContainer = null;
     ImageView imgView;
     
@@ -87,7 +87,7 @@ public class AppDownloaded extends Activity {
     }
     
     //显示已添加应用
-    private void showAppList(List<AppInfo> list) {
+    private void showAppList(List<AppDownloadedInfo> list) {
     	setContentView(R.layout.scrollview);
     	winWidth = getWinWidth();
     	winHeight = getWinHeight();
@@ -155,9 +155,9 @@ public class AppDownloaded extends Activity {
     
 	//响应应用点击动作
     class AppOnClickListener implements OnClickListener{
-    	private AppInfo app;
+    	private AppDownloadedInfo app;
     	
-    	public  AppOnClickListener(AppInfo app) {
+    	public  AppOnClickListener(AppDownloadedInfo app) {
 			this.app = app;
 		}
 		@Override
