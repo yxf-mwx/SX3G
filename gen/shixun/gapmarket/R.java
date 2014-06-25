@@ -50,6 +50,7 @@ public final class R {
         public static final int market_list_item=0x7f030001;
         public static final int scrollview=0x7f030002;
         public static final int view_init_black=0x7f030003;
+        public static final int view_notification_empty=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f050001;
