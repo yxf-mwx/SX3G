@@ -1,6 +1,5 @@
 package com.webapp.view;
 
-
 import shixun.gapmarket.R;
 import java.io.InputStream;
 import java.net.URL;
@@ -18,15 +17,17 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.webapp.model.AppDownloadedInfo;
 import com.webapp.model.AppMarketListInfo;
-import com.webapp.ui.MarketListAdapter;
+import com.webapp.sqlite.DatabaseHandler;
+import com.webapp.utils.MarketListAdapter;
 import com.webapp.utils.XMLProduct;
 
-public class AppMarket extends Activity {
+public class AppManager extends Activity {
 
-	private final static int MARK_MARKET = 1;
+	private final static int MARK_MANAGER = 0;
 	private ListView listview=null;    
-	private List<AppMarketListInfo> list=new ArrayList<AppMarketListInfo>();
+	private List<AppDownloadedInfo> list=new ArrayList<AppDownloadedInfo>();
 	LinearLayout linearLayout=null;
 	
 	@Override
@@ -34,26 +35,20 @@ public class AppMarket extends Activity {
 		super.onCreate(savedInstanceState);
 		linearLayout=new LinearLayout(this);
 		linearLayout.setBackgroundColor(Color.WHITE);
-		
-		final Handler handler=new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				loadList();
-			}
-		};
-		
-		downloadList(handler);
+		//加载等待
 		ProgressBar progressBar=new ProgressBar(this);
 		linearLayout.setGravity(Gravity.CENTER);
 		linearLayout.addView(progressBar);
 		setContentView(linearLayout);
+		
+		loadList(getListFromDB());
 	}
 	
 	/*
 	 * reload the listview
 	 * */
-	private void loadList(){
-		MarketListAdapter listAdapter=new MarketListAdapter(this, R.layout.market_list_item, list);
+	private void loadList(List<AppDownloadedInfo> list){
+		ManagerListAdapter listAdapter = new ManagerListAdapter(AppManager.this, R.layout.market_list_item, list, MARK_MANAGER);
 		linearLayout.removeAllViews();
 		linearLayout.setGravity(Gravity.TOP);
 		listview=new ListView(this);
@@ -64,24 +59,9 @@ public class AppMarket extends Activity {
 	}
 
 	/*
-	 * download the list for appInformation
-	 * and send handler for reload the listview 
+	 * get the list for appInformation downloaded
 	 * */
-	private void downloadList(final Handler handler){
-		new Thread(){
-			public void run(){
-				try {
-					InputStream is=new URL("http://192.168.1.107:8080/SX3G/downloadlist.xml").openStream();
-					XMLProduct xmlProduct=new XMLProduct(list);
-					xmlProduct.getInformation(is);
-					Message msg=new Message();
-					handler.sendMessage(msg);
-				}catch (Exception e) {
-					// TODO Auto-generated catch block
-					
-					e.printStackTrace();
-				}
-			}
-		}.start();
+	private List<AppDownloadedInfo> getListFromDB(){
+		return DatabaseHandler.getAppFromDB(AppManager.this);
 	}
 }
