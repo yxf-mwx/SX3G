@@ -1,16 +1,12 @@
+
 package com.webapp.view;
 
 import shixun.gapmarket.R;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,10 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.webapp.model.AppDownloadedInfo;
-import com.webapp.model.AppMarketListInfo;
 import com.webapp.sqlite.DatabaseHandler;
-import com.webapp.utils.MarketListAdapter;
-import com.webapp.utils.XMLProduct;
+import com.webapp.ui.ManagerListAdapter;
 
 public class AppManager extends Activity {
 
@@ -48,7 +42,7 @@ public class AppManager extends Activity {
 	 * reload the listview
 	 * */
 	private void loadList(List<AppDownloadedInfo> list){
-		ManagerListAdapter listAdapter = new ManagerListAdapter(AppManager.this, R.layout.market_list_item, list, MARK_MANAGER);
+		ManagerListAdapter listAdapter = new ManagerListAdapter(AppManager.this, R.layout.market_list_item, list);
 		linearLayout.removeAllViews();
 		linearLayout.setGravity(Gravity.TOP);
 		listview=new ListView(this);
