@@ -1,8 +1,6 @@
 package com.webapp.utils;
 
-import java.io.IOException;
 import java.lang.ref.SoftReference;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 

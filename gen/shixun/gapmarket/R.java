@@ -15,42 +15,62 @@ public final class R {
         public static final int zPagedHScrollTableBorderColor=0x7f060001;
     }
     public static final class drawable {
-        public static final int app_download=0x7f020000;
-        public static final int blogger=0x7f020001;
-        public static final int digg=0x7f020002;
-        public static final int dribbble=0x7f020003;
-        public static final int empty=0x7f020004;
-        public static final int facebook=0x7f020005;
-        public static final int friendfeed=0x7f020006;
-        public static final int googleplus=0x7f020007;
-        public static final int icon=0x7f020008;
-        public static final int pinintrest=0x7f020009;
-        public static final int rss=0x7f02000a;
-        public static final int stumbleupon=0x7f02000b;
-        public static final int twitter=0x7f02000c;
-        public static final int vimeo=0x7f02000d;
-        public static final int youtube=0x7f02000e;
-        public static final int zpaged_hscroll_table_down_arrow=0x7f02000f;
-        public static final int zpaged_hscroll_table_left_arrow=0x7f020010;
-        public static final int zpaged_hscroll_table_right_arrow=0x7f020011;
-        public static final int zpaged_hscroll_table_up_arrow=0x7f020012;
+        public static final int app=0x7f020000;
+        public static final int app_download=0x7f020001;
+        public static final int blogger=0x7f020002;
+        public static final int bottom=0x7f020003;
+        public static final int bottom_bar=0x7f020004;
+        public static final int digg=0x7f020005;
+        public static final int download=0x7f020006;
+        public static final int dribbble=0x7f020007;
+        public static final int empty=0x7f020008;
+        public static final int facebook=0x7f020009;
+        public static final int friendfeed=0x7f02000a;
+        public static final int googleplus=0x7f02000b;
+        public static final int icon=0x7f02000c;
+        public static final int icon1=0x7f02000d;
+        public static final int local=0x7f02000e;
+        public static final int local2=0x7f02000f;
+        public static final int online1=0x7f020010;
+        public static final int pinintrest=0x7f020011;
+        public static final int rss=0x7f020012;
+        public static final int sea=0x7f020013;
+        public static final int sea6=0x7f020014;
+        public static final int sky=0x7f020015;
+        public static final int start=0x7f020016;
+        public static final int stumbleupon=0x7f020017;
+        public static final int twitter=0x7f020018;
+        public static final int vimeo=0x7f020019;
+        public static final int youtube=0x7f02001a;
+        public static final int zpaged_hscroll_table_down_arrow=0x7f02001b;
+        public static final int zpaged_hscroll_table_left_arrow=0x7f02001c;
+        public static final int zpaged_hscroll_table_right_arrow=0x7f02001d;
+        public static final int zpaged_hscroll_table_up_arrow=0x7f02001e;
     }
     public static final class id {
+        public static final int appIcon=0x7f080009;
+        public static final int appName=0x7f08000a;
+        public static final int btnAffirm=0x7f08000c;
+        public static final int btnCancel=0x7f08000d;
         public static final int container=0x7f080007;
         public static final int download=0x7f080001;
         public static final int hello=0x7f080000;
+        public static final int linear=0x7f080008;
         public static final int market_list_item_downloadbtn=0x7f080005;
         public static final int market_list_item_icon=0x7f080002;
         public static final int market_list_item_name=0x7f080003;
         public static final int market_list_item_shortdescription=0x7f080006;
         public static final int market_list_item_size=0x7f080004;
+        public static final int text=0x7f08000b;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int market_list_item=0x7f030001;
         public static final int scrollview=0x7f030002;
-        public static final int view_init_black=0x7f030003;
-        public static final int view_notification_empty=0x7f030004;
+        public static final int view_affrim_uninstall=0x7f030003;
+        public static final int view_init_black=0x7f030004;
+        public static final int view_init_black1=0x7f030005;
+        public static final int view_notification_empty=0x7f030006;
     }
     public static final class string {
         public static final int app_name=0x7f050001;

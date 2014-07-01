@@ -80,7 +80,7 @@ public class MarketListAdapter extends BaseAdapter{
 		downloadbtn.setOnClickListener(btnListener);
 		
 		name.setText(list.get(position).getAppName());
-		size.setText(list.get(position).getSize());
+		size.setText(String.valueOf(list.get(position).getSize()));
 		description.setText(list.get(position).getShortDescription());
 		downloadbtn.setDownloadurl(list.get(position).getDownloadurl());
 		loadImage(list.get(position).getImageurl().toString(),icon);

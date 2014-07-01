@@ -24,7 +24,7 @@ import com.webapp.utils.XMLProduct;
 
 public class AppMarket extends Activity {
 
-	private final static int MARK_MARKET = 1;
+	//private final static int MARK_MARKET = 1;
 	private ListView listview=null;    
 	private List<AppMarketListInfo> list=new ArrayList<AppMarketListInfo>();
 	LinearLayout linearLayout=null;
@@ -71,7 +71,7 @@ public class AppMarket extends Activity {
 		new Thread(){
 			public void run(){
 				try {
-					InputStream is=new URL("http://192.168.1.107:8080/SX3G/downloadlist.xml").openStream();
+					InputStream is=new URL("http://192.168.1.111:8080/SX3G/downloadlist.xml").openStream();
 					XMLProduct xmlProduct=new XMLProduct(list);
 					xmlProduct.getInformation(is);
 					/*for(int i=0;i<list.size();i++){

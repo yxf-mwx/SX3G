@@ -5,14 +5,24 @@
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="8" />
 
-    <application android:allowBackup="true" android:icon="@drawable/icon" android:label="@string/app_name">
+    <application 
+        android:name="com.webapp.application.WebAppApplication" 
+        android:icon="@drawable/icon" 
+        android:label="@string/app_name">
+        
+        <activity android:name="com.webapp.view.UninstallAffrim"
+                  android:label="Uninstall">
+        </activity>
         <activity android:name="com.webapp.view.AppMain"
                   android:label="@string/app_name">
         </activity>
         <activity android:name="com.webapp.view.AppMarket">
-            
         </activity>
-		<activity android:name="com.webapp.view.AppDownloaded"
+        <activity android:name="com.webapp.view.AppManager">
+        </activity>
+        <activity android:name="com.webapp.view.AppDownloaded">
+        </activity>
+		<activity android:name="com.webapp.view.Loading"
                   android:label="@string/app_name">
 		    <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
