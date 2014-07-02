@@ -68,6 +68,7 @@ public final class R {
         public static final int market_list_item_shortdescription=0x7f080009;
         public static final int market_list_item_size=0x7f080005;
         public static final int marketlist_item_information=0x7f080003;
+        public static final int moreapp_empty=0x7f080011;
         public static final int text=0x7f08000e;
     }
     public static final class layout {

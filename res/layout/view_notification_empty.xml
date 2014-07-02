@@ -16,6 +16,7 @@
         android:text="NO APP DOWNLOADED, PLEASE CLICK THE BUTTON BELOW TO DOWNLOAD APPS." />
         
     <Button
+        android:id="@+id/moreapp_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

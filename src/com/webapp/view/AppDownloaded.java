@@ -68,8 +68,20 @@ public class AppDownloaded extends Activity {
         });
         
         for (int i = 0; i < NUM_ONE_ROW; i++) {
+        	//本地无应用
         	if (list.size() == 0) {
         		setContentView(R.layout.view_notification_empty);
+        		Button btnMoreApp = (Button)findViewById(R.id.moreapp_empty);
+        		btnMoreApp.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent();
+						intent.setClass(AppDownloaded.this, AppMarket.class);
+						startActivity(intent);
+					}
+				});
         		break;
         	}
         	int temp = list.size() % 3 == 0? list.size() / 3: list.size() / 3 + 1;
