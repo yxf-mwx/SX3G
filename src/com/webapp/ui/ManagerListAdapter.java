@@ -18,7 +18,6 @@ import com.webapp.model.AppDownloadedInfo;
 import com.webapp.model.AppMarketListInfo;
 import com.webapp.service.DownloadService;
 import com.webapp.sqlite.DatabaseHandler;
-import com.webapp.ui.DownloadButton;
 import com.webapp.view.AppManager;
 import com.webapp.view.AppMarket;
 
@@ -77,12 +76,10 @@ public class ManagerListAdapter extends BaseAdapter{
 		TextView name = (TextView)linearLayout.findViewById(R.id.market_list_item_name);
 		TextView size = (TextView)linearLayout.findViewById(R.id.market_list_item_size);
 		TextView version = (TextView)linearLayout.findViewById(R.id.market_list_item_shortdescription);
-		DownloadButton downloadbtn = (DownloadButton)linearLayout.findViewById(R.id.market_list_item_downloadbtn);
 		
 		name.setText(list.get(position).getAppName());
 		size.setText(list.get(position).getSize());
 		version.setText(list.get(position).getVersion());
-		downloadbtn.setOnClickListener(new btnDeleteListener(position));
 		icon.setImageResource(R.drawable.blogger);
 		return linearLayout;
 	}

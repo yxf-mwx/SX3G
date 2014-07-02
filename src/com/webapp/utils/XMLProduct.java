@@ -11,6 +11,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.util.Log;
+
 import com.webapp.model.AppMarketListInfo;
 
 
@@ -45,7 +47,6 @@ public class XMLProduct extends DefaultHandler {
 	
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException{
-		
 		if(qName.equals("package")){
 			information.add(appMarketListInfo);
 			buffer.setLength(0);

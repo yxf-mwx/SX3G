@@ -2,10 +2,12 @@ package com.webapp.view;
 
 
 import shixun.gapmarket.R;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,9 +27,9 @@ import com.webapp.utils.XMLProduct;
 public class AppMarket extends Activity {
 
 	private final static int MARK_MARKET = 1;
-	private ListView listview=null;    
+	private ListView listview=null;
 	private List<AppMarketListInfo> list=new ArrayList<AppMarketListInfo>();
-	LinearLayout linearLayout=null;
+	private LinearLayout linearLayout=null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +73,16 @@ public class AppMarket extends Activity {
 		new Thread(){
 			public void run(){
 				try {
-					InputStream is=new URL("http://192.168.1.107:8080/SX3G/downloadlist.xml").openStream();
+					InputStream is=new URL("http://192.168.1.116:8080/SX3G/downloadlist.xml").openStream();
 					XMLProduct xmlProduct=new XMLProduct(list);
 					xmlProduct.getInformation(is);
+					/*for(int i=0;i<list.size();i++)
+						Log.d("yxf_download",""+list.get(i).getAppName()+"||"+list.get(i).getImageurl()+"||"+list.get(i).getDownloadurl()
+								+"||"+list.get(i).getShortDescription()+"||"+list.get(i).getSize()+"||");*/
 					Message msg=new Message();
 					handler.sendMessage(msg);
 				}catch (Exception e) {
 					// TODO Auto-generated catch block
-					
 					e.printStackTrace();
 				}
 			}

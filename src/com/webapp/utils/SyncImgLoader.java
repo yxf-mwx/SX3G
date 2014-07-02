@@ -19,7 +19,6 @@ public class SyncImgLoader {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Log.d("yxf_market",e.getMessage());
 		}
 		
 		return null;
