@@ -7,6 +7,7 @@ import java.util.List;
 
 import shixun.gapmarket.R;
 import android.content.Context;
+import android.content.pm.PackageStats;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
@@ -24,9 +25,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.webapp.downloader.PackageDownLoader;
+import com.webapp.model.AppDownloadedInfo;
 import com.webapp.model.AppMarketListInfo;
 import com.webapp.model.LoadInfo;
 import com.webapp.model.MarketDownloadAdapterInfo;
+import com.webapp.sqlite.DatabaseHandler;
 import com.webapp.utils.CallBackImplements;
 import com.webapp.utils.SyncImgLoader;
 import com.webapp.utils.ZipFactory;
@@ -44,6 +47,8 @@ public class MarketListAdapter extends BaseAdapter{
 	private HashMap<String,PackageDownLoader> downloaderList=new HashMap<String,PackageDownLoader>();
 	private HashMap<String, MarketDownloadAdapterInfo> loadInfoList=new HashMap<String, MarketDownloadAdapterInfo>();
 	private HashMap<String,ProgressBar> progressBars=new HashMap<String,ProgressBar>();
+	private HashMap<String,AppMarketListInfo> packageinfos=new HashMap<String,AppMarketListInfo>();
+	
 	private final String cachePath=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/cache/";
 	private final String installPath=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/webApps/";
 	
@@ -67,7 +72,7 @@ public class MarketListAdapter extends BaseAdapter{
 				
 				if(adapterInfo.getComplete()>=adapterInfo.getFileSize()) {
 					Log.d("yxf_MarketListAdapter","can install here");
-					install(adapterInfo.getAppName());
+					install(adapterInfo.getAppName(),packageinfos.get(url));
 					cancelDownload(url);
 				}
 			}
@@ -102,6 +107,7 @@ public class MarketListAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup ViewGroup) {
 		
 		String inflater=Context.LAYOUT_INFLATER_SERVICE;
+		AppMarketListInfo info=list.get(position);
 		LayoutInflater layoutInflater=(LayoutInflater)context.getSystemService(inflater);
 		LinearLayout linearLayout=null;
 		linearLayout=(LinearLayout)layoutInflater.inflate(R.layout.market_list_item, null);
@@ -116,17 +122,17 @@ public class MarketListAdapter extends BaseAdapter{
 		Button cancelbtn=(Button)linearLayout.findViewById(R.id.market_list_item_cancelbtn);
 		
 		
-		downloadbtnListener=new DownloadButtonListener(list.get(position).getDownloadurl());
+		downloadbtnListener=new DownloadButtonListener(info);
 		downloadbtn.setOnClickListener(downloadbtnListener);
-		pausebtnListener=new PausebtnListener(list.get(position).getDownloadurl());
+		pausebtnListener=new PausebtnListener(info.getDownloadurl());
 		pausebtn.setOnClickListener(pausebtnListener);
-		cancelbtnListener=new CancelbtnListener(list.get(position).getDownloadurl());
+		cancelbtnListener=new CancelbtnListener(info.getDownloadurl());
 		cancelbtn.setOnClickListener(cancelbtnListener);
 		
-		name.setText(list.get(position).getAppName());
-		size.setText(String.valueOf(list.get(position).getSize()));
-		description.setText(list.get(position).getShortDescription());
-		loadImage(list.get(position).getImageurl().toString(),icon);
+		name.setText(info.getAppName());
+		size.setText(String.valueOf(info.getSize()));
+		description.setText(info.getShortDescription());
+		loadImage(info.getImageurl().toString(),icon);
 		return linearLayout;
 	}
 	
@@ -145,11 +151,11 @@ public class MarketListAdapter extends BaseAdapter{
 		private String srcpackageName=null;
 		private String localfile=null;
 		
-		public DownloadButtonListener(String url){
-			this.url=url;
+		public DownloadButtonListener(AppMarketListInfo info){
+			this.url=info.getDownloadurl();
 			this.srcpackageName=url.substring(url.lastIndexOf("/")+1);
 			this.localfile=cachePath+srcpackageName;
-			
+			packageinfos.put(url, info);
 			File file=new File(cachePath);
 			if(!file.exists()){
 				file.mkdirs();
@@ -200,9 +206,17 @@ public class MarketListAdapter extends BaseAdapter{
 	}
 	
 	//安装文件
-	private void install(String appName){
+	private void install(String appName,AppMarketListInfo info){
 		try {
 			ZipFactory.UnzipFiles(cachePath+appName, installPath);
+			AppDownloadedInfo appToBeAdded=new AppDownloadedInfo();
+			appToBeAdded.setAppID(info.getAppName());
+			appToBeAdded.setAppName(info.getAppName());
+			appToBeAdded.setAppPath(installPath+appName.substring(appName.lastIndexOf(".")+1));
+			appToBeAdded.setSize(info.getSize());
+			appToBeAdded.setVersion(info.getVersion());
+			
+			DatabaseHandler.addAppIntoDB(context, appToBeAdded);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -263,6 +277,7 @@ public class MarketListAdapter extends BaseAdapter{
 		loadInfoList.remove(url);
 		((LinearLayout)progressBars.get(url).getParent()).removeView(progressBars.get(url));
 		progressBars.remove(url);
+		packageinfos.remove(url);
 	}
 
 	
