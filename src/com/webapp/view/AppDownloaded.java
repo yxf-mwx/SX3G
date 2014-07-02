@@ -2,6 +2,8 @@ package com.webapp.view;
 
 import java.util.List;
 
+import com.webapp.application.WebAppApplication;
+import com.webapp.model.AppDownloadedInfo;
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,15 +16,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-
-import com.webapp.model.AppDownloadedInfo;
-import com.webapp.sqlite.DatabaseHandler;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 public class AppDownloaded extends Activity {
 	private int winWidth;
@@ -31,58 +29,26 @@ public class AppDownloaded extends Activity {
 	private int countOfApp = 0;//第n个应用
 	private List<AppDownloadedInfo> listDownloaded;
     private LinearLayout mContainer = null;
-    ImageView imgView;
-    
-    private MyHandler myHandler;
-    private final static int APP_OBTAINED = 0;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        //全屏等待加载
-        setContentView(R.layout.view_init_black);
+        setContentView(R.layout.scrollview);
         
-        myHandler = new MyHandler();
+        WebAppApplication application = (WebAppApplication)getApplication();
+        Log.d("LogDemo", "Application： " + application.toString());
+        Log.d("LogDemo", "Activity: " + this.toString());
         
-        new Thread() {
-        	public void run() {
-        		try {
-					sleep(2500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-        		listDownloaded = DatabaseHandler.getAppFromDB(AppDownloaded.this);
-        		Message msg = Message.obtain();
-        		msg.what = APP_OBTAINED;
-        		AppDownloaded.this.myHandler.sendMessage(msg);
-        		
-			}
-        }.start();
+        listDownloaded = application.getListDnInfo();
+        Log.d("LogDemo", listDownloaded.size() + " numbers of apps");
         
-    }
-    
-    class MyHandler extends Handler{
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case APP_OBTAINED:
-				//加载已下载应用
-				showAppList(listDownloaded);
-				break;
-			
-			default:
-				break;
-			}
-		}
+		showAppList(listDownloaded);
     }
     
     //显示已添加应用
     private void showAppList(List<AppDownloadedInfo> list) {
-    	setContentView(R.layout.scrollview);
+    	
     	winWidth = getWinWidth();
     	winHeight = getWinHeight();
     	mContainer = (LinearLayout) findViewById(R.id.container);
@@ -92,14 +58,20 @@ public class AppDownloaded extends Activity {
         TableRow.LayoutParams paramsImgBtnWeight = 
         		new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1.0f);
         final TableLayout tbLayout1 = new TableLayout(AppDownloaded.this);
+        //ui线程中 神奇地布局..不解
         tbLayout1.post(new Runnable() {
         		public void run() {
                 	tbLayout1.setLayoutParams(params);
-                	Log.d("LogDemo", Thread.currentThread().getId() + "");
+                	Log.d("LogDemo", tbLayout1.getWidth() + "," + tbLayout1.getHeight());
+                	Log.d("LogDemo", Thread.currentThread().getId() + " ui Thread Id");
         	}
         });
         
         for (int i = 0; i < NUM_ONE_ROW; i++) {
+        	if (list.size() == 0) {
+        		setContentView(R.layout.view_notification_empty);
+        		break;
+        	}
         	int temp = list.size() % 3 == 0? list.size() / 3: list.size() / 3 + 1;
         	if (i < temp) {
         		TableRow tbRow = new TableRow(this);
@@ -109,8 +81,10 @@ public class AppDownloaded extends Activity {
                 	if (list.size() % 3 == 0 || i != list.size() / 3 || j < list.size() % 3) {
                 		//iconPath
                 		imgButton.setImageResource(R.drawable.blogger);
+                		Log.d("LogDemo", "solid button: " + i + ", " + j);
     				} else {
     					imgButton.setImageResource(R.drawable.empty);
+    					Log.d("LogDemo", "empty button: " + i + ", " + j);
     				}
                 	imgButton.setBackgroundColor(0);
                 	imgButton.setLayoutParams(paramsImgBtnWeight);
@@ -133,7 +107,7 @@ public class AppDownloaded extends Activity {
             	tbLayout1.addView(tbRow);
 			}
 		}
-        //添加按钮布局
+        //添加按钮布局  hold不住..
         RelativeLayout.LayoutParams paramsBtnAdd= 
                 new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT); 
         Button btnAddApp = new Button(this);
@@ -142,7 +116,7 @@ public class AppDownloaded extends Activity {
         tbLayout1.addView(btnAddApp);
         mContainer.addView(tbLayout1);
         Log.d("LogDemo", "View添加完成");
-        Log.d("LogDemo", countOfApp + "");
+        Log.d("LogDemo", countOfApp + " countOfApp");
         
         btnAddApp.setOnClickListener(new MoreAppOnClickListener());
 	}
@@ -171,7 +145,7 @@ public class AppDownloaded extends Activity {
     	public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(AppDownloaded.this, AppMarket.class);
+			intent.setClass(AppDownloaded.this, AppManager.class);
 			startActivity(intent);
 		}
     }

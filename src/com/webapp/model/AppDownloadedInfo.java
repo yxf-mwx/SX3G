@@ -2,7 +2,7 @@ package com.webapp.model;
 
 public class AppDownloadedInfo {
 	
-	private int appID;
+	private String appID;
 	private String appName;
 	private String appPath;
 	private int size;
@@ -20,10 +20,10 @@ public class AppDownloadedInfo {
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	public int getAppID() {
+	public String getAppID() {
 		return appID;
 	}
-	public void setAppID(int appID) {
+	public void setAppID(String appID) {
 		this.appID = appID;
 	}
 	public String getAppName() {

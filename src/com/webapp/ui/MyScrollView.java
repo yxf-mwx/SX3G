@@ -46,7 +46,7 @@ public class MyScrollView extends HorizontalScrollView {
         Log.d("LogDemo", firstChild.toString());
         if(firstChild != null){
             subChildCount = firstChild.getChildCount();
-            Log.d("LogDemo", subChildCount + "");
+            Log.d("LogDemo", subChildCount + "subChildCount");
             for(int i = 0;i < subChildCount;i++){
             	Log.d("LogDemo", firstChild.getChildAt(i).toString() + ", " 
             			+ ((View)firstChild.getChildAt(i)).getWidth() + ", " + ((View)firstChild.getChildAt(i)).getHeight() + ", " + ((View)firstChild.getChildAt(i)).getLeft());
@@ -100,19 +100,17 @@ public class MyScrollView extends HorizontalScrollView {
         }
     }
     /**
-     * 下一页
-     */
+     * 涓嬩竴椤�     */
     public void nextPage(){
         smoothScrollToNextPage();
     }
     /**
-     * 上一页
-     */
+     * 涓婁竴椤�     */
     public void prePage(){
         smoothScrollToPrePage();
     }
     /**
-     * 跳转到指定的页面
+     * 璺宠浆鍒版寚瀹氱殑椤甸潰
      * @param page
      * @return
      */
@@ -123,5 +121,5 @@ public class MyScrollView extends HorizontalScrollView {
             return true;
         }
         return false;
-    }
 }
+    }

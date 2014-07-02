@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 		System.out.println("create a Database");
 		//execSQL函数用于执行SQL语句
-		db.execSQL("create table AppInfo(appID integer primary key, appName text, appPath text, size integer, version text)");
+		db.execSQL("create table AppInfo(appID text primary key, appName text, appPath text, size integer, version text)");
 		Log.d("LogDemo", "添加AppInfo表");
 	}
 

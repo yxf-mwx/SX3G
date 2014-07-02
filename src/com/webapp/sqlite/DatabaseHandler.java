@@ -24,9 +24,13 @@ public class DatabaseHandler{
 			String id = cursor.getString(cursor.getColumnIndex("appID"));
 			String name = cursor.getString(cursor.getColumnIndex("appName"));
 			String path = cursor.getString(cursor.getColumnIndex("appPath"));
-			myApp.setAppID(Integer.parseInt(id));
+			int size = cursor.getInt(cursor.getColumnIndex("size"));
+			String version = cursor.getString(cursor.getColumnIndex("version"));
+			myApp.setAppID(id);
 			myApp.setAppName(name);
 			myApp.setAppPath(path);
+			myApp.setSize(size);
+			myApp.setVersion(version);
 			Log.d("LogDemo", myApp.toString());
 			list.add(myApp);
 		}
@@ -34,27 +38,31 @@ public class DatabaseHandler{
 		return list;
     }
 	
-	public static void addAppIntoDB(Context context, List<AppDownloadedInfo> list) {
+	public static void addAppIntoDB(Context context, AppDownloadedInfo appToBeAdded) {
     	DatabaseHelper dbHelper = new DatabaseHelper(context, "WebApp_DB");
     	Log.d("LogDemo", "添加应用--> 写数据到数据库");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
     	//生成ContentValues对象
     	ContentValues values = new ContentValues();
     	//想该对象当中插入键值对，其中键是列名，值是希望插入到这一列的值，值必须和数据库当中的数据类型一致
-    	for (int i = 0; i < list.size(); i++) {
-//			values.put("appID", list.get(i).getAppID());
-			values.put("appName", list.get(i).getAppName());
-			values.put("appPath", list.get(i).getAppPath());
-			values.put("size", list.get(i).getSize());
-			values.put("version", list.get(i).getVersion());
+    	//for (int i = 0; i < list.size(); i++) {
+    		//本地应用id: package + author
+			values.put("appID", appToBeAdded.getAppID());
+			values.put("appName", appToBeAdded.getAppName());
+			values.put("appPath", appToBeAdded.getAppPath());
+			values.put("size", appToBeAdded.getSize());
+			values.put("version", appToBeAdded.getVersion());
 			db.insert("AppInfo", null, values);
-		}
+		//}
 	}
 	
-	public static void deleteAppInDB(Context context, AppDownloadedInfo app) {
+	public static int deleteAppInDB(Context context, AppDownloadedInfo app) {
 		DatabaseHelper dbHelper = new DatabaseHelper(context, "WebApp_DB");
-    	Log.d("LogDemo", "卸载应用--> 写数据到数据库");
+    	Log.d("LogDemo", "卸载应用--> 删除数据库数据");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		//db.delete("AppInfo", "appID=?", new String[]{app.getAppID() + ""});
+		int i = db.delete("AppInfo", "appID=?", new String[]{app.getAppID()});
+		Log.d("LogDemo", i + " 删除返回");
+		return i;
 	}
+	
 }
