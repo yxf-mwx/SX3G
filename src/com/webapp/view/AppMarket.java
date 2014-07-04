@@ -1,20 +1,22 @@
 package com.webapp.view;
 
 
-import shixun.gapmarket.R;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import shixun.gapmarket.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -36,6 +38,7 @@ public class AppMarket extends Activity {
 		super.onCreate(savedInstanceState);
 		linearLayout=new LinearLayout(this);
 		linearLayout.setBackgroundColor(Color.WHITE);
+		linearLayout.setOrientation(LinearLayout.VERTICAL);
 		
 		final Handler handler=new Handler(){
 			@Override
@@ -62,6 +65,22 @@ public class AppMarket extends Activity {
 		RelativeLayout.LayoutParams param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 		listview.setLayoutParams(param);
 		listview.setAdapter(listAdapter);
+		
+		Button button=new Button(this);
+		button.setText("下载管理");
+		button.setLayoutParams(param);
+		
+		final Intent intent=new Intent(this,DownloadManageActivity.class);
+		button.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(intent);
+				
+			}
+		});
+		
+		linearLayout.addView(button);
 		linearLayout.addView(listview);
 	}
 

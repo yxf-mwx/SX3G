@@ -1,6 +1,8 @@
 package com.webapp.model;
 
-public class AppMarketListInfo {
+import java.io.Serializable;
+
+public class AppMarketListInfo implements Serializable{
 	
 	private String appName;
 	private String imageurl;

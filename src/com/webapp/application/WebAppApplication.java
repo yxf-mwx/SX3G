@@ -5,22 +5,31 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.webapp.model.AppDownloadedInfo;
-import com.webapp.model.AppMarketListInfo;
-import com.webapp.sqlite.DatabaseHandler;
-
 import android.app.Activity;
 import android.app.Application;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
+
+import com.webapp.downloader.PackageDownLoader;
+import com.webapp.model.AppDownloadedInfo;
+import com.webapp.model.AppMarketListInfo;
+import com.webapp.model.LoadInfo;
+import com.webapp.sqlite.DatabaseHandler;
 
 public class WebAppApplication extends Application{
 
 	private List<AppDownloadedInfo> listDnInfo;  //已下载至本地的应用
 	private List<AppMarketListInfo> listMkInfo;  //服务器应用（取回所有应用信息，显示没有下载的）
-	private HashMap<String,SoftReference<Drawable>> imageCache;
+	//用来缓存下载的图像资源
+	private HashMap<String,SoftReference<Drawable>> imageCache=new HashMap<String,SoftReference<Drawable>>(); 
+	//用来装载下载的信息
+	private HashMap<String,LoadInfo> loadInfos=new HashMap<String,LoadInfo>();
+	//装载下载器
+	private HashMap<String,PackageDownLoader> downloaders;
 	
 	@Override
     public void onCreate() {
+		downloaders=new HashMap<String, PackageDownLoader>();
         super.onCreate();
         new Thread() {
         	public void run() {
@@ -85,6 +94,22 @@ public class WebAppApplication extends Application{
 
 	public void setImageCache(HashMap<String, SoftReference<Drawable>> imageCache) {
 		this.imageCache = imageCache;
+	}
+
+	public HashMap<String, LoadInfo> getLoadInfos() {
+		return loadInfos;
+	}
+
+	public void setLoadInfos(HashMap<String, LoadInfo> loadInfos) {
+		this.loadInfos = loadInfos;
+	}
+
+	public HashMap<String, PackageDownLoader> getDownloaders() {
+		return downloaders;
+	}
+
+	public void setDownloaders(HashMap<String, PackageDownLoader> downloaders) {
+		this.downloaders = downloaders;
 	}
 
 	

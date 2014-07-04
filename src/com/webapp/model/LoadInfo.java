@@ -1,10 +1,13 @@
 package com.webapp.model;
 
 public class LoadInfo {
-	public int fileSize;   //文件大小
-	private int complete;   //完成度
-	private String urlString;   //下载器标识
-
+	private int fileSize;   
+	private int complete;   
+	private String urlString;
+	private String Imageurl;
+	private String AppName;
+	private int state;
+	
 	public LoadInfo(int fileSize, int complete, String urlString) {
 		this.fileSize=fileSize;
 		this.complete=complete;
@@ -35,6 +38,30 @@ public class LoadInfo {
 		this.urlString = urlString;
 	}
 	
+	public String getImageurl() {
+		return Imageurl;
+	}
+
+	public void setImageurl(String imageurl) {
+		Imageurl = imageurl;
+	}
+
+	public String getAppName() {
+		return AppName;
+	}
+
+	public void setAppName(String appName) {
+		AppName = appName;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
 	@Override
 	public String toString(){
 		return "LoadInfo[fileSize="+fileSize+

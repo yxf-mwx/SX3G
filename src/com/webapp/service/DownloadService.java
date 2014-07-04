@@ -1,21 +1,53 @@
 package com.webapp.service;
 
-import java.io.IOException;
-
-import com.webapp.downloader.HttpDownloader;
-import com.webapp.utils.ZipFactory;
+import java.util.HashMap;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
+
+import com.webapp.application.WebAppApplication;
+import com.webapp.downloader.PackageDownLoader;
+import com.webapp.model.AppMarketListInfo;
+import com.webapp.model.LoadInfo;
 
 public class DownloadService extends Service{
 
+	WebAppApplication webAppApplication=null;
+	
 	private String downloadurl=null;
-	private String resultMessage=null;
-	private final String inputBasePath=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/download/";
-	private final String outputBasePath=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/webapp/";
+	private String CACHEPATH=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/cache/";
+	private String INSTALLPATH=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/WebApp/";
+	
+	private LoadInfo loadInfo=null;
+	
+	private HashMap<String,PackageDownLoader> downloaders=null;
+	private HashMap<String,LoadInfo> loadInfos=null;
+	private HashMap<String,AppMarketListInfo> listinfos=new HashMap<String,AppMarketListInfo>();
+	
+	private Handler mHandler=new Handler(){
+		@Override
+		public void handleMessage(Message message){
+			if(message.what==1){
+				
+				String url=(String)message.obj;
+				loadInfo=loadInfos.get(url);
+				loadInfo.increase(message.arg1);
+				
+				Intent broadcastIntent=new Intent("com.webapp.broadcast.DOWNLOAD_PROGRESS");
+				//broadcastIntent.addCategory("com.webapp.broadcast.mycategory");
+				broadcastIntent.putExtra("url", url);
+				sendBroadcast(broadcastIntent);
+				//如果下载完成清除下载器和对应下载信息
+				if(loadInfo.getComplete()>=loadInfo.getFileSize()){
+					clear(url);
+				}
+			}
+		}
+	};
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -25,37 +57,44 @@ public class DownloadService extends Service{
 	
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
+		webAppApplication=(WebAppApplication)getApplication();
+		loadInfos=webAppApplication.getLoadInfos();
+		downloaders=webAppApplication.getDownloaders();
+		
 		super.onCreate();
 	}
 	
 	//每次用户点击ListActivity当中的一个条目时，就会调用该方法
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		AppMarketListInfo adapterInfo=(AppMarketListInfo)intent.getExtras().get("info");
+		//下载地址
+		downloadurl=adapterInfo.getDownloadurl();
+		String installerName=downloadurl.substring(downloadurl.lastIndexOf("/")+1);
+		installerName.substring(0,installerName.lastIndexOf("."));
 		
-		// get the downloadurl from the start Activity
-		downloadurl=intent.getStringExtra("downloadurl");
+		listinfos.put(downloadurl, adapterInfo);
 		
-		//Create a new Thread for download the package from the app server
-		new Thread(){
-			public void run(){
-				String appName=downloadurl.substring(downloadurl.lastIndexOf("/")+1);
-				HttpDownloader httpDownloader = new HttpDownloader();
-				int result = httpDownloader.downFile(downloadurl,appName);
-				
-				if(result==-1){
-					resultMessage="download fail!!!";
-				}else{
-					if(result==1){
-						resultMessage="file already exit";
-					}else{
-						resultMessage="download success!";
-					}
-					install(appName);
-				}
-			}
-		}.start();
+		//每个下载器分配的线程数
+		int threadCount=2;
 		
+		PackageDownLoader downloader=downloaders.get(downloadurl);
+		if(downloader==null){
+			downloader=new PackageDownLoader(downloadurl,CACHEPATH+installerName,threadCount,this,mHandler);
+			downloaders.put(downloadurl, downloader);
+		}
+		
+		if(downloader.isDownloading()){
+			return super.onStartCommand(intent, flags, startId);
+		}
+		//获得loadInfo的信息
+		loadInfo=downloader.getDownLoaderInfo();
+		loadInfo.setAppName(adapterInfo.getAppName());
+		loadInfo.setImageurl(adapterInfo.getImageurl());
+		loadInfo.setState(downloader.getState());
+		loadInfos.put(downloadurl, loadInfo);
+		
+		downloader.download();
 		return super.onStartCommand(intent, flags, startId);
 	}
 	
@@ -64,61 +103,9 @@ public class DownloadService extends Service{
 		Log.d("yxf_download","onDestroy");
 	}
 	
-	
-	class DownloadThread implements Runnable{
-		private String name = "";
-		public DownloadThread(String name){
-			this.name = name;
-		}
-		@Override
-		public void run() {
-			String dataPath = getApplicationContext().getFilesDir().getAbsolutePath();
-			Log.d("LogDemo", dataPath);
-			Log.d("LogDemo", Thread.currentThread().getId() + "");
-			String fileUrl = "http://192.168.1.123:8080/WebApp/" + name + ".zip";
-			//生成下载文件所用的对象
-			HttpDownloader httpDownloader = new HttpDownloader();
-			//将文件下载下来，并存储到SDCard当中
-			int result = httpDownloader.downFile(fileUrl,name + ".zip");
-			String resultMessage = null;
-			if(result == -1){
-				resultMessage = "下载失败";
-			}
-			else if(result == 0){
-				resultMessage = "文件下载成功";
-				try {
-					Log.d("LogDemo", "解压");
-					ZipFactory.UnzipFiles(dataPath + "/WebApp/" + name + ".zip", dataPath + "/WebApp/" + name + "/");
-					Log.d("LogDemo", "after unzip");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			else if(result == 1){
-				resultMessage = "文件已经存在，不需要重复下载";
-				try {
-					Log.d("LogDemo", "解压");
-					ZipFactory.UnzipFiles(dataPath + "/WebApp/" + name+ ".zip", dataPath + "/WebApp/" + name + "/");
-					Log.d("LogDemo", "after unzip");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			//使用Notification提示客户下载结果
-			
-			Log.d("LogDemo", resultMessage);
-		}
-		
-	}
-	
-	public void install(String appName){
-		String inputPath=inputBasePath+appName;
-		Log.d("yxf_install", outputBasePath);
-		try {
-			ZipFactory.UnzipFiles(inputPath, outputBasePath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private void clear(String url){
+		listinfos.remove(url);
+		downloaders.get(url).delete(url);
+		downloaders.remove(url);
 	}
 }

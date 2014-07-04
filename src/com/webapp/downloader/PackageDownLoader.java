@@ -18,15 +18,15 @@ import com.webapp.sqlite.Dao;
 
 public class PackageDownLoader {
 
-	private String urlString;   //обть╣д╣ьж╥
-	private String localFile;   //нд╪Ч╠ё╢Фб╥╬╤
-	private int threadCount;    //оъЁлйЩ
-	private Handler mHandler;   //оШо╒╢╕юМфВ
-	private Dao dao;    //йЩ╬щ©Б╣д╧╓╬ъюЮ
-	private int fileSize;    //кЫобть╣днд╪Ч╣д╢Сп║
-	private List<DownloadInfo> infos;    //╢Ф╥еобтьпео╒юЮ╣д╪╞╨о
+	private String urlString;   //О©╫О©╫О©╫ь╣д╣О©╫ж╥
+	private String localFile;   //О©╫д╪О©╫О©╫О©╫О©╫О©╫б╥О©╫О©╫
+	private int threadCount;    //О©╫ъЁО©╫О©╫О©╫
+	private Handler mHandler;   //О©╫О©╫о╒О©╫О©╫О©╫О©╫О©╫О©╫
+	private Dao dao;    //О©╫О©╫щ©О©╫д╧О©╫О©╫О©╫О©╫О©╫
+	private int fileSize;    //О©╫О©╫О©╫О©╫О©╫ь╣О©╫О©╫д╪О©╫О©╫д╢О©╫п║
+	private List<DownloadInfo> infos;    //О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒О©╫О©╫д╪О©╫О©╫О©╫
 	
-	//╤╗рЕхЩжжобтьв╢л╛ё╨ЁУй╪╩╞в╢л╛1ё╛уЩтзобтьв╢л╛2ё╛тщмёв╢л╛3
+	//О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫в╢л╛О©╫О©╫О©╫О©╫й╪О©╫О©╫в╢л╛1О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫в╢л╛2О©╫О©╫О©╫О©╫мёв╢л╛3
 	private static final int INIT=1;
 	private static final int DOWNLOADING=2;
 	private static final int PAUSE=3;
@@ -42,33 +42,29 @@ public class PackageDownLoader {
 	}
 	
 	/*
-	 * еп╤ойг╥Ятзобть
+	 * О©╫п╤О©╫О©╫г╥О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 	 * */
 	public boolean isDownloading() {
 		return state==DOWNLOADING;
 	}
 	/*
-	 * еп╤ойг╥Ятзтщмёв╢л╛
+	 * О©╫п╤О©╫О©╫г╥О©╫О©╫О©╫О©╫О©╫мёв╢л╛
 	 * */
 	public boolean isPause() {
 		return state==PAUSE;
 	}
-	/*
-	 * ╣ц╣╫downloaderюО╣дпео╒
-	 * йвох╫Ьппеп╤ойг╥Яйг╣зр╩╢нобтьё╛хГ╧Шйг╣зр╩╢н╬мр╙╫ЬппЁУй╪╩╞ё╛╡╒╫╚обтьфВ╣дпео╒╠ё╢Ф╣╫йЩ╬щ©Бжп
-	 * хГ╧Ш╡╩йг╣зр╩╢нобтьё╛дг╬мр╙╢сйЩ╬щ©Бжп╤ю╢╕ж╝г╟обть╣дпео╒ё╗фПй╪н╩жцё╛╫АйЬн╩жцё╛нд╪Ч╢Сп║╣хё╘ё╛╡╒╫╚обтьпео╒╥╣╩ь╦ЬобтьфВ
-	 * */
+	
 	public LoadInfo getDownLoaderInfo() {
 		if(isFirst(urlString)) {
 			init();
 			int range=fileSize/threadCount;
 			infos=new ArrayList<DownloadInfo>();
-			//╫╚n-1╦ЖоъЁл╥жеДхннЯ
+			//О©╫О©╫n-1О©╫О©╫О©╫ъЁл╥О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 			for(int i=0;i<threadCount-1;i++) {
 				DownloadInfo info=new DownloadInfo(i,i*range,(i+1)*range,0,urlString);
 				infos.add(info);
 			}
-			//╦Ь╣зn╦ЖоъЁл╥жеДхннЯ
+			//О©╫О©╫О©╫nО©╫О©╫О©╫ъЁл╥О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 			DownloadInfo info=new DownloadInfo(
 					threadCount-1,
 					(threadCount-1)*range,
@@ -76,14 +72,10 @@ public class PackageDownLoader {
 					0,
 					urlString);
 			infos.add(info);
-			
-			//╠ё╢Фinfosжп╣дйЩ╬щ╣╫йЩ╬щ©Бжп
 			dao.saveInfos(infos);
-			//╢╢╫╗р╩╦ЖLoadInfo╤тоС╪гтьобтьфВ╣д╬ълЕпео╒
 			LoadInfo loadInfo=new LoadInfo(fileSize,0,urlString);
 			return loadInfo;
 		} else {
-			//╣ц╣╫йЩ╬щ©Бжпрясп╣дurlString╣добтьфВ╣д╬ълЕпео╒
 			infos=dao.getInfos(urlString);
 			int size=0;
 			int completeSize=0;
@@ -97,14 +89,14 @@ public class PackageDownLoader {
 	
 	
 	/*
-	 * еп╤ойг╥Яйг╣зр╩╢нобть
+	 * О©╫п╤О©╫О©╫г╥О©╫О©╫г╣О©╫р╩О©╫О©╫О©╫О©╫О©╫О©╫
 	 * */
 	private boolean isFirst(String urlString) {
 		return !dao.isHasInfos(urlString);
 	}
 	
 	/*
-	 * ЁУй╪╩╞
+	 * О©╫О©╫й╪О©╫О©╫
 	 * */
 	private void init() {
 		try {
@@ -118,7 +110,7 @@ public class PackageDownLoader {
 			if(!file.exists()) {
 				file.createNewFile();
 			}
-			//╠╬╣ь╥цнйнд╪Ч
+			//О©╫О©╫О©╫ь╥О©╫О©╫О©╫О©╫д╪О©╫
 			RandomAccessFile accessFile=new RandomAccessFile(file, "rwd");
 			accessFile.setLength(fileSize);
 			accessFile.close();
@@ -130,7 +122,7 @@ public class PackageDownLoader {
 	}
 	
 	/*
-	 * юШсцоъЁл©╙й╪обтьйЩ╬щ
+	 * О©╫О©╫О©╫О©╫О©╫ъЁл©О©╫й╪О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 	 * */
 	public void download() {
 
@@ -180,20 +172,20 @@ public class PackageDownLoader {
 				connection=(HttpURLConnection)url.openConnection();
 				connection.setConnectTimeout(5000);
 				connection.setRequestMethod("GET");
-				//иХжц╥╤н╖ё╛╦Яй╫н╙Range:bytes x-y
+				//О©╫О©╫О©╫ц╥О©╫н╖О©╫О©╫О©╫О©╫й╫н╙Range:bytes x-y
 				connection.setRequestProperty("Range", "bytes="+(startPos+completeSize)+"-"+endPos);
 				randomAccessFile=new RandomAccessFile(localFile, "rwd");
 				randomAccessFile.seek(startPos+completeSize);
-				//╫╚р╙обть╣днд╪Чп╢╣╫╠ё╢Фб╥╬╤об╣днд╪Чжп
+				//О©╫О©╫р╙О©╫О©╫О©╫ь╣О©╫О©╫д╪О©╫п╢О©╫О©╫О©╫О©╫О©╫О©╫б╥О©╫О©╫О©╫б╣О©╫О©╫д╪О©╫О©╫О©╫
 				is=connection.getInputStream();
 				int length=-1;
 				byte[] buffer=new byte[4*1024];
 				while((length=is.read(buffer))!=-1){
 					randomAccessFile.write(buffer, 0, length);
 					completeSize+=length;
-					//╦ЭпбйЩ╬щ©Бжп╣добтьпео╒
+					//О©╫О©╫О©╫О©╫О©╫О©╫щ©О©╫О©╫п╣О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒
 					dao.updateInfos(threadId, completeSize, urlString);
-					//сцоШо╒╫╚обтьпео╒╢╚╦Ь╫Ь╤хлУё╛╤т╫Ь╤хлУ╫Ьпп╦Эпб
+					//О©╫О©╫О©╫О©╫о╒О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╦О©╫О©╫О©╫
 					Message message=Message.obtain();
 					message.what=1;
 					message.obj=urlString;
@@ -221,20 +213,25 @@ public class PackageDownLoader {
 		}
 	}
 
-	//и╬ЁЩйЩ╬щ©Бжп╤тс╕╣добтьфВпео╒
+	//и╬О©╫О©╫О©╫О©╫щ©О©╫О©╫п╤О©╫с╕О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫о╒
 	public void delete(String urlString) {
 		dao.delete(urlString);
 	}
 	
-	//иХжцтщмё
+	//Ф ┌Е│°
 	public void pause() {
 		state=PAUSE;
 	}
-	//жьжцобтьв╢л╛
+	
 	public void reset() {
 		state=INIT;
 	}
-	//в╙╩╩Ёивж╥Ш╢╝╣д╨╞йЩ
+	
+	//Х©■Е⌡·Д╦▀Х╫╫Е≥╗Г └Е╫⌠Е┴█Г┼╤Ф─│
+	public int getState(){
+		return state;
+	}
+	
 	@Override
 	public String toString(){
 		return "Downloader [ urlString="+urlString

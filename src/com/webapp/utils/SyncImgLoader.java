@@ -1,18 +1,25 @@
 package com.webapp.utils;
 
-import java.io.IOException;
 import java.lang.ref.SoftReference;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
+import com.webapp.application.WebAppApplication;
+
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 public class SyncImgLoader {
-	private HashMap<String,SoftReference<Drawable>> imageCache=new HashMap<String,SoftReference<Drawable>>();
+	private HashMap<String,SoftReference<Drawable>> imageCache=null;
+	private Context context=null;
+	
+	public SyncImgLoader(Context context){
+		this.context=context;
+		WebAppApplication application=(WebAppApplication)context.getApplicationContext();
+		imageCache=application.getImageCache();
+	}
 	public Drawable loadImageFromUrl(String imageUrl){
 		try {
 			return Drawable.createFromStream(new URL(imageUrl).openStream(),"src");
