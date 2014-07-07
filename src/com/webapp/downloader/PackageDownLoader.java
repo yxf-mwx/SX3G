@@ -26,10 +26,10 @@ public class PackageDownLoader {
 	private int fileSize;    //�����ص��ļ��Ĵ�С
 	private List<DownloadInfo> infos;    //���������Ϣ��ļ���
 	
-	//������������״̬����ʼ��״̬1����������״̬2����ͣ״̬3
-	private static final int INIT=1;
-	private static final int DOWNLOADING=2;
-	private static final int PAUSE=3;
+	//
+	public static final int INIT=1;
+	public static final int DOWNLOADING=2;
+	public static final int PAUSE=3;
 	
 	private int state=INIT;
 	
@@ -96,7 +96,7 @@ public class PackageDownLoader {
 	}
 	
 	/*
-	 * ��ʼ��
+	 *下载器初始化
 	 * */
 	private void init() {
 		try {
@@ -122,7 +122,7 @@ public class PackageDownLoader {
 	}
 	
 	/*
-	 * �����߳̿�ʼ�������
+	 * 
 	 * */
 	public void download() {
 
@@ -221,6 +221,11 @@ public class PackageDownLoader {
 	//暂停
 	public void pause() {
 		state=PAUSE;
+		Message message=Message.obtain();
+		message.what=2;
+		message.obj=urlString;
+		mHandler.sendMessage(message);
+		
 	}
 	
 	public void reset() {

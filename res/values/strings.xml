@@ -3,4 +3,6 @@
     <string name="hello">Hello World, ZPagedHScrollTableActivity!</string>
     <string name="app_name">ZPagedHScrollTable</string>
     <color name="white">#FFFFFF</color>
+    <string name="download">下载</string>
+    <string name="pause">暂停</string>
 </resources>

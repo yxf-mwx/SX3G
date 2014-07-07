@@ -17,7 +17,7 @@ public class Dao {
 	}
 	
 	/*
-	 * ²é¿´Êý¾Ý¿âÖÐÊÇ·ñÓÐÊý¾Ý
+	 * ï¿½é¿´ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * */
 	public boolean isHasInfos(String urlString) {
 		SQLiteDatabase database = dbHelper.getReadableDatabase();
@@ -26,11 +26,12 @@ public class Dao {
 		cursor.moveToFirst();
 		int count=cursor.getInt(0);
 		cursor.close();
+		database.close();
 		return count!=0;
 	}
 	
 	/*
-	 * ±£´æ ÏÂÔØµÄ¾ßÌåÐÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ØµÄ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * */
 	public void saveInfos(List<DownloadInfo> infos) {
 		SQLiteDatabase database=dbHelper.getWritableDatabase();
@@ -41,10 +42,11 @@ public class Dao {
 					info.getCompleteSize(),info.getUrl()};
 			database.execSQL(sql,bindArgs);
 		}
+		database.close();
 	}
 	
 	/*
-	 * µÃµ½ÏÂÔØµÄ¾ßÌåÐÅÏ¢
+	 * ï¿½Ãµï¿½ï¿½ï¿½ï¿½ØµÄ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * */
 	public List<DownloadInfo> getInfos(String urlString) {
 		List<DownloadInfo> list=new ArrayList<DownloadInfo>();
@@ -61,28 +63,30 @@ public class Dao {
 			list.add(info);
 		}
 		cursor.close();
+		database.close();
 		return list;
 	}
 	
 	/*
-	 * ¸üÐÂÊý¾Ý¿âÖÐµÄÏÂÔØÐÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * */
 	public void updateInfos(int threadId, int completeSize, String urlString) {
 		SQLiteDatabase database=dbHelper.getWritableDatabase();
 		String sql="update download_info set complete_size=? where thread_id=? and url=?";
 		Object[] bindArgs={completeSize, threadId, urlString};
 		database.execSQL(sql,bindArgs);
+		database.close();
 	}
 	
 	/*
-	 * ¹Ø±ÕÊý¾Ý¿â
+	 * ï¿½Ø±ï¿½ï¿½ï¿½Ý¿ï¿½
 	 * */
 	public void closeDb() {
 		dbHelper.close();
 	}
 	
 	/*
-	 * ÏÂÔØÍê³ÉºóÉ¾³ýÊý¾Ý¿âÖÐµÄÊý¾Ý
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½É¾ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½
 	 * */
 	
 	public void delete(String url) {

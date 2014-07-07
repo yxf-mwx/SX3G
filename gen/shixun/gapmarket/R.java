@@ -52,29 +52,28 @@ public final class R {
         public static final int zpaged_hscroll_table_up_arrow=0x7f020022;
     }
     public static final class id {
-        public static final int appIcon=0x7f080011;
-        public static final int appName=0x7f080012;
-        public static final int btnAffirm=0x7f080014;
-        public static final int btnCancel=0x7f080015;
-        public static final int container=0x7f08000f;
+        public static final int appIcon=0x7f080010;
+        public static final int appName=0x7f080011;
+        public static final int btnAffirm=0x7f080013;
+        public static final int btnCancel=0x7f080014;
+        public static final int container=0x7f08000e;
         public static final int download=0x7f080001;
+        public static final int download_manager_controlbutton=0x7f080007;
         public static final int download_manager_item_appname=0x7f080003;
         public static final int download_manager_item_icon=0x7f080002;
         public static final int download_manager_item_progressbar=0x7f080004;
         public static final int download_manager_item_radio=0x7f080006;
         public static final int download_manager_item_size=0x7f080005;
         public static final int hello=0x7f080000;
-        public static final int linear=0x7f080010;
-        public static final int market_list_item_cancelbtn=0x7f08000d;
-        public static final int market_list_item_downloadbtn=0x7f08000b;
-        public static final int market_list_item_icon=0x7f080007;
-        public static final int market_list_item_name=0x7f080009;
-        public static final int market_list_item_pausebtn=0x7f08000c;
-        public static final int market_list_item_shortdescription=0x7f08000e;
-        public static final int market_list_item_size=0x7f08000a;
-        public static final int marketlist_item_information=0x7f080008;
-        public static final int moreapp_empty=0x7f080016;
-        public static final int text=0x7f080013;
+        public static final int linear=0x7f08000f;
+        public static final int market_list_item_downloadbtn=0x7f08000c;
+        public static final int market_list_item_icon=0x7f080008;
+        public static final int market_list_item_name=0x7f08000a;
+        public static final int market_list_item_shortdescription=0x7f08000d;
+        public static final int market_list_item_size=0x7f08000b;
+        public static final int marketlist_item_information=0x7f080009;
+        public static final int moreapp_empty=0x7f080015;
+        public static final int text=0x7f080012;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -88,7 +87,9 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f050001;
+        public static final int download=0x7f050002;
         public static final int hello=0x7f050000;
+        public static final int pause=0x7f050003;
     }
     public static final class style {
         public static final int zPagedHScrollTableColHead=0x7f070000;

@@ -10,16 +10,16 @@
          android:background="#00f"
         />
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="fill_parent" 
         android:orientation="vertical"
+        android:layout_weight="1"
         >
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/download_manager_item_appname"
-            android:text="appName" 
             />
         <ProgressBar
             android:layout_height="0dp"
@@ -35,7 +35,7 @@
             >
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:id="@+id/download_manager_item_size" 
                 />
@@ -48,6 +48,11 @@
                 />
         </LinearLayout>
     </LinearLayout>
-    
+    <Button 
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:id="@+id/download_manager_controlbutton"
+        android:text="@string/download"
+        />
 
 </LinearLayout>

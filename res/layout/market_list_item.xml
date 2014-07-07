@@ -50,20 +50,6 @@
                android:id="@+id/market_list_item_downloadbtn"
                android:text="下载"
                />
-			<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/market_list_item_pausebtn"
-			android:text="暂停"
-			/>
-			<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/market_list_item_cancelbtn"
-			android:text="取消"
-			/>
-			
-            
         </LinearLayout>
         <TextView 
                 android:layout_width="fill_parent"

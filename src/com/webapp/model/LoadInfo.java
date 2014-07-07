@@ -1,6 +1,8 @@
 package com.webapp.model;
 
-public class LoadInfo {
+import java.io.Serializable;
+
+public class LoadInfo implements Serializable{
 	private int fileSize;   
 	private int complete;   
 	private String urlString;

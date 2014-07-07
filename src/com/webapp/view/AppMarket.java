@@ -38,7 +38,6 @@ public class AppMarket extends Activity {
 		super.onCreate(savedInstanceState);
 		linearLayout=new LinearLayout(this);
 		linearLayout.setBackgroundColor(Color.WHITE);
-		linearLayout.setOrientation(LinearLayout.VERTICAL);
 		
 		final Handler handler=new Handler(){
 			@Override
@@ -48,8 +47,8 @@ public class AppMarket extends Activity {
 		};
 		
 		downloadList(handler);
-		ProgressBar progressBar=new ProgressBar(this);
 		linearLayout.setGravity(Gravity.CENTER);
+		ProgressBar progressBar=new ProgressBar(this);
 		linearLayout.addView(progressBar);
 		setContentView(linearLayout);
 	}
@@ -60,6 +59,7 @@ public class AppMarket extends Activity {
 	private void loadList(){
 		MarketListAdapter listAdapter=new MarketListAdapter(this, R.layout.market_list_item, list);
 		linearLayout.removeAllViews();
+		linearLayout.setOrientation(LinearLayout.VERTICAL);
 		linearLayout.setGravity(Gravity.TOP);
 		listview=new ListView(this);
 		RelativeLayout.LayoutParams param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -92,7 +92,7 @@ public class AppMarket extends Activity {
 		new Thread(){
 			public void run(){
 				try {
-					InputStream is=new URL("http://192.168.1.111:8080/SX3G/downloadlist.xml").openStream();
+					InputStream is=new URL("http://110.64.88.69:8080/SX3G/downloadlist.xml").openStream();
 					XMLProduct xmlProduct=new XMLProduct(list);
 					xmlProduct.getInformation(is);
 					/*for(int i=0;i<list.size();i++)
