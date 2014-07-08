@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
 public class AppDownloaded extends Activity {
@@ -73,18 +74,10 @@ public class AppDownloaded extends Activity {
         	//本地无应用
         	Log.d("LogDemo1", list.size() + " 本地应用数量");
         	if (list.size() == 0) {
-        		setContentView(R.layout.view_notification_empty);
-        		Button btnMoreApp = (Button)findViewById(R.id.moreapp_empty);
-        		btnMoreApp.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						Intent intent = new Intent();
-						intent.setClass(AppDownloaded.this, AppMarket.class);
-						startActivity(intent);
-					}
-				});
+        		TextView textNoApp = new TextView(AppDownloaded.this);
+        		textNoApp.setText("NO APP DOWNLOADED!" + "\n" + "PLEASE CLICK THE BUTTON\n" + "在线" + "TO DOWNLOAD APPS.");
+        		textNoApp.setPadding(winWidth/5, winHeight/4, winWidth/6, winHeight/3);
+        		tbLayout1.addView(textNoApp);
         		break;
         	}
         	int temp = list.size() % 3 == 0? list.size() / 3: list.size() / 3 + 1;
