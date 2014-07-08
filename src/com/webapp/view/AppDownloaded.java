@@ -140,6 +140,7 @@ public class AppDownloaded extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(AppDownloaded.this, AppMarket.class);
 				startActivity(intent);
+				finish();
 			}
 		});
 	}
@@ -194,7 +195,6 @@ public class AppDownloaded extends Activity {
             exitTime = System.currentTimeMillis();   
         } else {
             finish();
-            System.exit(0);
         }
   		return true;
   	}

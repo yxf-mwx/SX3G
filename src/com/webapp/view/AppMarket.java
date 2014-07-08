@@ -59,6 +59,7 @@ public class AppMarket extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(AppMarket.this, AppDownloaded.class);
 				startActivity(intent);
+				finish();
 			}
 		});
 		Button btnDownloadManage=(Button)findViewById(R.id.managerOnline);
@@ -113,6 +114,7 @@ public class AppMarket extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(AppMarket.this, AppDownloaded.class);
 			startActivity(intent);
+			finish();
 		}
 		return true;
 	}

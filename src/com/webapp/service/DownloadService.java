@@ -50,7 +50,6 @@ public class DownloadService extends Service{
 				LoadInfo loadInfo=loadInfos.get(url);
 				loadInfo.increase(message.arg1);
 				
-				//broadcastIntent.addCategory("com.webapp.broadcast.mycategory");
 				broadcastIntent.putExtra("url", url);
 				broadcastIntent.putExtra("command", 1);
 				sendBroadcast(broadcastIntent);

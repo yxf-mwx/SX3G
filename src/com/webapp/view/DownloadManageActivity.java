@@ -86,7 +86,7 @@ public class DownloadManageActivity extends Activity {
 					
 					//如果 loadInfo 已经不存在了,就清除它的view
 					} else {
-						clear(url, loadInfo);
+						clear(url);
 					}
 					break;
 				case 2:
@@ -184,7 +184,7 @@ public class DownloadManageActivity extends Activity {
 	}
 
 	//删除activity中的相应的视图
-	private void clear(String url, LoadInfo loadInfo) {
+	private void clear(String url) {
 			mainLayout.removeView(listItems.get(url));
 			listItems.remove(url);
 	}
@@ -226,11 +226,9 @@ public class DownloadManageActivity extends Activity {
 		
 		@Override
 		public void onClick(View v) {
-			downloaders.get(url).pause();
-			downloaders.get(url).delete(url);
-			downloaders.remove(url);
-			loadInfos.remove(url);
-			
+			intent.putExtra("command", 1);
+			intent.putExtra("url", url);
+			startService(intent);
 		}
 	}
 	private String NumtoSize(int size){
