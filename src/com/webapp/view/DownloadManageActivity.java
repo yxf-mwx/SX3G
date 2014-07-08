@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -101,7 +103,6 @@ public class DownloadManageActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		webAppApplication = (WebAppApplication) getApplication();
 		downloaders = webAppApplication.getDownloaders();
 		loadInfos = webAppApplication.getLoadInfos();
@@ -220,15 +221,38 @@ public class DownloadManageActivity extends Activity {
 	public class CancelOnClickListener implements OnClickListener{
 
 		private String url=null;
+		Handler mHandler=new Handler(){
+			@Override
+			public void handleMessage(Message message){
+				intent.putExtra("command", 2);
+				intent.putExtra("url", url);
+				startService(intent);
+			}
+		};
+		
 		public CancelOnClickListener(String url){
 			this.url=url;
 		}
 		
 		@Override
 		public void onClick(View v) {
-			intent.putExtra("command", 1);
 			intent.putExtra("url", url);
+			intent.putExtra("command", 1);
 			startService(intent);
+			new Thread(new Runnable(){
+
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					mHandler.sendEmptyMessage(0);
+				}
+				
+			}).start();
 		}
 	}
 	private String NumtoSize(int size){
