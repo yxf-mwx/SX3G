@@ -69,7 +69,6 @@ public class ZipFactory {
 		
 		File inputFile=new File(inputFileName);
 		if(!inputFile.exists()){
-			Log.d("LogDemo",inputFileName);
 			return ;
 		}
 		
@@ -92,7 +91,6 @@ public class ZipFactory {
 			if(new File(outPath).isDirectory()) {
 				continue;
 			}
-			Log.d("LogDemo", outPath);
 			
 			OutputStream os=new FileOutputStream(outPath);
 			byte[] buffer=new byte[1024];

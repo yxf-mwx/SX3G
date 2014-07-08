@@ -91,7 +91,6 @@ public class DownloadManageActivity extends Activity {
 					}
 					break;
 				case 2:
-					Log.d("yxf_download_manager_89",url);
 					break;
 				default:
 				}

@@ -1,18 +1,12 @@
 package com.webapp.ui;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.List;
 
 import shixun.gapmarket.R;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,13 +15,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.webapp.application.WebAppApplication;
 import com.webapp.model.AppMarketListInfo;
-import com.webapp.model.LoadInfo;
 import com.webapp.service.DownloadService;
 import com.webapp.utils.CallBackImplements;
 import com.webapp.utils.SyncImgLoader;
@@ -75,7 +65,6 @@ public class MarketListAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup ViewGroup) {
 		AppMarketListInfo info=list.get(position);
-		String url=info.getDownloadurl();
 		
 		String inflater=Context.LAYOUT_INFLATER_SERVICE;
 		LayoutInflater layoutInflater=(LayoutInflater)context.getSystemService(inflater);
@@ -133,6 +122,8 @@ public class MarketListAdapter extends BaseAdapter{
 			}
 		}
 	}
+	
+	//把数值转换成带单位的文件大小
 	private String NumtoSize(int size){
 		String[] s={"B","KB","MB","GB"};
 		DecimalFormat df=new DecimalFormat("#.00");
