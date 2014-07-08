@@ -9,7 +9,6 @@ import java.util.List;
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,7 +16,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -51,7 +49,6 @@ public class AppMarket extends Activity {
 		ProgressBar progressBar=new ProgressBar(this);
 		relativeLayout.setGravity(Gravity.CENTER);
 		relativeLayout.addView(progressBar);
-		//setContentView(linearLayout);
 		
 		Button btnlocalButton = (Button) findViewById(R.id.local);
 		btnlocalButton.setOnClickListener(new OnClickListener() {

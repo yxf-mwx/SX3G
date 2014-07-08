@@ -227,6 +227,10 @@ public class DownloadManageActivity extends Activity {
 		
 		@Override
 		public void onClick(View v) {
+			downloaders.get(url).pause();
+			downloaders.get(url).delete(url);
+			downloaders.remove(url);
+			loadInfos.remove(url);
 			
 		}
 	}
