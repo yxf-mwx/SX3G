@@ -103,7 +103,7 @@ public class AppDownloaded extends Activity {
 					}
                 	tbRow.addView(imgButton);
     			}
-            	tbRow.setPadding(winWidth/4 - 55, i == 0?winHeight/5 - 64:0, winWidth/4 - 55, i == 2?winHeight/5 - 50:winHeight/5 - 80);
+            	tbRow.setPadding(winWidth/12, i == 0?winHeight/12:0, winWidth/9, winHeight/15-20);
             	tbLayout1.addView(tbRow);
 			} else {
 				//空tablerow
@@ -113,7 +113,7 @@ public class AppDownloaded extends Activity {
 				imgButton.setImageResource(R.drawable.empty);
 				imgButton.setBackgroundColor(0);
 				tbRow.addView(imgButton);
-				tbRow.setPadding(winWidth/4 - 55, i == 0?winHeight/5 - 64:0, winWidth/4 - 55, i == 2?winHeight/5 - 50:winHeight/5 - 80);
+				tbRow.setPadding(winWidth/12, i == 0?winHeight/12:0, winWidth/9, winHeight/15-20);
             	tbLayout1.addView(tbRow);
 			}
 		}

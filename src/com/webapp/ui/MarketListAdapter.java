@@ -113,7 +113,6 @@ public class MarketListAdapter extends BaseAdapter{
 				intent.putExtra("info", info);
 				intent.putExtra("command", 0);
 				context.startService(intent);
-				
 			}else if("暂停".equals(btn.getText().toString())){
 				btn.setText("下载");
 				intent.putExtra("info", info);
