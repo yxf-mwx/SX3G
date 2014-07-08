@@ -1,5 +1,6 @@
 package com.webapp.view;
 
+import java.io.File;
 import java.util.List;
 
 import shixun.gapmarket.R;
@@ -17,6 +18,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 
 import com.webapp.application.WebAppApplication;
@@ -29,7 +31,7 @@ public class UninstallAffirm extends Activity {
 	private AppDownloadedInfo appToBeUninstall;
 	private Intent intent;
 	private final static int UNINSTALL_FINISHED = 0;
-	
+	private final static int UNINSTALL_ING = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);   
@@ -55,7 +57,19 @@ public class UninstallAffirm extends Activity {
     	Handler handler = new Handler(){
 			@Override
 			public void handleMessage(Message msg) {
-				list.remove(position);
+				switch (msg.what) {
+				case UNINSTALL_ING:
+					//更新Application对象中的全局变量
+					list.remove(position);
+					Toast.makeText(getApplicationContext(), "正在删除...", Toast.LENGTH_SHORT).show();
+					break;
+				case UNINSTALL_FINISHED:
+					intent.setClass(UninstallAffirm.this, AppManager.class);
+					startActivity(intent);
+					break;
+				default:
+					break;
+				}
 			}
     	};
     	btnAffirm.setOnClickListener(new AffirmClickListener(handler));
@@ -75,14 +89,34 @@ public class UninstallAffirm extends Activity {
 			new Thread(){
 				public void run(){
 					DatabaseHandler.deleteAppInDB(UninstallAffirm.this, appToBeUninstall);
-					//更新Application对象中的全局变量
 					Message msg = Message.obtain();
-					msg.what = UNINSTALL_FINISHED;
+					msg.what = UNINSTALL_ING;
 					handler.sendMessage(msg);
-					intent.setClass(UninstallAffirm.this, AppManager.class);
-					startActivity(intent);
+					//递归删除应用文件
+					File file = new File(appToBeUninstall.getAppPath());
+					Message msg1 = Message.obtain();
+					deleteAppFiles(file);
+					msg1.what = UNINSTALL_FINISHED;
+					handler.sendMessage(msg1);
 				}
 			}.start();
+		}
+		
+		private void deleteAppFiles(File file){
+			
+			if(file.exists()){
+				if(file.isFile()){                         //判断是否是文件
+					file.delete();
+			    }else if(file.isDirectory()){              //否则如果它是一个目录
+			    	File files[] = file.listFiles();       //声明目录下所有的文件 files[];
+			    	for(int i=0;i<files.length;i++){       //遍历目录下所有的文件
+			    		this.deleteAppFiles(files[i]);     //把每个文件用这个方法进行迭代
+			    	}
+			    }
+				file.delete(); 
+			}else{ 
+				System.out.println("所删除的文件不存在！"+'\n'); 
+			} 
 		}
     }
     class CancelClickListener implements OnClickListener{
