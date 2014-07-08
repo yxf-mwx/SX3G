@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -70,4 +71,16 @@ public class AppManager extends Activity {
 		intent.setClass(AppManager.this, UninstallAffirm.class);
 		startActivity(intent);
 	}
+	
+	//¼àÌýback¼üÊÂ¼þ
+		@Override
+		public boolean onKeyUp(int keyCode, KeyEvent event) {
+			// TODO Auto-generated method stub
+			if (keyCode == 4) {
+				Intent intent = new Intent();
+				intent.setClass(AppManager.this, AppDownloaded.class);
+				startActivity(intent);
+			}
+			return true;
+		}
 }
