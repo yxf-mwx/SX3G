@@ -1,11 +1,10 @@
 package com.webapp.view;
 
+import org.apache.cordova.DroidGap;
+
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-
-import org.apache.cordova.DroidGap;
 
 public class AppMain extends DroidGap {
 	private String appPath = "";

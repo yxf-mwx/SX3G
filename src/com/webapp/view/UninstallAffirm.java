@@ -2,6 +2,7 @@ package com.webapp.view;
 
 import java.util.List;
 
+import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.apache.cordova.DroidGap;
-
 import com.webapp.application.WebAppApplication;
 import com.webapp.model.AppDownloadedInfo;
 import com.webapp.sqlite.DatabaseHandler;
-
-import shixun.gapmarket.R;
 
 public class UninstallAffirm extends Activity {
 	

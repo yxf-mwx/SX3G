@@ -2,15 +2,11 @@ package com.webapp.view;
 
 import java.util.List;
 
-import com.webapp.application.WebAppApplication;
-import com.webapp.model.AppDownloadedInfo;
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -18,12 +14,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView.ScaleType;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
+
+import com.webapp.application.WebAppApplication;
+import com.webapp.model.AppDownloadedInfo;
 
 public class AppDownloaded extends Activity {
 	private int winWidth;

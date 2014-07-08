@@ -1,17 +1,13 @@
 
 package com.webapp.view;
 
-import shixun.gapmarket.R;
-import java.util.ArrayList;
 import java.util.List;
+
+import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Picture;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -20,7 +16,6 @@ import android.widget.RelativeLayout;
 
 import com.webapp.application.WebAppApplication;
 import com.webapp.model.AppDownloadedInfo;
-import com.webapp.sqlite.DatabaseHandler;
 import com.webapp.ui.ManagerListAdapter;
 
 public class AppManager extends Activity {

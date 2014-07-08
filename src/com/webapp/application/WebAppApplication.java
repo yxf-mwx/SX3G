@@ -8,7 +8,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Application;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.webapp.downloader.PackageDownLoader;
 import com.webapp.model.AppDownloadedInfo;

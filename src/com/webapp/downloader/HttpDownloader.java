@@ -9,8 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import android.util.Log;
-
 import com.webapp.utils.FileUtils;
 
 
