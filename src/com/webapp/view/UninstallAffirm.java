@@ -2,6 +2,7 @@ package com.webapp.view;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +20,8 @@ import com.webapp.sqlite.DatabaseHandler;
 
 import shixun.gapmarket.R;
 
-public class UninstallAffirm extends DroidGap {
+public class UninstallAffirm extends Activity {
+	
 	private List<AppDownloadedInfo> list;
 	private AppDownloadedInfo appToBeUninstall;
 	private Intent intent;

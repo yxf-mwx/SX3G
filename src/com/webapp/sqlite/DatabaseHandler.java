@@ -7,13 +7,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.webapp.application.WebAppApplication;
 import com.webapp.model.AppDownloadedInfo;
 import com.webapp.model.AppMarketListInfo;
 
 public class DatabaseHandler{
 	
 	public static List<AppDownloadedInfo> getAppFromDB(Context context){
-    	DatabaseHelper dbHelper = new DatabaseHelper(context, "WebApp_DB");
+		DatabaseHelper dbHelper = new DatabaseHelper(context, "WebApp_DB");
     	Log.d("LogDemo", "加载应用--> 从数据库取数据");
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		List<AppDownloadedInfo> list = new ArrayList<AppDownloadedInfo>();
@@ -35,6 +37,9 @@ public class DatabaseHandler{
 			list.add(myApp);
 		}
 		Log.d("LogDemo", list.size() + "");
+		cursor.close();
+		db.close();
+		dbHelper.close();
 		return list;
     }
 	
@@ -53,7 +58,19 @@ public class DatabaseHandler{
 			values.put("size", appToBeAdded.getSize());
 			values.put("version", appToBeAdded.getVersion());
 			db.insert("AppInfo", null, values);
+			
+			WebAppApplication application = (WebAppApplication)context.getApplicationContext();
+			
+			//读数据库更新全局变量
+			//List<AppDownloadedInfo> listDownloaded = getAppFromDB(context);
+			//无重复下载情况下不重新读数据库，直接添加
+			List<AppDownloadedInfo> listDownloaded = application.getListDnInfo();
+			listDownloaded.add(appToBeAdded);
+			//application.setListDnInfo(listDownloaded);
+			Log.d("LogDemo1", listDownloaded.size() + " 下载后应用数量");
 		//}
+		db.close();
+		dbHelper.close();	
 	}
 	
 	public static int deleteAppInDB(Context context, AppDownloadedInfo app) {
@@ -62,6 +79,8 @@ public class DatabaseHandler{
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		int i = db.delete("AppInfo", "appID=?", new String[]{app.getAppID()});
 		Log.d("LogDemo", i + " 删除返回");
+		db.close();
+		dbHelper.close();
 		return i;
 	}
 	

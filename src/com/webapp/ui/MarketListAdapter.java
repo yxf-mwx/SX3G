@@ -52,20 +52,20 @@ public class MarketListAdapter extends BaseAdapter{
 	private final String cachePath=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/cache/";
 	private final String installPath=android.os.Environment.getDataDirectory().getPath()+"/data/shixun.gapmarket/webApps/";
 	
-	//´¢´æÏÂÔØĞÅÏ¢µÄ±äÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ä±ï¿½ï¿½ï¿½
 	private LoadInfo loadInfo=null;
-	//´¢´æÏÂÔØĞÅÏ¢ÔÚadapterÖĞµÄ±äÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½adapterï¿½ĞµÄ±ï¿½ï¿½ï¿½
 	private MarketDownloadAdapterInfo adapterInfo=null;
 	
-	//´¦ÀíÏÂÔØĞÅÏ¢µÄHandlerÀà
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Handlerï¿½ï¿½
 	private Handler mHandler=new Handler(){
 		@Override
 		public void handleMessage(Message message){
 			if(message.what==1){
-				//µ±Ç°ÕıÔÚÏÂÔØµÄ×ÊÔ´µÄID
+				//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ô´ï¿½ï¿½ID
 				String url=(String)message.obj;
 				
-				//²éÕÒÕâ¸ö×ÊÔ´ÏÂÔØµÄĞÅÏ¢
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ï¢
 				adapterInfo=loadInfoList.get(url);
 				adapterInfo.increase(message.arg1);
 				progressBars.get(url).incrementProgressBy(message.arg1);
@@ -136,7 +136,7 @@ public class MarketListAdapter extends BaseAdapter{
 		return linearLayout;
 	}
 	
-	//¼ÓÔØÃ¿Ò»ÌõµÄÍ¼Ïñ
+	//ï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 	public void loadImage(String url,ImageView imageView) {
 		CallBackImplements callbackimplement=new CallBackImplements(imageView);
 		Drawable cacheImage=syncImageLoader.loadDrawable(url, callbackimplement);
@@ -145,7 +145,7 @@ public class MarketListAdapter extends BaseAdapter{
 		}
 	}
 	
-	//ÏÂÔØ°´Å¥µÄÏìÓ¦Listener
+	//ï¿½ï¿½ï¿½Ø°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Ó¦Listener
 	public class DownloadButtonListener implements OnClickListener {
 		private String url=null;
 		private String srcpackageName=null;
@@ -170,7 +170,7 @@ public class MarketListAdapter extends BaseAdapter{
 		}
 	}
 	
-	//ÔİÍ£ÏìÓ¦°´Å¥µÄlistener
+	//ï¿½ï¿½Í£ï¿½ï¿½Ó¦ï¿½ï¿½Å¥ï¿½ï¿½listener
 	public class PausebtnListener implements OnClickListener {
 
 		private String url;
@@ -188,7 +188,7 @@ public class MarketListAdapter extends BaseAdapter{
 		
 	}
 	
-	//È¡ÏûÏÂÔØ
+	//È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public class CancelbtnListener implements OnClickListener{
 
 		private String url;
@@ -205,17 +205,16 @@ public class MarketListAdapter extends BaseAdapter{
 		
 	}
 	
-	//°²×°ÎÄ¼ş
+	//ï¿½ï¿½×°ï¿½Ä¼ï¿½
 	private void install(String appName,AppMarketListInfo info){
 		try {
 			ZipFactory.UnzipFiles(cachePath+appName, installPath);
 			AppDownloadedInfo appToBeAdded=new AppDownloadedInfo();
 			appToBeAdded.setAppID(info.getAppName());
 			appToBeAdded.setAppName(info.getAppName());
-			appToBeAdded.setAppPath(installPath+appName.substring(appName.lastIndexOf(".")+1));
+			appToBeAdded.setAppPath(installPath+appName.substring(0, appName.lastIndexOf(".")));
 			appToBeAdded.setSize(info.getSize());
 			appToBeAdded.setVersion(info.getVersion());
-			
 			DatabaseHandler.addAppIntoDB(context, appToBeAdded);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -230,11 +229,11 @@ public class MarketListAdapter extends BaseAdapter{
 	}
 
 	
-	//ÏÂÔØÎÄ¼ş
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 	private void download(String url,String localfile,Context context,String srcpackageName,LinearLayout linearLayout){
-		//ÉèÖÃÏß³ÌÊıÁ¿
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 		int threadCount=2;
-		//³õÊ¼»¯Ò»¸öÏÂÔØÆ÷
+		//ï¿½ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		PackageDownLoader downloader=downloaderList.get(url);
 		if(downloader==null){
 			downloader=new PackageDownLoader(url,localfile,threadCount,context,mHandler);
@@ -244,16 +243,16 @@ public class MarketListAdapter extends BaseAdapter{
 		if(downloader.isDownloading()){
 			return;
 		}
-		//·µ»ØÏÂÔØµÄĞÅÏ¢
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ï¢
 		loadInfo=downloader.getDownLoaderInfo();
 		adapterInfo=new MarketDownloadAdapterInfo(url, srcpackageName, loadInfo.getComplete(), loadInfo.getFileSize());
 		loadInfoList.put(url, adapterInfo);
 		showProgressBar(loadInfo,url,linearLayout);
-		//µ÷ÓÃ·½·¨¿ªÊ¼ÏÂÔØ
+		//ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 		downloader.download();
 	}
 
-	//ÏÔÊ¾½ø¶ÈÌõ
+	//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½
 	private void showProgressBar(LoadInfo loadInfo,String url,LinearLayout linearLayout){
 		
 		ProgressBar bar=progressBars.get(url);
@@ -269,7 +268,7 @@ public class MarketListAdapter extends BaseAdapter{
 		}
 	}
 
-	//É¾³ıÒ»¸öÏÂÔØ
+	//É¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private void cancelDownload(String url){
 		downloaderList.get(url).delete(url);
 		downloaderList.get(url).reset();
