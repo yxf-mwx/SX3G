@@ -1,19 +1,11 @@
 package com.webapp.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Menu;
-
-import com.webapp.view.AppDownloaded;
-import com.webapp.application.WebAppApplication;
-import com.webapp.model.AppDownloadedInfo;
 
 public class Loading extends Activity {
 	
