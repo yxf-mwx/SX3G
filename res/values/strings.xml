@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, ZPagedHScrollTableActivity!</string>
-    <string name="app_name">ZPagedHScrollTable</string>
+    <string name="app_name">GapMarket</string>
     <color name="white">#FFFFFF</color>
     <string name="download">下载</string>
     <string name="pause">暂停</string>

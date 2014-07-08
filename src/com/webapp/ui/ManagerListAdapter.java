@@ -84,16 +84,18 @@ public class ManagerListAdapter extends BaseAdapter{
 		String inflater = Context.LAYOUT_INFLATER_SERVICE;
 		LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(inflater);
 		LinearLayout linearLayout = null;
-		linearLayout = (LinearLayout)layoutInflater.inflate(R.layout.market_list_item, null);
+		linearLayout = (LinearLayout)layoutInflater.inflate(R.layout.view_list_manager, null);
 		
-		ImageView icon = (ImageView)linearLayout.findViewById(R.id.market_list_item_icon);
-		TextView name = (TextView)linearLayout.findViewById(R.id.market_list_item_name);
-		TextView size = (TextView)linearLayout.findViewById(R.id.market_list_item_size);
-		TextView version = (TextView)linearLayout.findViewById(R.id.market_list_item_shortdescription);
+		ImageView icon = (ImageView)linearLayout.findViewById(R.id.view_list_manager_icon);
+		TextView name = (TextView)linearLayout.findViewById(R.id.view_list_manager_name);
+		TextView size = (TextView)linearLayout.findViewById(R.id.view_list_manager_size);
+		TextView version = (TextView)linearLayout.findViewById(R.id.view_list_manager_shortdescription);
 		
 		name.setText(list.get(position).getAppName());
 		size.setText(list.get(position).getSize() + "");
 		version.setText(list.get(position).getVersion());
+		//iconPath
+		
 		icon.setImageResource(R.drawable.blogger);
 		return linearLayout;
 	}

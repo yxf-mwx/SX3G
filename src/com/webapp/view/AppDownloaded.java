@@ -7,6 +7,7 @@ import com.webapp.model.AppDownloadedInfo;
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,7 +36,7 @@ public class AppDownloaded extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scrollview);
+        setContentView(R.layout.local);
         
         WebAppApplication application = (WebAppApplication)getApplication();
         Log.d("LogDemo", "Application： " + application.toString());
@@ -56,7 +58,7 @@ public class AppDownloaded extends Activity {
         final LayoutParams params = new LayoutParams(winWidth, winHeight);
         //imagebutton权重
         TableRow.LayoutParams paramsImgBtnWeight = 
-        		new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1.0f);
+        		new TableRow.LayoutParams(80, 80, 1.0f);
         final TableLayout tbLayout1 = new TableLayout(AppDownloaded.this);
         //ui线程中 神奇地布局..不解
         tbLayout1.post(new Runnable() {
@@ -69,6 +71,7 @@ public class AppDownloaded extends Activity {
         
         for (int i = 0; i < NUM_ONE_ROW; i++) {
         	//本地无应用
+        	Log.d("LogDemo1", list.size() + " 本地应用数量");
         	if (list.size() == 0) {
         		setContentView(R.layout.view_notification_empty);
         		Button btnMoreApp = (Button)findViewById(R.id.moreapp_empty);
@@ -92,13 +95,15 @@ public class AppDownloaded extends Activity {
                 	//空应用布局
                 	if (list.size() % 3 == 0 || i != list.size() / 3 || j < list.size() % 3) {
                 		//iconPath
-                		imgButton.setImageResource(R.drawable.blogger);
+                		Uri iconPath = Uri.parse(list.get(countOfApp).getAppPath() + "/icon.png"); 
+                		imgButton.setImageURI(iconPath);
                 		Log.d("LogDemo", "solid button: " + i + ", " + j);
     				} else {
     					imgButton.setImageResource(R.drawable.empty);
     					Log.d("LogDemo", "empty button: " + i + ", " + j);
     				}
                 	imgButton.setBackgroundColor(0);
+                	imgButton.setScaleType(ScaleType.FIT_CENTER);
                 	imgButton.setLayoutParams(paramsImgBtnWeight);
                 	if (countOfApp < list.size()) {
                     	imgButton.setOnClickListener(new AppOnClickListener(list.get(countOfApp++)));
@@ -112,6 +117,7 @@ public class AppDownloaded extends Activity {
 				//空tablerow
 				TableRow tbRow = new TableRow(this);
 				ImageButton imgButton = new ImageButton(this);
+				imgButton.setLayoutParams(paramsImgBtnWeight);
 				imgButton.setImageResource(R.drawable.empty);
 				imgButton.setBackgroundColor(0);
 				tbRow.addView(imgButton);
@@ -120,17 +126,27 @@ public class AppDownloaded extends Activity {
 			}
 		}
         //添加按钮布局  hold不住..
-        RelativeLayout.LayoutParams paramsBtnAdd= 
-                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT); 
-        Button btnAddApp = new Button(this);
-        btnAddApp.setLayoutParams(paramsBtnAdd);
-        btnAddApp.setText("MORE APPS");
-        tbLayout1.addView(btnAddApp);
+//        RelativeLayout.LayoutParams paramsBtnAdd= 
+//                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT); 
+//        Button btnAddApp = new Button(this);
+//        btnAddApp.setLayoutParams(paramsBtnAdd);
+//        btnAddApp.setText("MORE APPS");
+//        tbLayout1.addView(btnAddApp);
         mContainer.addView(tbLayout1);
         Log.d("LogDemo", "View添加完成");
         Log.d("LogDemo", countOfApp + " countOfApp");
         
-        btnAddApp.setOnClickListener(new MoreAppOnClickListener());
+//        btnAddApp.setOnClickListener(new MoreAppOnClickListener());
+        Button btnOnline = (Button) findViewById(R.id.online);
+        btnOnline.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(AppDownloaded.this, AppMarket.class);
+				startActivity(intent);
+			}
+		});
 	}
     
 	//响应应用点击动作
@@ -143,9 +159,8 @@ public class AppDownloaded extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			String path = app.getAppPath();
 			//获取html路径
-			
+			String path = app.getAppPath() + "/index.html";
 			Intent intent = new Intent(AppDownloaded.this, AppMain.class);
 			intent.putExtra("htmlpath", path);
 			startActivity(intent);
@@ -157,7 +172,7 @@ public class AppDownloaded extends Activity {
     	public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent intent = new Intent();
-			intent.setClass(AppDownloaded.this, AppManager.class);
+			intent.setClass(AppDownloaded.this, AppMarket.class);
 			startActivity(intent);
 		}
     }

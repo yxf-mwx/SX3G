@@ -31,13 +31,14 @@ public class AppMarket extends Activity {
 	private final static int MARK_MARKET = 1;
 	private ListView listview=null;
 	private List<AppMarketListInfo> list=new ArrayList<AppMarketListInfo>();
-	private LinearLayout linearLayout=null;
+	private RelativeLayout relativeLayout=null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		linearLayout=new LinearLayout(this);
-		linearLayout.setBackgroundColor(Color.WHITE);
+		setContentView(R.layout.online);
+		relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
+		//linearLayout.setBackgroundColor(Color.WHITE);
 		
 		final Handler handler=new Handler(){
 			@Override
@@ -47,10 +48,21 @@ public class AppMarket extends Activity {
 		};
 		
 		downloadList(handler);
-		linearLayout.setGravity(Gravity.CENTER);
 		ProgressBar progressBar=new ProgressBar(this);
-		linearLayout.addView(progressBar);
-		setContentView(linearLayout);
+		relativeLayout.setGravity(Gravity.CENTER);
+		relativeLayout.addView(progressBar);
+		//setContentView(linearLayout);
+		
+		Button btnlocalButton = (Button) findViewById(R.id.local);
+		btnlocalButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(AppMarket.this, AppDownloaded.class);
+				startActivity(intent);
+			}
+		});
 	}
 	
 	/*
@@ -58,30 +70,13 @@ public class AppMarket extends Activity {
 	 * */
 	private void loadList(){
 		MarketListAdapter listAdapter=new MarketListAdapter(this, R.layout.market_list_item, list);
-		linearLayout.removeAllViews();
-		linearLayout.setOrientation(LinearLayout.VERTICAL);
-		linearLayout.setGravity(Gravity.TOP);
+		relativeLayout.removeAllViews();
+		relativeLayout.setGravity(Gravity.TOP);
 		listview=new ListView(this);
 		RelativeLayout.LayoutParams param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 		listview.setLayoutParams(param);
 		listview.setAdapter(listAdapter);
-		
-		Button button=new Button(this);
-		button.setText("下载管理");
-		button.setLayoutParams(param);
-		
-		final Intent intent=new Intent(this,DownloadManageActivity.class);
-		button.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				startActivity(intent);
-				
-			}
-		});
-		
-		linearLayout.addView(button);
-		linearLayout.addView(listview);
+		relativeLayout.addView(listview);
 	}
 
 	/*

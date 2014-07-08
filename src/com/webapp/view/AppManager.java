@@ -52,7 +52,7 @@ public class AppManager extends Activity {
 	 * reload the listview
 	 * */
 	private void loadList(List<AppDownloadedInfo> list){
-		ManagerListAdapter listAdapter = new ManagerListAdapter(AppManager.this, AppManager.this, R.layout.market_list_item, list);
+		ManagerListAdapter listAdapter = new ManagerListAdapter(AppManager.this, AppManager.this, R.layout.view_list_manager, list);
 		linearLayout.removeAllViews();
 		linearLayout.setGravity(Gravity.TOP);
 		listview=new ListView(this);
