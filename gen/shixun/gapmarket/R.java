@@ -54,10 +54,10 @@ public final class R {
         public static final int zpaged_hscroll_table_up_arrow=0x7f020024;
     }
     public static final class id {
-        public static final int appIcon=0x7f080017;
-        public static final int appName=0x7f080018;
-        public static final int btnAffirm=0x7f08001a;
-        public static final int btnCancel=0x7f08001b;
+        public static final int appIcon=0x7f080018;
+        public static final int appName=0x7f080019;
+        public static final int btnAffirm=0x7f08001b;
+        public static final int btnCancel=0x7f08001c;
         public static final int container=0x7f08000b;
         public static final int download=0x7f080001;
         public static final int download_manager_cancelbutton=0x7f080008;
@@ -68,9 +68,10 @@ public final class R {
         public static final int download_manager_item_radio=0x7f080006;
         public static final int download_manager_item_size=0x7f080005;
         public static final int hello=0x7f080000;
-        public static final int linear=0x7f080016;
+        public static final int linear=0x7f080017;
         public static final int local=0x7f08000d;
         public static final int main_bottom=0x7f08000c;
+        public static final int managerOnline=0x7f080016;
         public static final int market_list_item_downloadbtn=0x7f080014;
         public static final int market_list_item_icon=0x7f080010;
         public static final int market_list_item_name=0x7f080012;
@@ -78,17 +79,17 @@ public final class R {
         public static final int market_list_item_size=0x7f080013;
         public static final int marketlist_item_information=0x7f080011;
         public static final int more=0x7f08000f;
-        public static final int moreapp_empty=0x7f080022;
+        public static final int moreapp_empty=0x7f080023;
         public static final int online=0x7f08000e;
         public static final int relativeLayout1=0x7f08000a;
-        public static final int text=0x7f080019;
+        public static final int text=0x7f08001a;
         public static final int title=0x7f080009;
-        public static final int view_list_manager_cancelbtn=0x7f080020;
-        public static final int view_list_manager_icon=0x7f08001c;
-        public static final int view_list_manager_information=0x7f08001d;
-        public static final int view_list_manager_name=0x7f08001e;
-        public static final int view_list_manager_shortdescription=0x7f080021;
-        public static final int view_list_manager_size=0x7f08001f;
+        public static final int view_list_manager_cancelbtn=0x7f080021;
+        public static final int view_list_manager_icon=0x7f08001d;
+        public static final int view_list_manager_information=0x7f08001e;
+        public static final int view_list_manager_name=0x7f08001f;
+        public static final int view_list_manager_shortdescription=0x7f080022;
+        public static final int view_list_manager_size=0x7f080020;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

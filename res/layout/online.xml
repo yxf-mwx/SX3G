@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:background="@drawable/sky"
         android:layout_alignParentTop="true"
-        android:gravity="center_vertical" >
+        android:gravity="center" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,6 +21,15 @@
             android:text="应用商店"
             android:textColor="#6f6c69"
             android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/managerOnline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="下载管理" />
+
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativeLayout1"
