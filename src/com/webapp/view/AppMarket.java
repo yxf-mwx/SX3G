@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -100,5 +101,16 @@ public class AppMarket extends Activity {
 				}
 			}
 		}.start();
+	}
+	//¼àÌýback¼üÊÂ¼þ
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if (keyCode == 4) {
+			Intent intent = new Intent();
+			intent.setClass(AppMarket.this, AppDownloaded.class);
+			startActivity(intent);
+		}
+		return true;
 	}
 }

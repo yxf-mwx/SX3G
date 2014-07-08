@@ -54,12 +54,13 @@ public class AppDownloaded extends Activity {
     	
     	winWidth = getWinWidth();
     	winHeight = getWinHeight();
+    	Log.d("LogDemo1", winWidth + ", " + winHeight);
     	mContainer = (LinearLayout) findViewById(R.id.container);
     	//tablelayout覆盖屏幕
         final LayoutParams params = new LayoutParams(winWidth, winHeight);
         //imagebutton权重
         TableRow.LayoutParams paramsImgBtnWeight = 
-        		new TableRow.LayoutParams(80, 80, 1.0f);
+        		new TableRow.LayoutParams(winWidth/3, winWidth/3, 1.0f);
         final TableLayout tbLayout1 = new TableLayout(AppDownloaded.this);
         //ui线程中 神奇地布局..不解
         tbLayout1.post(new Runnable() {
