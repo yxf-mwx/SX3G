@@ -8,6 +8,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Application;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.webapp.downloader.PackageDownLoader;
 import com.webapp.model.AppDownloadedInfo;
@@ -32,6 +33,7 @@ public class WebAppApplication extends Application{
         super.onCreate();
         new Thread() {
         	public void run() {
+        		Log.d("LogDemo1", "Application 初始化");
         		listDnInfo = DatabaseHandler.getAppFromDB(WebAppApplication.this);
         	}
         }.start();

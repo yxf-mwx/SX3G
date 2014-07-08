@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Black.NoTitleBar">
         
-        <activity android:name="com.webapp.view.UninstallAffrim"
+        <activity android:name="com.webapp.view.UninstallAffirm"
                   android:label="Uninstall">
         </activity>
         <activity android:name="com.webapp.view.AppMain"

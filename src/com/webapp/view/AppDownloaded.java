@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.webapp.application.WebAppApplication;
 import com.webapp.model.AppDownloadedInfo;
@@ -30,6 +32,7 @@ public class AppDownloaded extends Activity {
 	private int countOfApp = 0;//第n个应用
 	private List<AppDownloadedInfo> listDownloaded;
     private LinearLayout mContainer = null;
+    private long exitTime = 0;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,4 +184,18 @@ public class AppDownloaded extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.heightPixels;
     }
+    
+    //监听back键事件，再按一次退出程序
+  	@Override
+  	public boolean onKeyUp(int keyCode, KeyEvent event) {
+  		// TODO Auto-generated method stub
+  		if((System.currentTimeMillis() - exitTime) > 2000){  
+            Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();                                
+            exitTime = System.currentTimeMillis();   
+        } else {
+            finish();
+            System.exit(0);
+        }
+  		return true;
+  	}
 }
