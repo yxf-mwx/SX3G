@@ -92,7 +92,7 @@ public class AppMarket extends Activity {
 		new Thread(){
 			public void run(){
 				try {
-					InputStream is=new URL("http://192.168.1.126:8080/SX3G/downloadlist.xml").openStream();
+					InputStream is=new URL("http://192.168.1.111:8080/SX3G/downloadlist.xml").openStream();
 					XMLProduct xmlProduct=new XMLProduct(list);
 					xmlProduct.getInformation(is);
 					Message msg=new Message();

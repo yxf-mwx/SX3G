@@ -49,10 +49,16 @@
         </LinearLayout>
     </LinearLayout>
     <Button 
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="75dp"
         android:id="@+id/download_manager_controlbutton"
         android:text="@string/download"
+        />
+    <Button 
+        android:layout_width="50dp"
+        android:layout_height="75dp"
+        android:id="@+id/download_manager_cancelbutton"
+        android:text="@string/cancel"
         />
 
 </LinearLayout>

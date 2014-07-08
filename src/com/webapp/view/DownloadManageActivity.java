@@ -162,6 +162,12 @@ public class DownloadManageActivity extends Activity {
 		
 		ControlOnClickListenr btnListener=new ControlOnClickListenr(url);
 		btnControl.setOnClickListener(btnListener);
+		
+		//加载取消按钮
+		Button btnCancel=(Button)itemView.findViewById(R.id.download_manager_cancelbutton);
+		CancelOnClickListener cancelListener=new CancelOnClickListener(url);
+		btnCancel.setOnClickListener(cancelListener);
+		
 		//设置参数添加进主布局中
 		LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
@@ -172,8 +178,7 @@ public class DownloadManageActivity extends Activity {
 	public void loadImage(String url, ImageView imageView) {
 		CallBackImplements callbackimplement = new CallBackImplements(imageView);
 
-		Drawable cacheImage = syncImageLoader.loadDrawable(url,
-				callbackimplement);
+		Drawable cacheImage = syncImageLoader.loadDrawable(url,callbackimplement);
 		if (cacheImage != null) {
 			imageView.setImageDrawable(cacheImage);
 		}
@@ -181,11 +186,8 @@ public class DownloadManageActivity extends Activity {
 
 	//删除activity中的相应的视图
 	private void clear(String url, LoadInfo loadInfo) {
-		//if (loadInfo.getComplete() >= loadInfo.getFileSize()) {
-			// loadInfos.remove(url);
 			mainLayout.removeView(listItems.get(url));
 			listItems.remove(url);
-		//}
 	}
 
 	public class ControlOnClickListenr implements OnClickListener{
@@ -214,6 +216,19 @@ public class DownloadManageActivity extends Activity {
 			
 		}
 		
+	}
+
+	public class CancelOnClickListener implements OnClickListener{
+
+		private String url=null;
+		public CancelOnClickListener(String url){
+			this.url=url;
+		}
+		
+		@Override
+		public void onClick(View v) {
+			
+		}
 	}
 	private String NumtoSize(int size){
 		String[] s={"B","KB","MB","GB"};

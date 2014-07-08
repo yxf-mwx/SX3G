@@ -183,9 +183,9 @@ public class PackageDownLoader {
 				while((length=is.read(buffer))!=-1){
 					randomAccessFile.write(buffer, 0, length);
 					completeSize+=length;
-					//������ݿ��е�������Ϣ
+					//更新数据库
 					dao.updateInfos(threadId, completeSize, urlString);
-					//����Ϣ��������Ϣ�����������Խ�������и���
+					//通过Handler向service发送信息
 					Message message=Message.obtain();
 					message.what=1;
 					message.obj=urlString;
@@ -195,7 +195,6 @@ public class PackageDownLoader {
 					if(state==PAUSE){
 						return;
 					}
-					
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

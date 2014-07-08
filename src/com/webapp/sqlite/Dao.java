@@ -17,7 +17,7 @@ public class Dao {
 	}
 	
 	/*
-	 * �鿴��ݿ����Ƿ������
+	 *判断数据库是否为空
 	 * */
 	public boolean isHasInfos(String urlString) {
 		SQLiteDatabase database = dbHelper.getReadableDatabase();
@@ -31,7 +31,7 @@ public class Dao {
 	}
 	
 	/*
-	 * ���� ���صľ�����Ϣ
+	 * 保存数据到数据库
 	 * */
 	public void saveInfos(List<DownloadInfo> infos) {
 		SQLiteDatabase database=dbHelper.getWritableDatabase();
@@ -46,7 +46,7 @@ public class Dao {
 	}
 	
 	/*
-	 * �õ����صľ�����Ϣ
+	 * 获得数据库中的字段
 	 * */
 	public List<DownloadInfo> getInfos(String urlString) {
 		List<DownloadInfo> list=new ArrayList<DownloadInfo>();
