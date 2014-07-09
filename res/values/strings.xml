@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, ZPagedHScrollTableActivity!</string>
     <string name="app_name">GapMarket</string>
+
     <color name="white">#FFFFFF</color>
     <color name="blue">#CCE1FE</color>
+
     <string name="download">下载</string>
     <string name="pause">暂停</string>
     <string name="cancel">取消</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

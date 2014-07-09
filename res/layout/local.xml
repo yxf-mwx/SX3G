@@ -127,7 +127,7 @@
                     android:id="@+id/more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/online3"
+                    android:background="@drawable/more"
                     android:clickable="true"
                     android:scaleType="matrix" />
 

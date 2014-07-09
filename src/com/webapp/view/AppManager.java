@@ -33,7 +33,7 @@ public class AppManager extends Activity {
 		setContentView(R.layout.manager_local);
 		linearLayout=(RelativeLayout) findViewById(R.id.relativeLayout1);
 		//linearLayout.setBackgroundColor(Color.WHITE);
-		//加载等待
+		//鍔犺浇绛夊緟
 		ProgressBar progressBar=new ProgressBar(this);
 		linearLayout.setGravity(Gravity.CENTER);
 		linearLayout.addView(progressBar);
@@ -41,7 +41,7 @@ public class AppManager extends Activity {
 		
 		WebAppApplication application = (WebAppApplication)getApplication();
 		list = application.getListDnInfo();
-		Log.d("LogDemo1", list.size() + "卸载前/后的应用数量");
+		Log.d("LogDemo1", list.size() + "鍗歌浇鍓�鍚庣殑搴旂敤鏁伴噺");
 		if (list != null) {
 			loadList(list);
 		}
@@ -66,6 +66,7 @@ public class AppManager extends Activity {
 		linearLayout.removeAllViews();
 		linearLayout.setGravity(Gravity.TOP);
 		listview=new ListView(this);
+		listview.setCacheColorHint(0);
 		RelativeLayout.LayoutParams param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 		listview.setLayoutParams(param);
 		listview.setAdapter(listAdapter);
@@ -86,7 +87,7 @@ public class AppManager extends Activity {
 		startActivity(intent);
 	}
 	
-	//����back���¼�
+	//锟斤拷锟斤拷back锟斤拷锟铰硷拷
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
@@ -94,6 +95,7 @@ public class AppManager extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(AppManager.this, AppDownloaded.class);
 			startActivity(intent);
+			finish();
 		}
 		return true;
 	}

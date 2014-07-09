@@ -1,43 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="shixun.gapmarket"
-      android:versionCode="1"
-      android:versionName="1.0">
+    package="shixun.gapmarket"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
     <uses-sdk android:minSdkVersion="8" />
 
-    <application 
-        android:name="com.webapp.application.WebAppApplication" 
-        android:icon="@drawable/icon" 
+    <application
+        android:name="com.webapp.application.WebAppApplication"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Black.NoTitleBar">
-        
-        <activity android:name="com.webapp.view.UninstallAffirm"
-                  android:label="Uninstall">
+        android:theme="@android:style/Theme.Black.NoTitleBar" >
+        <activity
+            android:name="com.webapp.view.UninstallAffirm"
+            android:label="Uninstall"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        <activity android:name="com.webapp.view.AppMain"
-                  android:label="@string/app_name">
+        <activity
+            android:name="com.webapp.view.AppMain"
+            android:label="@string/app_name" >
         </activity>
-        <activity android:name="com.webapp.view.AppMarket">
+        <activity android:name="com.webapp.view.AppMarket" >
         </activity>
-        <activity android:name="com.webapp.view.AppManager">
+         <activity android:name="com.webapp.view.SettingActivity" >
         </activity>
-        <activity android:name="com.webapp.view.AppDownloaded">
+         <activity android:name="com.webapp.view.ExitActivity"
+                   android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        <activity android:name="com.webapp.view.DownloadManageActivity">
+        <activity android:name="com.webapp.view.AppManager" >
         </activity>
-        
-		<activity android:name="com.webapp.view.Loading"
-                  android:label="@string/app_name">
-		    <intent-filter>
+        <activity android:name="com.webapp.view.AppDownloaded" >
+        </activity>
+        <activity android:name="com.webapp.view.DownloadManageActivity" >
+        </activity>
+        <activity
+            android:name="com.webapp.view.Loading"
+            android:label="@string/app_name" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-		</activity>
-		
-		<service android:enabled="true" android:name="com.webapp.service.DownloadService">
-		    
-		</service>
+        </activity>
+
+        <service
+            android:name="com.webapp.service.DownloadService"
+            android:enabled="true" >
+        </service>
+
+        <activity
+            android:name="shixun.gapmarket.SettingActivity"
+            android:label="@string/title_activity_setting" >
+        </activity>
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 </manifest>

@@ -18,13 +18,13 @@ import com.webapp.sqlite.DatabaseHandler;
 
 public class WebAppApplication extends Application{
 
-	private List<AppDownloadedInfo> listDnInfo;  //已下载至本地的应用
-	private List<AppMarketListInfo> listMkInfo;  //服务器应用（取回所有应用信息，显示没有下载的）
-	//用来缓存下载的图像资源
+	private List<AppDownloadedInfo> listDnInfo;  //宸蹭笅杞借嚦鏈湴鐨勫簲鐢�
+	private List<AppMarketListInfo> listMkInfo;  //鏈嶅姟鍣ㄥ簲鐢紙鍙栧洖鎵�湁搴旂敤淇℃伅锛屾樉绀烘病鏈変笅杞界殑锛�
+	//鐢ㄦ潵缂撳瓨涓嬭浇鐨勫浘鍍忚祫婧�
 	private HashMap<String,SoftReference<Drawable>> imageCache=new HashMap<String,SoftReference<Drawable>>(); 
-	//用来装载下载的信息
+	//鐢ㄦ潵瑁呰浇涓嬭浇鐨勪俊鎭�
 	private HashMap<String,LoadInfo> loadInfos=new HashMap<String,LoadInfo>();
-	//装载下载器
+	//瑁呰浇涓嬭浇鍣�
 	private HashMap<String,PackageDownLoader> downloaders;
 	
 	@Override
@@ -33,7 +33,6 @@ public class WebAppApplication extends Application{
         super.onCreate();
         new Thread() {
         	public void run() {
-        		Log.d("LogDemo1", "Application 初始化");
         		listDnInfo = DatabaseHandler.getAppFromDB(WebAppApplication.this);
         	}
         }.start();

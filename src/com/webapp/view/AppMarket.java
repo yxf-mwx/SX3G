@@ -31,7 +31,9 @@ public class AppMarket extends Activity {
 	private ListView listview=null;
 	private List<AppMarketListInfo> list=new ArrayList<AppMarketListInfo>();
 	private RelativeLayout relativeLayout=null;
-	
+	Button btnlocalButton;
+	Button btnDownloadManager;
+	Button btnSetting;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,24 +53,19 @@ public class AppMarket extends Activity {
 		relativeLayout.setGravity(Gravity.CENTER);
 		relativeLayout.addView(progressBar);
 		
-		Button btnlocalButton = (Button) findViewById(R.id.local);
-		Button btnDownloadManager = (Button) findViewById(R.id.btnDownloadManager);
-		btnlocalButton.setOnClickListener(new OnClickListener() {
+		btnlocalButton = (Button) findViewById(R.id.local);
+		btnDownloadManager = (Button) findViewById(R.id.btnDownloadManager);
+		btnSetting = (Button) findViewById(R.id.more);
+	    setListener();		
+	}
+	
+	public void setListener(){
+        btnlocalButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(AppMarket.this, AppDownloaded.class);
-				startActivity(intent);
-				finish();
-			}
-		});
-		Button btnDownloadManage=(Button)findViewById(R.id.managerOnline);
-		btnDownloadManage.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent=new Intent(AppMarket.this,DownloadManageActivity.class);
 				startActivity(intent);
 				finish();
 			}
@@ -80,9 +77,19 @@ public class AppMarket extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(AppMarket.this, DownloadManageActivity.class);
 				startActivity(intent);
+				finish();
 			}
 			
 		});
+		btnSetting.setOnClickListener(new OnClickListener(){
+
+  			@Override
+  			public void onClick(View arg0) {
+  				// TODO Auto-generated method stub
+  				Intent intent = new Intent(AppMarket.this, SettingActivity.class);
+  				startActivity(intent);
+  			}          	
+          });
 	}
 	
 	/*
@@ -119,7 +126,6 @@ public class AppMarket extends Activity {
 			}
 		}.start();
 	}
-	//����back���¼�
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub

@@ -171,7 +171,9 @@ public class DownloadManageActivity extends Activity {
 		Button btnControl=(Button)itemView.findViewById(R.id.download_manager_controlbutton);
 		//杩欓噷瑕佽缃産utton鏈�垵鐨勭姸鎬侊紝濡傛灉姝ｅ湪涓嬭浇涓偅涔坆utton鐨勭姸鎬佷负"鏆傚仠"锛屽惁鍒欎负榛樿鐨�涓嬭浇"
 		if(downloaders.get(url).getState()==PackageDownLoader.DOWNLOADING){
-			btnControl.setText("鏆傚仠");
+			btnControl.setBackgroundResource(R.drawable.btnpause1);
+		}else{
+			btnControl.setBackgroundResource(R.drawable.btnstart1);
 		}
 		
 		ControlOnClickListenr btnListener=new ControlOnClickListenr(url);
@@ -214,17 +216,17 @@ public class DownloadManageActivity extends Activity {
 		public void onClick(View v) {
 			Button btn=(Button)v;
 			String text=btn.getText().toString();
-			
-			if("涓嬭浇".equals(text)){
-				btn.setText("鏆傚仠");
-				intent.putExtra("url", url);
-				intent.putExtra("command", 0);
-				startService(intent);
-				
-			}else if("鏆傚仠".equals(text)){
-				btn.setText("涓嬭浇");
+			PackageDownLoader downLoader=downloaders.get(url);
+			if(downLoader!=null && downLoader.getState()==PackageDownLoader.DOWNLOADING){
+				btn.setBackgroundResource(R.drawable.btnstart1);
 				intent.putExtra("url", url);
 				intent.putExtra("command", 1);
+				startService(intent);
+				
+			}else{
+				btn.setBackgroundResource(R.drawable.btnpause1);
+				intent.putExtra("url", url);
+				intent.putExtra("command", 0);
 				startService(intent);
 			}
 			
@@ -284,6 +286,7 @@ public class DownloadManageActivity extends Activity {
 		}
 		return df.format(res)+s[cnt];
 	}
+	
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event){
 		if(keyCode==4){

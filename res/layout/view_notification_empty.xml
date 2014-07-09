@@ -12,8 +12,7 @@
         android:layout_centerVertical="true"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:typeface="monospace"
-        android:text="NO APP DOWNLOADED, PLEASE CLICK THE BUTTON BELOW TO DOWNLOAD APPS." />
+        android:typeface="monospace" />
         
     <Button
         android:id="@+id/moreapp_empty"

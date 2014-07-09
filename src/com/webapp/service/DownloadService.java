@@ -94,7 +94,6 @@ public class DownloadService extends Service{
 	//每次用户点击ListActivity当中的一个条目时，就会调用该方法
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.d("yxf_downloadservice_115","executed");
 		//获取要下载的信息
 		AppMarketListInfo adapterInfo=(AppMarketListInfo)intent.getExtras().get("info");
 		//下载地址  1.如果传来了info说明是从market传来，从info中获得url 2。 如果没有传来url，是从download——manager传来，直接获取传来的url

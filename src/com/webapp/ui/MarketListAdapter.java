@@ -8,6 +8,7 @@ import shixun.gapmarket.R;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -90,9 +91,9 @@ public class MarketListAdapter extends BaseAdapter{
 		PackageDownLoader downLoader=downloaders.get(info.getDownloadurl());
 		if(downLoader!=null){
 			if(downLoader.getState()==PackageDownLoader.DOWNLOADING){
-				downloadbtn.setText("暂停");
+				downloadbtn.setBackgroundResource(R.drawable.btnpause1);
 			}else{
-				downloadbtn.setText("下载");
+				downloadbtn.setBackgroundResource(R.drawable.btnstart1);
 			}
 		}
 		name.setText(info.getAppName());
@@ -121,16 +122,17 @@ public class MarketListAdapter extends BaseAdapter{
 		@Override
 		public void onClick(View v) {
 			Button btn=(Button)v;
+			PackageDownLoader downLoader=downloaders.get(info.getDownloadurl());
 			
-			if("下载".equals(btn.getText().toString())){
-				btn.setText("暂停");
-				intent.putExtra("info", info);
-				intent.putExtra("command", 0);
-				context.startService(intent);
-			}else if("暂停".equals(btn.getText().toString())){
-				btn.setText("下载");
+			if(downLoader!=null && downLoader.getState()==PackageDownLoader.DOWNLOADING){
+				btn.setBackgroundResource(R.drawable.btnstart1);
 				intent.putExtra("info", info);
 				intent.putExtra("command", 1);
+				context.startService(intent);
+			}else{
+				btn.setBackgroundResource(R.drawable.btnpause1);
+				intent.putExtra("info", info);
+				intent.putExtra("command", 0);
 				context.startService(intent);
 			}
 		}

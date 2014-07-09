@@ -33,7 +33,9 @@ public class AppDownloaded extends Activity {
 	private List<AppDownloadedInfo> listDownloaded;
     private LinearLayout mContainer = null;
     private long exitTime = 0;
-    
+    Button btnOnline;
+    Button btnLocalManager;
+    Button btnSetting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -77,7 +79,7 @@ public class AppDownloaded extends Activity {
         	Log.d("LogDemo1", list.size() + " 本地应用数量");
         	if (list.size() == 0) {
         		TextView textNoApp = new TextView(AppDownloaded.this);
-        		textNoApp.setText("NO APP DOWNLOADED!" + "\n" + "PLEASE CLICK THE BUTTON\n" + "在线" + "TO DOWNLOAD APPS.");
+        		//textNoApp.setText("NO APP DOWNLOADED!" + "\n" + "PLEASE CLICK THE BUTTON\n" + "在线" + "TO DOWNLOAD APPS.");
         		textNoApp.setPadding(winWidth/5, winHeight/4, winWidth/6, winHeight/3);
         		tbLayout1.addView(textNoApp);
         		break;
@@ -132,29 +134,44 @@ public class AppDownloaded extends Activity {
         Log.d("LogDemo", countOfApp + " countOfApp");
         
 //        btnAddApp.setOnClickListener(new MoreAppOnClickListener());
-        Button btnOnline = (Button) findViewById(R.id.online);
-        Button btnLocalManager = (Button) findViewById(R.id.btnLocalManager);
-        btnOnline.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(AppDownloaded.this, AppMarket.class);
-				startActivity(intent);
-				finish();
-			}
-		});
-        btnLocalManager.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(AppDownloaded.this, AppManager.class);
-				startActivity(intent);
-			}
-        	
-        });
+       btnOnline = (Button) findViewById(R.id.online);
+       btnLocalManager = (Button) findViewById(R.id.btnLocalManager);
+       btnSetting = (Button) findViewById(R.id.more);
+       setListener();
+       
 	}
+    
+    public void setListener(){
+    	 btnOnline.setOnClickListener(new OnClickListener() {
+ 			
+ 			@Override
+ 			public void onClick(View v) {
+ 				// TODO Auto-generated method stub
+ 				Intent intent = new Intent(AppDownloaded.this, AppMarket.class);
+ 				startActivity(intent);
+ 			}
+ 		});
+         btnLocalManager.setOnClickListener(new OnClickListener(){
+
+ 			@Override
+ 			public void onClick(View arg0) {
+ 				// TODO Auto-generated method stub
+ 				Intent intent = new Intent(AppDownloaded.this, AppManager.class);
+ 				startActivity(intent);
+ 			}
+         	
+         });
+         btnSetting.setOnClickListener(new OnClickListener(){
+
+  			@Override
+  			public void onClick(View arg0) {
+  				// TODO Auto-generated method stub
+  				Intent intent = new Intent(AppDownloaded.this, SettingActivity.class);
+  				startActivity(intent);
+  			}
+          	
+          });
+    }
     
 	//响应应用点击动作
     class AppOnClickListener implements OnClickListener{
@@ -171,16 +188,7 @@ public class AppDownloaded extends Activity {
 			Intent intent = new Intent(AppDownloaded.this, AppMain.class);
 			intent.putExtra("htmlpath", path);
 			startActivity(intent);
-		}
-    }
-    
-    class MoreAppOnClickListener implements OnClickListener{
-    	@Override
-    	public void onClick(View v) {
-			// TODO Auto-generated method stub
-			Intent intent = new Intent();
-			intent.setClass(AppDownloaded.this, AppMarket.class);
-			startActivity(intent);
+			finish();
 		}
     }
     

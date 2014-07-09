@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:background="@drawable/sky"
         android:layout_alignParentTop="true"
-        android:gravity="center" >
+        android:gravity="center_vertical" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +32,6 @@
             android:text="下载管理"
             android:textColor="#6f6c69"
             android:textSize="15sp" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -118,10 +117,9 @@
                     android:id="@+id/more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/online3"
+                    android:background="@drawable/more"
                     android:clickable="true"
                     android:scaleType="matrix" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

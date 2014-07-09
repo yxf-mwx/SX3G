@@ -38,7 +38,7 @@ public class UninstallAffirm extends Activity {
     	
     	intent = getIntent();
     	final int position = intent.getIntExtra("position", -1);
-    	Log.d("LogDemo", position + " 卸载应用 position");
+    	Log.d("LogDemo", position + " 鍗歌浇搴旂敤 position");
     	WebAppApplication application = (WebAppApplication)this.getApplication();
     	list = application.getListDnInfo();
     	appToBeUninstall = list.get(position);
@@ -47,7 +47,7 @@ public class UninstallAffirm extends Activity {
     	TextView appName = (TextView)findViewById(R.id.appName);
     	Button btnAffirm = (Button)findViewById(R.id.btnAffirm);
     	Button btnCancel = (Button)findViewById(R.id.btnCancel);
-    	//icon路径
+    	//icon璺緞
     	Uri iconPath = Uri.parse(list.get(position).getAppPath() + "/icon.png");
     	appIcon.setImageURI(iconPath);
     	appIcon.setScaleType(ScaleType.FIT_CENTER);
@@ -61,9 +61,9 @@ public class UninstallAffirm extends Activity {
 			public void handleMessage(Message msg) {
 				switch (msg.what) {
 				case UNINSTALL_ING:
-					//更新Application对象中的全局变量
+					//鏇存柊Application瀵硅薄涓殑鍏ㄥ眬鍙橀噺
 					list.remove(position);
-					Toast.makeText(getApplicationContext(), "正在删除...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "姝ｅ湪鍒犻櫎...", Toast.LENGTH_SHORT).show();
 					break;
 				case UNINSTALL_FINISHED:
 					intent.setClass(UninstallAffirm.this, AppManager.class);
@@ -94,7 +94,7 @@ public class UninstallAffirm extends Activity {
 					Message msg = Message.obtain();
 					msg.what = UNINSTALL_ING;
 					handler.sendMessage(msg);
-					//递归删除应用文件
+					//閫掑綊鍒犻櫎搴旂敤鏂囦欢
 					File file = new File(appToBeUninstall.getAppPath());
 					Message msg1 = Message.obtain();
 					deleteAppFiles(file);
@@ -107,17 +107,17 @@ public class UninstallAffirm extends Activity {
 		private void deleteAppFiles(File file){
 			
 			if(file.exists()){
-				if(file.isFile()){                         //判断是否是文件
+				if(file.isFile()){                         //鍒ゆ柇鏄惁鏄枃浠�
 					file.delete();
-			    }else if(file.isDirectory()){              //否则如果它是一个目录
-			    	File files[] = file.listFiles();       //声明目录下所有的文件 files[];
-			    	for(int i=0;i<files.length;i++){       //遍历目录下所有的文件
-			    		this.deleteAppFiles(files[i]);     //把每个文件用这个方法进行迭代
+			    }else if(file.isDirectory()){              //鍚﹀垯濡傛灉瀹冩槸涓�釜鐩綍
+			    	File files[] = file.listFiles();       //澹版槑鐩綍涓嬫墍鏈夌殑鏂囦欢 files[];
+			    	for(int i=0;i<files.length;i++){       //閬嶅巻鐩綍涓嬫墍鏈夌殑鏂囦欢
+			    		this.deleteAppFiles(files[i]);     //鎶婃瘡涓枃浠剁敤杩欎釜鏂规硶杩涜杩唬
 			    	}
 			    }
 				file.delete(); 
 			}else{ 
-				System.out.println("所删除的文件不存在！"+'\n'); 
+				System.out.println("鎵�垹闄ょ殑鏂囦欢涓嶅瓨鍦紒"+'\n'); 
 			} 
 		}
     }
@@ -128,6 +128,7 @@ public class UninstallAffirm extends Activity {
 			// TODO Auto-generated method stub
 			intent.setClass(UninstallAffirm.this, AppManager.class);
 			startActivity(intent);
+			finish();
 		}
     }
 }
