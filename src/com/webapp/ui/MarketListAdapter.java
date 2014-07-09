@@ -1,6 +1,7 @@
 package com.webapp.ui;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import shixun.gapmarket.R;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.webapp.application.WebAppApplication;
+import com.webapp.downloader.PackageDownLoader;
 import com.webapp.model.AppMarketListInfo;
 import com.webapp.service.DownloadService;
 import com.webapp.utils.CallBackImplements;
@@ -36,12 +39,16 @@ public class MarketListAdapter extends BaseAdapter{
 	private SyncImgLoader syncImageLoader=null;
 	//下载按钮的监听器
 	private OnClickListener downloadbtnListener=null;
+	//
+	private HashMap<String,PackageDownLoader> downloaders=null;
 	
 	public MarketListAdapter(final Context context, int layoutId, List<AppMarketListInfo> list){
 		this.list=list;
 		this.context=context;
 		this.syncImageLoader=new SyncImgLoader(context);
 		this.intent=new Intent(context,DownloadService.class);
+		WebAppApplication webAppApplication=(WebAppApplication)context.getApplicationContext();
+		downloaders=webAppApplication.getDownloaders();
 	}
 	
 	@Override
@@ -80,7 +87,14 @@ public class MarketListAdapter extends BaseAdapter{
 		
 		downloadbtnListener=new DownloadButtonListener(info);
 		downloadbtn.setOnClickListener(downloadbtnListener);
-		
+		PackageDownLoader downLoader=downloaders.get(info.getDownloadurl());
+		if(downLoader!=null){
+			if(downLoader.getState()==PackageDownLoader.DOWNLOADING){
+				downloadbtn.setText("暂停");
+			}else{
+				downloadbtn.setText("下载");
+			}
+		}
 		name.setText(info.getAppName());
 		size.setText(NumtoSize(info.getSize()));
 		description.setText(info.getShortDescription());

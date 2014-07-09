@@ -4,6 +4,7 @@ import java.util.List;
 
 import shixun.gapmarket.R;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -79,15 +81,15 @@ public class ManagerListAdapter extends BaseAdapter{
 		TextView name = (TextView)linearLayout.findViewById(R.id.view_list_manager_name);
 		TextView size = (TextView)linearLayout.findViewById(R.id.view_list_manager_size);
 		TextView version = (TextView)linearLayout.findViewById(R.id.view_list_manager_shortdescription);
-		
 		name.setText(list.get(position).getAppName());
 		size.setText(list.get(position).getSize() + "");
 		version.setText(list.get(position).getVersion());
 		//iconPath
-		
-		icon.setImageResource(R.drawable.blogger);
-		Button btnUninstall = (Button) linearLayout.findViewById(R.id.view_list_manager_cancelbtn);
-		btnUninstall.setOnClickListener(new btnDeleteListener(position));
+		Uri iconPath = Uri.parse(list.get(position).getAppPath() + "/icon.png");
+		icon.setImageURI(iconPath);
+		icon.setScaleType(ScaleType.FIT_CENTER);
+		Button btnDelete = (Button)linearLayout.findViewById(R.id.view_list_manager_cancelbtn);
+		btnDelete.setOnClickListener(new btnDeleteListener(position));
 		return linearLayout;
 	}
 

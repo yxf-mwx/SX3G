@@ -60,6 +60,17 @@ public class AppMarket extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(AppMarket.this, AppDownloaded.class);
 				startActivity(intent);
+				finish();
+			}
+		});
+		Button btnDownloadManage=(Button)findViewById(R.id.managerOnline);
+		btnDownloadManage.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(AppMarket.this,DownloadManageActivity.class);
+				startActivity(intent);
+				finish();
 			}
 		});
 		btnDownloadManager.setOnClickListener(new OnClickListener(){
@@ -108,7 +119,7 @@ public class AppMarket extends Activity {
 			}
 		}.start();
 	}
-	//¼àÌýback¼üÊÂ¼þ
+	//ï¿½ï¿½ï¿½ï¿½backï¿½ï¿½ï¿½Â¼ï¿½
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
@@ -116,6 +127,7 @@ public class AppMarket extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(AppMarket.this, AppDownloaded.class);
 			startActivity(intent);
+			finish();
 		}
 		return true;
 	}

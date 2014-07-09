@@ -13,6 +13,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -87,7 +90,7 @@ public class DownloadManageActivity extends Activity {
 					
 					//濡傛灉 loadInfo 宸茬粡涓嶅瓨鍦ㄤ簡,灏辨竻闄ゅ畠鐨剉iew
 					} else {
-						clear(url, loadInfo);
+						clear(url);
 					}
 					break;
 				case 2:
@@ -102,7 +105,6 @@ public class DownloadManageActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		webAppApplication = (WebAppApplication) getApplication();
 		downloaders = webAppApplication.getDownloaders();
 		loadInfos = webAppApplication.getLoadInfos();
@@ -196,8 +198,8 @@ public class DownloadManageActivity extends Activity {
 		}
 	}
 
-	//鍒犻櫎activity涓殑鐩稿簲鐨勮鍥�
-	private void clear(String url, LoadInfo loadInfo) {
+	//删除activity中的相应的视图
+	private void clear(String url) {
 			mainLayout.removeView(listItems.get(url));
 			listItems.remove(url);
 	}
@@ -233,17 +235,38 @@ public class DownloadManageActivity extends Activity {
 	public class CancelOnClickListener implements OnClickListener{
 
 		private String url=null;
+		Handler mHandler=new Handler(){
+			@Override
+			public void handleMessage(Message message){
+				intent.putExtra("command", 2);
+				intent.putExtra("url", url);
+				startService(intent);
+			}
+		};
+		
 		public CancelOnClickListener(String url){
 			this.url=url;
 		}
 		
 		@Override
 		public void onClick(View v) {
-			downloaders.get(url).pause();
-			downloaders.get(url).delete(url);
-			downloaders.remove(url);
-			loadInfos.remove(url);
-			
+			intent.putExtra("url", url);
+			intent.putExtra("command", 1);
+			startService(intent);
+			new Thread(new Runnable(){
+
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					mHandler.sendEmptyMessage(0);
+				}
+				
+			}).start();
 		}
 	}
 	private String NumtoSize(int size){
@@ -260,5 +283,15 @@ public class DownloadManageActivity extends Activity {
 			res/=1024;
 		}
 		return df.format(res)+s[cnt];
+	}
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event){
+		if(keyCode==4){
+			Intent intent = new Intent();
+			intent.setClass(this, AppMarket.class);
+			startActivity(intent);
+			finish();
+		}
+		return true;
 	}
 }
