@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -269,5 +270,15 @@ public class DownloadManageActivity extends Activity {
 			res/=1024;
 		}
 		return df.format(res)+s[cnt];
+	}
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event){
+		if(keyCode==4){
+			Intent intent = new Intent();
+			intent.setClass(this, AppMarket.class);
+			startActivity(intent);
+			finish();
+		}
+		return true;
 	}
 }
