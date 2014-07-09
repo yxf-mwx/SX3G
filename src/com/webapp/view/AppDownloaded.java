@@ -103,7 +103,7 @@ public class AppDownloaded extends Activity {
 					}
                 	tbRow.addView(imgButton);
     			}
-            	tbRow.setPadding(winWidth/4 - 55, i == 0?winHeight/5 - 64:0, winWidth/4 - 55, i == 2?winHeight/5 - 50:winHeight/5 - 80);
+            	tbRow.setPadding(winWidth/12, i == 0?winHeight/12:0, winWidth/9, winHeight/15-20);
             	tbLayout1.addView(tbRow);
 			} else {
 				//空tablerow
@@ -113,7 +113,7 @@ public class AppDownloaded extends Activity {
 				imgButton.setImageResource(R.drawable.empty);
 				imgButton.setBackgroundColor(0);
 				tbRow.addView(imgButton);
-				tbRow.setPadding(winWidth/4 - 55, i == 0?winHeight/5 - 64:0, winWidth/4 - 55, i == 2?winHeight/5 - 50:winHeight/5 - 80);
+				tbRow.setPadding(winWidth/12, i == 0?winHeight/12:0, winWidth/9, winHeight/15-20);
             	tbLayout1.addView(tbRow);
 			}
 		}
@@ -130,6 +130,7 @@ public class AppDownloaded extends Activity {
         
 //        btnAddApp.setOnClickListener(new MoreAppOnClickListener());
         Button btnOnline = (Button) findViewById(R.id.online);
+        Button btnLocalManager = (Button) findViewById(R.id.btnLocalManager);
         btnOnline.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -139,6 +140,16 @@ public class AppDownloaded extends Activity {
 				startActivity(intent);
 			}
 		});
+        btnLocalManager.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(AppDownloaded.this, AppManager.class);
+				startActivity(intent);
+			}
+        	
+        });
 	}
     
 	//响应应用点击动作

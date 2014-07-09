@@ -21,8 +21,18 @@
             android:text="本地应用"
             android:textColor="#6f6c69"
             android:textSize="15sp" />
-    </RelativeLayout>
-    
+         <Button
+            android:id="@+id/btnLocalManager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="#0000"
+            android:text="本地管理"
+            android:textColor="#6f6c69"
+            android:textSize="15sp" />
+    </RelativeLayout>   
     
 
     <RelativeLayout
@@ -30,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/title" >
+        android:layout_below="@id/title">
         
         <com.webapp.ui.MyScrollView
             android:layout_width="fill_parent"

@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.webapp.application.WebAppApplication;
@@ -30,37 +31,37 @@ import com.webapp.utils.CallBackImplements;
 import com.webapp.utils.SyncImgLoader;
 
 public class DownloadManageActivity extends Activity {
-	// 获取全局对象
+	// 鑾峰彇鍏ㄥ眬瀵硅薄
 	private WebAppApplication webAppApplication = null;
-	// 下载器集合
+	// 涓嬭浇鍣ㄩ泦鍚�
 	private HashMap<String, PackageDownLoader> downloaders = null;
-	// 下载信息集合
+	// 涓嬭浇淇℃伅闆嗗悎
 	private HashMap<String, LoadInfo> loadInfos = null;
-	// 列表内容的集合
+	// 鍒楄〃鍐呭鐨勯泦鍚�
 	private HashMap<String, View> listItems = new HashMap<String, View>();
-	// 主布局
-	private LinearLayout mainLayout = null;
-	// 图片加载器
+	// 涓诲竷灞�
+	private RelativeLayout mainLayout = null;
+	// 鍥剧墖鍔犺浇鍣�
 	private SyncImgLoader syncImageLoader = null;
-	// 传递数据的intent
+	// 浼犻�鏁版嵁鐨刬ntent
 	private Intent intent=null;
 	
 
-	// 广播接收器
+	// 骞挎挱鎺ユ敹鍣�
 	BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if ("com.webapp.broadcast.DOWNLOAD_PROGRESS".equals(intent.getAction())) {
 				
-				//先获得service发来的指令
+				//鍏堣幏寰梥ervice鍙戞潵鐨勬寚浠�
 				int command=intent.getExtras().getInt("command");
 				String url = intent.getExtras().getString("url");
 				switch(command){
 				case 1:
 					LoadInfo loadInfo = loadInfos.get(url);
 
-					//如果 loadInfo 存在就显示它的view
+					//濡傛灉 loadInfo 瀛樺湪灏辨樉绀哄畠鐨剉iew
 					if (loadInfo != null) {
 					
 					
@@ -68,7 +69,7 @@ public class DownloadManageActivity extends Activity {
 							addListItem(url);
 						}
 					
-						// 更新显示面板上的数据
+						// 鏇存柊鏄剧ず闈㈡澘涓婄殑鏁版嵁
 						((ProgressBar) listItems.get(url).findViewById(
 								R.id.download_manager_item_progressbar))
 								.setProgress(loadInfo.getComplete());
@@ -84,7 +85,7 @@ public class DownloadManageActivity extends Activity {
 									/ loadInfo.getFileSize())
 									+ "%");
 					
-					//如果 loadInfo 已经不存在了,就清除它的view
+					//濡傛灉 loadInfo 宸茬粡涓嶅瓨鍦ㄤ簡,灏辨竻闄ゅ畠鐨剉iew
 					} else {
 						clear(url, loadInfo);
 					}
@@ -108,11 +109,12 @@ public class DownloadManageActivity extends Activity {
 		syncImageLoader = new SyncImgLoader(this);
 		intent=new Intent(this,DownloadService.class);
 
-		// 注册receiver
+		// 娉ㄥ唽receiver
 		registerReceiver(broadcastReceiver, new IntentFilter(
 				"com.webapp.broadcast.DOWNLOAD_PROGRESS"));
-		mainLayout = new LinearLayout(this);
-		mainLayout.setOrientation(LinearLayout.VERTICAL);
+		setContentView(R.layout.manager_downloading);
+		mainLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
+		//mainLayout.setOrientation(LinearLayout.VERTICAL);
 
 		Set<String> keys = loadInfos.keySet();
 		Iterator<String> iterator = keys.iterator();
@@ -121,59 +123,70 @@ public class DownloadManageActivity extends Activity {
 			String url = iterator.next();
 			addListItem(url);
 		}
-		setContentView(mainLayout);
+		//setContentView(mainLayout);
+		Button btnBack = (Button) findViewById(R.id.btnBackToMarket);
+		btnBack.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(DownloadManageActivity.this,AppMarket.class);
+				startActivity(intent);
+			}
+			
+		});
 	}
 
-	// 添加一个list项
+	// 娣诲姞涓�釜list椤�
 	private void addListItem(String url) {
 		LoadInfo loadInfo = loadInfos.get(url);
 		View itemView = View.inflate(this, R.layout.downloadmanager_item, null);
 		listItems.put(url, itemView);
-		// 加载图片
+		// 鍔犺浇鍥剧墖
 		ImageView imageView = (ImageView) itemView
 				.findViewById(R.id.download_manager_item_icon);
 		loadImage(loadInfo.getImageurl(), imageView);
-		// 加载下载文件的名字
+		// 鍔犺浇涓嬭浇鏂囦欢鐨勫悕瀛�
 		TextView appNameTextView = (TextView) itemView
 				.findViewById(R.id.download_manager_item_appname);
 		appNameTextView.setText(loadInfo.getAppName());
-		// 加载文件大小的对比
+		// 鍔犺浇鏂囦欢澶у皬鐨勫姣�
 		TextView sizeTextView = (TextView) itemView
 				.findViewById(R.id.download_manager_item_size);
 		sizeTextView.setText(NumtoSize(loadInfo.getComplete())+"/"+NumtoSize(loadInfo.getFileSize()));
-		// 加载文件完成的比率
+		// 鍔犺浇鏂囦欢瀹屾垚鐨勬瘮鐜�
 		TextView radioTextView = (TextView) itemView
 				.findViewById(R.id.download_manager_item_radio);
 		radioTextView.setText(String.valueOf(loadInfo.getComplete() * 100
 				/ loadInfo.getFileSize())
 				+ "%");
-		// 加载进度条
+		// 鍔犺浇杩涘害鏉�
 		ProgressBar progressBar = (ProgressBar) itemView
 				.findViewById(R.id.download_manager_item_progressbar);
 		progressBar.setMax(loadInfo.getFileSize());
 		progressBar.setProgress(loadInfo.getComplete());
-		//加载控制按钮
+		//鍔犺浇鎺у埗鎸夐挳
 		Button btnControl=(Button)itemView.findViewById(R.id.download_manager_controlbutton);
-		//这里要设置button最初的状态，如果正在下载中那么button的状态为"暂停"，否则为默认的"下载"
+		//杩欓噷瑕佽缃産utton鏈�垵鐨勭姸鎬侊紝濡傛灉姝ｅ湪涓嬭浇涓偅涔坆utton鐨勭姸鎬佷负"鏆傚仠"锛屽惁鍒欎负榛樿鐨�涓嬭浇"
 		if(downloaders.get(url).getState()==PackageDownLoader.DOWNLOADING){
-			btnControl.setText("暂停");
+			btnControl.setText("鏆傚仠");
 		}
 		
 		ControlOnClickListenr btnListener=new ControlOnClickListenr(url);
 		btnControl.setOnClickListener(btnListener);
 		
-		//加载取消按钮
+		//鍔犺浇鍙栨秷鎸夐挳
 		Button btnCancel=(Button)itemView.findViewById(R.id.download_manager_cancelbutton);
 		CancelOnClickListener cancelListener=new CancelOnClickListener(url);
 		btnCancel.setOnClickListener(cancelListener);
 		
-		//设置参数添加进主布局中
+		//璁剧疆鍙傛暟娣诲姞杩涗富甯冨眬涓�
 		LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		mainLayout.addView(itemView, param);
 	}
 
-	// 加载图片
+	// 鍔犺浇鍥剧墖
 	public void loadImage(String url, ImageView imageView) {
 		CallBackImplements callbackimplement = new CallBackImplements(imageView);
 
@@ -183,7 +196,7 @@ public class DownloadManageActivity extends Activity {
 		}
 	}
 
-	//删除activity中的相应的视图
+	//鍒犻櫎activity涓殑鐩稿簲鐨勮鍥�
 	private void clear(String url, LoadInfo loadInfo) {
 			mainLayout.removeView(listItems.get(url));
 			listItems.remove(url);
@@ -200,14 +213,14 @@ public class DownloadManageActivity extends Activity {
 			Button btn=(Button)v;
 			String text=btn.getText().toString();
 			
-			if("下载".equals(text)){
-				btn.setText("暂停");
+			if("涓嬭浇".equals(text)){
+				btn.setText("鏆傚仠");
 				intent.putExtra("url", url);
 				intent.putExtra("command", 0);
 				startService(intent);
 				
-			}else if("暂停".equals(text)){
-				btn.setText("下载");
+			}else if("鏆傚仠".equals(text)){
+				btn.setText("涓嬭浇");
 				intent.putExtra("url", url);
 				intent.putExtra("command", 1);
 				startService(intent);

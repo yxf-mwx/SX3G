@@ -21,14 +21,28 @@
             android:text="应用商店"
             android:textColor="#6f6c69"
             android:textSize="15sp" />
+        <Button
+            android:id="@+id/btnDownloadManager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="#0000"
+            android:text="下载管理"
+            android:textColor="#6f6c69"
+            android:textSize="15sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/main_bottom"
+        android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
-        android:background="#CCE1FE"
-        android:layout_below="@id/title">        
+        android:background="#CCE1FE" >
+        
     </RelativeLayout>
 
     <RelativeLayout

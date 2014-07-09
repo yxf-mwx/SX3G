@@ -5,6 +5,7 @@ import java.util.List;
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +43,8 @@ public class UninstallAffirm extends Activity {
     	//icon路径
     	appIcon.setImageResource(R.drawable.digg);
     	appName.setText(appToBeUninstall.getAppName());
+    	btnAffirm.setBackgroundColor(Color.parseColor("#189BD9"));
+    	btnCancel.setBackgroundColor(Color.parseColor("#CCE1FE"));
     	btnAffirm.setOnClickListener(new AffirmClickListener());
     	btnCancel.setOnClickListener(new CancelClickListener());
     	

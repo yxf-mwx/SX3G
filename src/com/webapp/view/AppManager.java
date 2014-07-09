@@ -6,11 +6,12 @@ import java.util.List;
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -23,25 +24,36 @@ public class AppManager extends Activity {
 
 	private ListView listview=null;   
 	private List<AppDownloadedInfo> list = null;
-	private LinearLayout linearLayout=null;
+	private RelativeLayout linearLayout=null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		linearLayout=new LinearLayout(this);
-		linearLayout.setBackgroundColor(Color.WHITE);
+		setContentView(R.layout.manager_local);
+		linearLayout=(RelativeLayout) findViewById(R.id.relativeLayout1);
+		//linearLayout.setBackgroundColor(Color.WHITE);
 		//加载等待
 		ProgressBar progressBar=new ProgressBar(this);
 		linearLayout.setGravity(Gravity.CENTER);
 		linearLayout.addView(progressBar);
-		setContentView(linearLayout);
+		//setContentView(linearLayout);
 		
 		WebAppApplication application = (WebAppApplication)getApplication();
 		list = application.getListDnInfo();
 		if (list != null) {
 			loadList(list);
 		}
-		
+		Button btnBack = (Button) findViewById(R.id.btnBackToLocal);
+		btnBack.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(AppManager.this,AppDownloaded.class);
+				startActivity(intent);
+			}
+			
+		});
 	}
 	
 	/*

@@ -1,33 +1,22 @@
 package com.webapp.ui;
 
-import shixun.gapmarket.R;
 import java.util.List;
 
-import org.apache.cordova.App;
-
+import shixun.gapmarket.R;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.webapp.application.WebAppApplication;
 import com.webapp.model.AppDownloadedInfo;
-import com.webapp.model.AppMarketListInfo;
-import com.webapp.service.DownloadService;
-import com.webapp.sqlite.DatabaseHandler;
 import com.webapp.view.AppManager;
-import com.webapp.view.AppMarket;
-import com.webapp.view.UninstallAffirm;
 
 public class ManagerListAdapter extends BaseAdapter{
 
@@ -97,6 +86,8 @@ public class ManagerListAdapter extends BaseAdapter{
 		//iconPath
 		
 		icon.setImageResource(R.drawable.blogger);
+		Button btnUninstall = (Button) linearLayout.findViewById(R.id.view_list_manager_cancelbtn);
+		btnUninstall.setOnClickListener(new btnDeleteListener(position));
 		return linearLayout;
 	}
 

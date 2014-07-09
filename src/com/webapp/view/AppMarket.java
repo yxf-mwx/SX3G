@@ -52,6 +52,7 @@ public class AppMarket extends Activity {
 		relativeLayout.addView(progressBar);
 		
 		Button btnlocalButton = (Button) findViewById(R.id.local);
+		Button btnDownloadManager = (Button) findViewById(R.id.btnDownloadManager);
 		btnlocalButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -60,6 +61,16 @@ public class AppMarket extends Activity {
 				Intent intent = new Intent(AppMarket.this, AppDownloaded.class);
 				startActivity(intent);
 			}
+		});
+		btnDownloadManager.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(AppMarket.this, DownloadManageActivity.class);
+				startActivity(intent);
+			}
+			
 		});
 	}
 	
@@ -71,6 +82,7 @@ public class AppMarket extends Activity {
 		relativeLayout.removeAllViews();
 		relativeLayout.setGravity(Gravity.TOP);
 		listview=new ListView(this);
+		listview.setCacheColorHint(0);
 		RelativeLayout.LayoutParams param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
 		listview.setLayoutParams(param);
 		listview.setAdapter(listAdapter);
