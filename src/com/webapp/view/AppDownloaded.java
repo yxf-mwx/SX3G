@@ -5,10 +5,12 @@ import java.util.List;
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,6 +52,7 @@ public class AppDownloaded extends Activity {
         Log.d("LogDemo", listDownloaded.size() + " numbers of apps");
         
 		showAppList(listDownloaded);
+		((WebAppApplication)getApplication()).addActivity(this);
     }
     
     //显示已添加应用
@@ -63,7 +66,10 @@ public class AppDownloaded extends Activity {
         final LayoutParams params = new LayoutParams(winWidth, winHeight);
         //imagebutton权重
         TableRow.LayoutParams paramsImgBtnWeight = 
-        		new TableRow.LayoutParams(winWidth/3, winWidth/3, 1.0f);
+        		new TableRow.LayoutParams(winWidth/3, winWidth/4, 1.0f);
+        //appName权重
+        TableRow.LayoutParams paramsTextViewWeight = 
+        		new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1.0f);
         final TableLayout tbLayout1 = new TableLayout(AppDownloaded.this);
         //ui线程中 神奇地布局..不解
         tbLayout1.post(new Runnable() {
@@ -86,36 +92,49 @@ public class AppDownloaded extends Activity {
         	}
         	int temp = list.size() % 3 == 0? list.size() / 3: list.size() / 3 + 1;
         	if (i < temp) {
+        		//应用图标
         		TableRow tbRow = new TableRow(this);
+        		TableRow tbRowText = new TableRow(this);
             	for (int j = 0; j < NUM_ONE_ROW; j++) {
                 	ImageButton imgButton = new ImageButton(this);
+                	TextView appName = new TextView(this);
                 	//空应用布局
                 	if (list.size() % 3 == 0 || i != list.size() / 3 || j < list.size() % 3) {
                 		//iconPath
                 		Uri iconPath = Uri.parse(list.get(countOfApp).getAppPath() + "/icon.png"); 
                 		imgButton.setImageURI(iconPath);
+                		appName.setText(list.get(countOfApp).getAppName());
                 		Log.d("LogDemo", "solid button: " + i + ", " + j);
     				} else {
-    					imgButton.setImageResource(R.drawable.empty);
+    					//imgButton.setImageResource(R.drawable.empty);
+    					imgButton.setBackgroundColor(Color.parseColor("#CCE1FE"));
     					Log.d("LogDemo", "empty button: " + i + ", " + j);
     				}
                 	imgButton.setBackgroundColor(0);
                 	imgButton.setScaleType(ScaleType.FIT_CENTER);
                 	imgButton.setLayoutParams(paramsImgBtnWeight);
+                	appName.setLayoutParams(paramsTextViewWeight);
+                	appName.setGravity(Gravity.CENTER_HORIZONTAL);
                 	if (countOfApp < list.size()) {
                     	imgButton.setOnClickListener(new AppOnClickListener(list.get(countOfApp++)));
                     	//setButtonFocusChanged(imgButton);
 					}
                 	tbRow.addView(imgButton);
+                	tbRowText.addView(appName);
     			}
-            	tbRow.setPadding(winWidth/12, i == 0?winHeight/12:0, winWidth/9, winHeight/15-20);
+            	//tbRow.setPadding(winWidth/12, i == 0?winHeight/12:0, winWidth/9, winHeight/15-20);
+            	tbRow.setPadding(winWidth/12, i == 0?winHeight/12:0, winWidth/9, 0);
             	tbLayout1.addView(tbRow);
+            	
+            	tbRowText.setPadding(winWidth/10, 0, winWidth/10, winWidth/11);
+            	tbLayout1.addView(tbRowText);
+            	
 			} else {
 				//空tablerow
 				TableRow tbRow = new TableRow(this);
 				ImageButton imgButton = new ImageButton(this);
 				imgButton.setLayoutParams(paramsImgBtnWeight);
-				imgButton.setImageResource(R.drawable.empty);
+				//imgButton.setImageResource(R.drawable.empty);
 				imgButton.setBackgroundColor(0);
 				tbRow.addView(imgButton);
 				tbRow.setPadding(winWidth/12, i == 0?winHeight/12:0, winWidth/9, winHeight/15-20);
@@ -188,7 +207,6 @@ public class AppDownloaded extends Activity {
 			Intent intent = new Intent(AppDownloaded.this, AppMain.class);
 			intent.putExtra("htmlpath", path);
 			startActivity(intent);
-			finish();
 		}
     }
     
@@ -213,7 +231,8 @@ public class AppDownloaded extends Activity {
             Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();                                
             exitTime = System.currentTimeMillis();   
         } else {
-            finish();
+            WebAppApplication webApplication=(WebAppApplication)getApplication();
+            webApplication.exitAll();
         }
   		return true;
   	}

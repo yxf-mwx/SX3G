@@ -8,7 +8,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Application;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.webapp.downloader.PackageDownLoader;
 import com.webapp.model.AppDownloadedInfo;
@@ -26,6 +25,8 @@ public class WebAppApplication extends Application{
 	private HashMap<String,LoadInfo> loadInfos=new HashMap<String,LoadInfo>();
 	//瑁呰浇涓嬭浇鍣�
 	private HashMap<String,PackageDownLoader> downloaders;
+	
+	private List<Activity> ActivityList=new LinkedList<Activity>();
 	
 	@Override
     public void onCreate() {
@@ -51,12 +52,12 @@ public class WebAppApplication extends Application{
 //    } 
     // add Activity
     public void addActivity(Activity activity) { 
-        mList.add(activity); 
+        ActivityList.add(activity); 
     } 
  
     public void exit() { 
         try { 
-            for (Activity activity : mList) { 
+            for (Activity activity : ActivityList) { 
                 if (activity != null) 
                     activity.finish(); 
             } 
@@ -112,5 +113,19 @@ public class WebAppApplication extends Application{
 		this.downloaders = downloaders;
 	}
 
-	
+	public void AddActivity(Activity activity){
+		ActivityList.add(activity);
+	}
+	public void exitAll(){
+		try {   
+			for (Activity activity:ActivityList) {   
+				if (activity != null)   
+					activity.finish();   
+			}   
+		} catch (Exception e) {   
+			e.printStackTrace();   
+		} finally {   
+			System.exit(0);   
+		}
+	}
 }

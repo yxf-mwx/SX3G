@@ -1,5 +1,7 @@
 package com.webapp.view;
 
+import com.webapp.application.WebAppApplication;
+
 import shixun.gapmarket.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -33,6 +35,7 @@ public class Loading extends Activity {
 	        		
 			}
 	    }.start();
+	    ((WebAppApplication)getApplication()).addActivity(this);
 	}
 	
 	class MyHandler extends Handler{

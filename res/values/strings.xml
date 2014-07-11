@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, ZPagedHScrollTableActivity!</string>
-    <string name="app_name">GapMarket</string>
+    <string name="app_name">GAPMARKET</string>
 
     <color name="white">#FFFFFF</color>
     <color name="blue">#CCE1FE</color>

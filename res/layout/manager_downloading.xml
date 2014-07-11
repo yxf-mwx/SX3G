@@ -33,13 +33,13 @@
             android:textColor="#6f6c69"
             android:textSize="15sp" />
     </RelativeLayout>   
-     <RelativeLayout
+     <LinearLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
+		android:orientation="vertical"
         android:layout_below="@id/title">
          
-     </RelativeLayout>
+     </LinearLayout>
 
 </LinearLayout>

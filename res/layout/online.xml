@@ -41,7 +41,7 @@
         android:layout_above="@+id/main_bottom"
         android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
-        android:background="#CCE1FE" >
+        android:background="#ffffff" >
         
     </RelativeLayout>
 

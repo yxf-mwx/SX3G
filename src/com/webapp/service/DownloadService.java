@@ -114,6 +114,7 @@ public class DownloadService extends Service{
 		case 0:
 			if(downloader==null){
 				listinfos.put(downloadurl, adapterInfo);
+				Log.d("yxf_downloadservice", String.valueOf(listinfos.size()));
 				//每个下载器分配的线程数,这里为了方便设置成单线程下载
 				int threadCount=1;
 				String installerName=downloadurl.substring(downloadurl.lastIndexOf("/")+1);

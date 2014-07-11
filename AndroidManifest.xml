@@ -8,7 +8,7 @@
 
     <application
         android:name="com.webapp.application.WebAppApplication"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/icon1"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Black.NoTitleBar" >
         <activity
@@ -27,13 +27,18 @@
          <activity android:name="com.webapp.view.ExitActivity"
                    android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        <activity android:name="com.webapp.view.AppManager" >
+        <activity
+            android:name="com.webapp.view.AppManager" >
         </activity>
-        <activity android:name="com.webapp.view.AppDownloaded" >
-        </activity>
-        <activity android:name="com.webapp.view.DownloadManageActivity" >
+        <activity 
+            android:name="com.webapp.view.AppDownloaded" >
         </activity>
         <activity
+            android:launchMode="singleInstance"
+            android:name="com.webapp.view.DownloadManageActivity" >
+        </activity>
+        <activity
+            android:launchMode="singleInstance"
             android:name="com.webapp.view.Loading"
             android:label="@string/app_name" >
             <intent-filter>
@@ -49,6 +54,7 @@
         </service>
 
         <activity
+            android:launchMode="singleInstance"
             android:name="shixun.gapmarket.SettingActivity"
             android:label="@string/title_activity_setting" >
         </activity>
@@ -56,5 +62,20 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_VIDEO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    
 
 </manifest>

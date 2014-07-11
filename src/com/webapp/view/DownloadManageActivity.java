@@ -43,7 +43,7 @@ public class DownloadManageActivity extends Activity {
 	// 鍒楄〃鍐呭鐨勯泦鍚�
 	private HashMap<String, View> listItems = new HashMap<String, View>();
 	// 涓诲竷灞�
-	private RelativeLayout mainLayout = null;
+	private LinearLayout mainLayout = null;
 	// 鍥剧墖鍔犺浇鍣�
 	private SyncImgLoader syncImageLoader = null;
 	// 浼犻�鏁版嵁鐨刬ntent
@@ -115,7 +115,7 @@ public class DownloadManageActivity extends Activity {
 		registerReceiver(broadcastReceiver, new IntentFilter(
 				"com.webapp.broadcast.DOWNLOAD_PROGRESS"));
 		setContentView(R.layout.manager_downloading);
-		mainLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
+		mainLayout = (LinearLayout) findViewById(R.id.relativeLayout1);
 		//mainLayout.setOrientation(LinearLayout.VERTICAL);
 
 		Set<String> keys = loadInfos.keySet();
@@ -134,9 +134,11 @@ public class DownloadManageActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(DownloadManageActivity.this,AppMarket.class);
 				startActivity(intent);
+				finish();
 			}
 			
 		});
+		((WebAppApplication)getApplication()).addActivity(this);
 	}
 
 	// 娣诲姞涓�釜list椤�

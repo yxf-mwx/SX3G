@@ -56,6 +56,7 @@ public class AppManager extends Activity {
 			}
 			
 		});
+		((WebAppApplication)getApplication()).addActivity(this);
 	}
 	
 	/*

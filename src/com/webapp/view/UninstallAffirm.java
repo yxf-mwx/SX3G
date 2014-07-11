@@ -63,7 +63,7 @@ public class UninstallAffirm extends Activity {
 				case UNINSTALL_ING:
 					//鏇存柊Application瀵硅薄涓殑鍏ㄥ眬鍙橀噺
 					list.remove(position);
-					Toast.makeText(getApplicationContext(), "姝ｅ湪鍒犻櫎...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "正在卸载...", Toast.LENGTH_SHORT).show();
 					break;
 				case UNINSTALL_FINISHED:
 					intent.setClass(UninstallAffirm.this, AppManager.class);
@@ -76,6 +76,7 @@ public class UninstallAffirm extends Activity {
     	};
     	btnAffirm.setOnClickListener(new AffirmClickListener(handler));
     	btnCancel.setOnClickListener(new CancelClickListener());
+    	((WebAppApplication)getApplication()).addActivity(this);
     	
     }
     

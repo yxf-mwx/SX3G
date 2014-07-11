@@ -45,7 +45,7 @@
         <com.webapp.ui.MyScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#CCE1FE">
+            android:background="#ffffff">
            <LinearLayout 
                 android:id="@+id/container"
                 android:layout_width="match_parent"

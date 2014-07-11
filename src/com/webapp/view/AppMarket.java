@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.webapp.application.WebAppApplication;
 import com.webapp.model.AppMarketListInfo;
 import com.webapp.ui.MarketListAdapter;
 import com.webapp.utils.XMLProduct;
@@ -56,7 +57,8 @@ public class AppMarket extends Activity {
 		btnlocalButton = (Button) findViewById(R.id.local);
 		btnDownloadManager = (Button) findViewById(R.id.btnDownloadManager);
 		btnSetting = (Button) findViewById(R.id.more);
-	    setListener();		
+	    setListener();	
+	    ((WebAppApplication)getApplication()).addActivity(this);
 	}
 	
 	public void setListener(){
@@ -115,7 +117,7 @@ public class AppMarket extends Activity {
 		new Thread(){
 			public void run(){
 				try {
-					InputStream is=new URL("http://192.168.1.111:8080/SX3G/downloadlist.xml").openStream();
+					InputStream is=new URL("http://192.168.1.121:8080/SX3G/downloadlist.xml").openStream();
 					XMLProduct xmlProduct=new XMLProduct(list);
 					xmlProduct.getInformation(is);
 					Message msg=new Message();

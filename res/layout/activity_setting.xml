@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/sky"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="设置"
+            android:textColor="#6f6c69"
+            android:textSize="15sp" />
+        
+    </RelativeLayout>
+    <RelativeLayout 
+        android:layout_width="match_parent"        
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_above="@+id/main_bottom"
+        android:orientation="horizontal">
+        <RelativeLayout 
+            android:id="@+id/left"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true">            
+        </RelativeLayout>
+        <LinearLayout 
+            android:id="@+id/mid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/left"
+            android:layout_toLeftOf="@+id/right">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_marginTop="30dp"
+            	android:clickable="true"
+            	android:gravity="center_vertical" >
+            	<Button
+            	    android:id="@+id/bt1"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:layout_centerHorizontal="true"
+            		android:background="@drawable/record_border1"
+            		android:paddingBottom="8dp"
+            		android:text="我的账号"
+            		android:textColor="#000000"
+            		android:gravity="left"
+            		android:textSize="15sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_marginTop="30dp"
+            	android:clickable="true"
+            	android:gravity="center_vertical" >
+            	<Button
+            	    android:id="@+id/bt2"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:layout_centerHorizontal="true"
+            		android:background="@drawable/record_border1"
+            		android:paddingBottom="8dp"
+            		android:text="隐私"
+            		android:textColor="#000000"
+            		android:gravity="left"
+            		android:textSize="15sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_marginTop="30dp"
+            	android:clickable="true"
+            	android:gravity="center_vertical" >
+            	<Button
+            	    android:id="@+id/bt3"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:layout_centerHorizontal="true"
+            		android:background="@drawable/record_border1"
+            		android:paddingBottom="8dp"
+            		android:text="帮助"
+            		android:textColor="#000000"
+            		android:gravity="left"
+            		android:textSize="15sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_marginTop="30dp"
+            	android:clickable="true"
+            	android:gravity="center_vertical" >
+            	<Button
+            	    android:id="@+id/bt4"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:layout_centerHorizontal="true"
+            		android:background="@drawable/record_border1"
+            		android:paddingBottom="8dp"
+            		android:text="关于GAPMARKET"
+            		android:textColor="#000000"
+            		android:gravity="left"
+            		android:textSize="15sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_marginTop="30dp"
+            	android:clickable="true"
+            	android:gravity="center_vertical" >
+            	<Button
+            	    android:id="@+id/btExit"
+            		android:layout_width="fill_parent"
+            		android:layout_height="wrap_content"
+            		android:layout_centerHorizontal="true"
+            		android:background="@drawable/record_border1"
+            		android:paddingBottom="8dp"
+            		android:text="退出"
+            		android:textColor="#000000"
+            		android:gravity="left"
+            		android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+        <RelativeLayout 
+            android:id="@+id/right"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">            
+        </RelativeLayout>
+    </RelativeLayout>
+         
+    <RelativeLayout
+        android:id="@+id/main_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="2dp" >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+                <Button
+                    android:id="@+id/local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/local3"
+                    android:clickable="true"
+                    android:scaleType="matrix" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="本地"
+                    android:textColor="#2bb8aa"
+                    android:textSize="10sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+                <Button
+                    android:id="@+id/online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/online3"
+                    android:clickable="true"
+                    android:scaleType="matrix" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="在线"
+                    android:textColor="#2bb8aa"
+                    android:textSize="10sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+                <Button
+                    android:id="@+id/more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/more"
+                    android:clickable="true"
+                    android:scaleType="matrix" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="更多"
+                    android:textColor="#2bb8aa"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
